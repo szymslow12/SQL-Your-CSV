@@ -26,7 +26,13 @@ public class AppController {
 
 
     public void run() {
-        view.showMenu(new String[]{"menu label 1", "menu label 2"});
+        view.showMenu(new String[]
+            {
+                "Start query with chosen CSV file",
+                "Start query without chosen CSV file"
+            }
+        );
+
         inputs.getString();
     }
 }

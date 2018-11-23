@@ -3,7 +3,9 @@ package com.codecool.SQLYourCSV.controller;
 import com.codecool.SQLYourCSV.model.UserInputs;
 import com.codecool.SQLYourCSV.view.MenuView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class AppController {
 
     @Autowired
@@ -24,6 +26,7 @@ public class AppController {
 
 
     public void run() {
-
+        view.showMenu(new String[]{"menu label 1", "menu label 2"});
+        inputs.getString();
     }
 }

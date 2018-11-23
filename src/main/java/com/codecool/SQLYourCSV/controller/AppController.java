@@ -11,7 +11,14 @@ public class AppController {
     private UserInputs inputs;
 
 
+    public void setView(MenuView view) {
+        this.view = view;
+    }
 
+
+    public void setUserInputs(UserInputs inputs) {
+        this.inputs = inputs;
+    }
 
 
     public void run() {

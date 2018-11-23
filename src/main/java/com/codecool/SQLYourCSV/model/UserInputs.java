@@ -1,7 +1,11 @@
 package com.codecool.SQLYourCSV.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+@Component
 public class UserInputs {
 
     public String getString() {

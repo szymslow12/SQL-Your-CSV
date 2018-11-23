@@ -1,5 +1,7 @@
 package com.codecool.SQLYourCSV.controller;
 
+import com.codecool.SQLYourCSV.model.UserInputs;
+import com.codecool.SQLYourCSV.view.MenuView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppController {

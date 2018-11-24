@@ -27,6 +27,7 @@ public class AppController {
 
     public void run() {
         boolean programIsRunning = true;
+
         while (programIsRunning) {
 
             view.showMenu(new String[]
@@ -41,7 +42,7 @@ public class AppController {
                     askForFileAndRun();
                     break;
                 case 2:
-                    QueryController.run();
+                    new QueryController().run();
                     break;
                 case 0:
                     programIsRunning = false;
@@ -53,6 +54,6 @@ public class AppController {
 
     private void askForFileAndRun() {
         view.alert("Enter a full file name (file.csv):");
-        QueryController.runWithFile(inputs.getString());
+        new QueryController().runWithFile(inputs.getString());
     }
 }

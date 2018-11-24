@@ -28,11 +28,12 @@ public class AppController {
     public void run() {
         boolean programIsRunning = true;
         while (programIsRunning) {
+
             view.showMenu(new String[]
-                    {
-                            "Start query with chosen CSV file",
-                            "Start query without chosen CSV file"
-                    }
+                {
+                    "Start query with chosen CSV file",
+                    "Start query without chosen CSV file"
+                }
             );
 
             switch (inputs.getNumber()) {

@@ -10,7 +10,9 @@ public class UserInputs {
 
     public String getString() {
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        String toReturn = scanner.nextLine();
+        scanner.close();
+        return toReturn;
     }
 
 
@@ -26,6 +28,7 @@ public class UserInputs {
                 System.out.println("Wrong input, number needed");
             }
         }
+        scanner.close();
         return toReturn;
     }
 }

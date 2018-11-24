@@ -26,13 +26,32 @@ public class AppController {
 
 
     public void run() {
-        view.showMenu(new String[]
-            {
-                "Start query with chosen CSV file",
-                "Start query without chosen CSV file"
-            }
-        );
+        boolean programIsRunning = true;
+        while (programIsRunning) {
+            view.showMenu(new String[]
+                    {
+                            "Start query with chosen CSV file",
+                            "Start query without chosen CSV file"
+                    }
+            );
 
-        inputs.getString();
+            switch (inputs.getNumber()) {
+                case 1:
+                    askForFileAndRun();
+                    break;
+                case 2:
+                    QueryController.run();
+                    break;
+                case 0:
+                    programIsRunning = false;
+                    break;
+            }
+        }
+    }
+
+
+    private void askForFileAndRun() {
+        view.alert("Enter a full file name (file.csv):");
+        QueryController.runWithFile(inputs.getString());
     }
 }

@@ -4,7 +4,9 @@ import com.codecool.SQLYourCSV.model.UserInputs;
 import com.codecool.SQLYourCSV.model.service.TableService;
 import com.codecool.SQLYourCSV.view.DataView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class QueryController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class QueryController {
 
 
     public void run() {
-
+        view.alert("Type \"\\\"q to exit.\nEnter your query: ");
     }
 
 

@@ -1,5 +1,8 @@
 package com.codecool.SQLYourCSV.view;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DataView implements Alertable {
 
     public void alert(String msg) {

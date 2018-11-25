@@ -14,6 +14,9 @@ public class AppController {
     @Autowired
     private UserInputs inputs;
 
+    @Autowired
+    private QueryController queryController;
+
 
     public void setView(MenuView view) {
         this.view = view;
@@ -22,6 +25,11 @@ public class AppController {
 
     public void setUserInputs(UserInputs inputs) {
         this.inputs = inputs;
+    }
+
+
+    public void setQueryController(QueryController queryController) {
+        this.queryController = queryController;
     }
 
 
@@ -42,7 +50,7 @@ public class AppController {
                     askForFileAndRun();
                     break;
                 case 2:
-                    new QueryController().run();
+                    queryController.run();
                     break;
                 case 0:
                     programIsRunning = false;
@@ -54,6 +62,6 @@ public class AppController {
 
     private void askForFileAndRun() {
         view.alert("Enter a full file name (file.csv):");
-        new QueryController().runWithFile(inputs.getString());
+        queryController.runWithFile(inputs.getString());
     }
 }

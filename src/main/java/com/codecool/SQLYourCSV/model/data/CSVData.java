@@ -2,6 +2,7 @@ package com.codecool.SQLYourCSV.model.data;
 
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,12 @@ public class CSVData {
     }
 
 
-    public void loadFromFile(String file) {
+    public CSVData() {
+        data = new HashMap<>();
+    }
 
+    public void loadFromFile(String file) {
+        data.put(file, FileReader.readFile(file));
     }
 
 

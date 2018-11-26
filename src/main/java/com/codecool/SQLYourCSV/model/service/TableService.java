@@ -27,4 +27,9 @@ public class TableService {
     public Table createTableFromFile(String filename) {
         return null;
     }
+
+
+    public Table createTableFromQuery(Query query ) {
+        return null;
+    }
 }

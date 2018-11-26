@@ -1,4 +1,4 @@
-package com.codecool.SQLYourCSV.model;
+package com.codecool.SQLYourCSV.model.data;
 
 import org.springframework.stereotype.Component;
 

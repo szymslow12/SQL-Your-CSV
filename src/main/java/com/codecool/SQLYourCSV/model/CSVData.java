@@ -12,4 +12,14 @@ public class CSVData {
     public Map<String, List<String[]>> getData() {
         return data;
     }
+
+
+    public void loadFromFile(String file) {
+
+    }
+
+
+    public void loadFromMultipleFiles(String... files) {
+
+    }
 }

@@ -19,12 +19,13 @@ public class CSVData {
         data = new HashMap<>();
     }
 
+
     public void loadFromFile(String file) {
         data.put(file, FileReader.readFile(file));
     }
 
 
     public void loadFromMultipleFiles(String... files) {
-
+        data = FileReader.readFiles(files);
     }
 }

@@ -39,7 +39,7 @@ public class QueryController {
         while (isUserQueringData) {
             view.alert("Type \"\\\"q to exit.\nEnter your query: ");
             String queryToParse = inputs.getString();
-            if (UserInputValdator.validate(queryToParse, "\\q")) {
+            if (queryToParse.matches("\\q")) {
                 isUserQueringData = false;
             } else {
                 view.showTable(service.createTableFromQuery(QueryParser.parser(queryToParse)));

@@ -35,9 +35,13 @@ public class QueryController {
 
 
     public void run() {
-        view.alert("Type \"\\\"q to exit.\nEnter your query: ");
-        // Another Class WIth STATIC METHOD VALIDATE(String) INPUT -> can use in UserInputs
-        view.showTable(service.createTableFromQuery(QueryParser.parser(inputs.getString())));
+        boolean isUserQueringData = true;
+        while (isUserQueringData) {
+            view.alert("Type \"\\\"q to exit.\nEnter your query: ");
+            // Another Class WIth STATIC METHOD VALIDATE(String) INPUT -> can use in UserInputs
+            view.showTable(service.createTableFromQuery(QueryParser.parser(inputs.getString())));
+
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.codecool.SQLYourCSV.view;
 
+import com.codecool.SQLYourCSV.model.datapresentation.Table;
 import org.springframework.stereotype.Component;
 
 @Component

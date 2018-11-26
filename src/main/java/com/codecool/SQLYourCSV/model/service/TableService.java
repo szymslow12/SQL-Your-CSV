@@ -2,6 +2,7 @@ package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.CSVData;
 import com.codecool.SQLYourCSV.model.datapresentation.Table;
+import com.codecool.SQLYourCSV.model.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

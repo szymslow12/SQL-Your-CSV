@@ -17,4 +17,14 @@ public class TableService {
     public CSVData getData() {
         return data;
     }
+
+
+    public Table getTableByName(String name) {
+        return null;
+    }
+
+
+    public Table createTableFromFile(String filename) {
+        return null;
+    }
 }

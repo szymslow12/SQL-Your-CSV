@@ -50,7 +50,7 @@ public class QueryController {
 
     public void runWithFile(String file) {
         // HERE TO CAN BE USED THAH CLASS TO VALIDATAE INPUT
-        service.getData().loadFromFile(inputs.getString());
+        view.showTable(service.createTable(inputs.getString()));
         run();
     }
 }

@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.controller;
 
 import com.codecool.SQLYourCSV.model.UserInputs;
+import com.codecool.SQLYourCSV.model.query.QueryParser;
 import com.codecool.SQLYourCSV.model.service.TableService;
 import com.codecool.SQLYourCSV.view.DataView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,12 @@ public class QueryController {
     public void run() {
         boolean isUserQueringData = true;
         while (isUserQueringData) {
-            view.alert("Type \"\\\"q to exit.\nEnter your query: ");
+            view.alert("Type \"\\q\" to exit.\nEnter your query: ");
             String queryToParse = inputs.getString();
             if (queryToParse.matches("\\q")) {
                 isUserQueringData = false;
             } else {
-                view.showTable(service.createTableFromQuery(QueryParser.parser(queryToParse)));
+                view.showTable(service.createTableFromQuery(QueryParser.parse(queryToParse)));
             }
         }
     }
@@ -50,7 +51,7 @@ public class QueryController {
 
     public void runWithFile(String file) {
         // HERE TO CAN BE USED THAH CLASS TO VALIDATAE INPUT
-        view.showTable(service.createTable(inputs.getString()));
+        view.showTable(service.createTableFromFile(file));
         run();
     }
 }

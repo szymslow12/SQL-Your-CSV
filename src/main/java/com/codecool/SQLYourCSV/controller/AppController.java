@@ -61,7 +61,17 @@ public class AppController {
 
 
     private void askForFileAndRun() {
-        view.alert("Enter a full file name (file.csv):");
-        queryController.runWithFile(inputs.getString());
+        queryController.runWithFile(askForFile("Enter a full file name (file.csv):"));
+    }
+
+
+    private String askForFile(String message) {
+        view.alert(message);
+        String filename = inputs.getString();
+        while (!filename.endsWith(".csv")) {
+            view.alert(String.format("Bad filename format!%n%s", message));
+            filename = inputs.getString();
+        }
+        return filename;
     }
 }

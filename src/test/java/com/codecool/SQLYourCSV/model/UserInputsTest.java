@@ -37,7 +37,7 @@ class UserInputsTest {
 
 
     @Test
-    void shouldGetNumberReturnNumber() {
+    void shouldGetNumberReturnInt() {
         int expected = 1;
         System.setIn(new ByteArrayInputStream(Integer.toString(expected).getBytes()));
         int actual = userInputs.getNumber();

@@ -99,6 +99,12 @@ class MenuViewTest {
     }
 
 
+    @Test
+    void shouldShowMenuThrowExceptionWhenNullPassed() {
+        assertThrows(IllegalArgumentException.class, () -> view.showMenu(null));
+    }
+
+
     private String getExpectedMenu(String[] labels) {
         StringBuilder sB = new StringBuilder(TOP_MENU_LINE);
         //zrobic pierdolony clean tych linii

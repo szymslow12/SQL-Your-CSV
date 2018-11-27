@@ -17,7 +17,7 @@ public class UserInputs {
     public int getNumber() {
         Scanner scanner = new Scanner(System.in);
         boolean isCorrectInput = false;
-        Integer toReturn = 0;
+        int toReturn = 0;
         while (!isCorrectInput) {
             try {
                 toReturn = scanner.nextInt();

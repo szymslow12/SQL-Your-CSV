@@ -64,11 +64,23 @@ class MenuViewTest {
 
 
     @Test
-    void shouldShowMenuWithPassedOneLabel() {
+    void shouldShowMenuWithOneLabel() {
         String[] label = {"Menu label 1"};
         view.showMenu(label);
 
         String expected = getExpectedMenu(label);
+        String actual = os.toString();
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldShowMenuWithThreeLabels() {
+        String[] labels = {"Menu label 1", "Menu label 2", "Menu label 3"};
+        view.showMenu(labels);
+
+        String expected = getExpectedMenu(labels);
         String actual = os.toString();
 
         assertEquals(expected, actual);

@@ -53,11 +53,7 @@ class MenuViewTest {
         String[] labels = new String[0];
         view.showMenu(labels);
 
-        String expected = String.format("%s%s%s",
-                TOP_MENU_LINE,
-                EXIT_PROGRAM_LINE,
-                END_LINE);
-
+        String expected = String.format("%s%s%s", TOP_MENU_LINE, EXIT_PROGRAM_LINE, END_LINE);
         String actual = os.toString();
 
         assertEquals(expected, actual);

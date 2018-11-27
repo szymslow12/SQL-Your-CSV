@@ -34,4 +34,14 @@ class UserInputsTest {
 
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    void shouldGetNumberReturnNumber() {
+        int expected = 1;
+        System.setIn(new ByteArrayInputStream(Integer.toString(expected).getBytes()));
+        int actual = userInputs.getNumber();
+
+        assertEquals(expected, actual);
+    }
 }

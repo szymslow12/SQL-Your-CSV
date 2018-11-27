@@ -2,6 +2,7 @@ package com.codecool.SQLYourCSV.view;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,6 +15,8 @@ class DataViewTest {
     private PrintStream prevPs;
 
     private DataView view;
+    private final String CYAN = "\u001B[36m";
+    private final String DEFAULT_COLOR = "\u001B[0m";
 
     @BeforeEach
     void initPrivateFields() {
@@ -29,4 +32,15 @@ class DataViewTest {
         System.setOut(prevPs);
     }
 
+
+    @Test
+    void shouldAlertMessage() {
+        String messageToAlert = "Message to alert";
+        view.alert(messageToAlert);
+
+        String expected = String.format("%s%s%s%n", CYAN, messageToAlert, DEFAULT_COLOR);
+        String actual = os.toString();
+
+        assertEquals(expected, actual);
+    }
 }

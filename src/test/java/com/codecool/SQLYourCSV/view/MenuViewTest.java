@@ -31,8 +31,9 @@ class MenuViewTest {
 
     @Test
     void shouldAlertMessage() {
-        String expected = "\u001B[31mMessage to alert\u001B[0m";
-        view.alert(expected);
+        String messageToAlert = "Message to alert";
+        view.alert(messageToAlert);
+        String expected = String.format("\u001B[31m%s\u001B[0m%n", messageToAlert);
         String actual = os.toString();
         assertEquals(expected, actual);
     }

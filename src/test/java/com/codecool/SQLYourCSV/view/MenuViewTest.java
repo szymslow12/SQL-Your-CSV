@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -107,10 +106,13 @@ class MenuViewTest {
 
     private String getExpectedMenu(String[] labels) {
         StringBuilder sB = new StringBuilder(TOP_MENU_LINE);
-        //zrobic pierdolony clean tych linii
-        IntStream.range(0, labels.length).forEach
-            (i -> sB.append(String.format("%s%s%s%n", RED,
-                    String.format("%s%s. %s", TAB, i + 1, labels[i]), DEFAULT_COLOR)));
+
+        IntStream.range(0, labels.length)
+            .forEach(i -> sB.append(
+                String.format("%s%s%s%n", RED,
+                String.format("%s%s. %s", TAB, i + 1, labels[i]),
+                DEFAULT_COLOR)));
+
         sB.append(EXIT_PROGRAM_LINE);
         sB.append(END_LINE);
         return sB.toString();
@@ -119,7 +121,11 @@ class MenuViewTest {
 
     private String[] generateLables(int numberOfLables) {
         String[] lables = new String[numberOfLables];
-        IntStream.range(0, numberOfLables).forEach(i -> lables[i] = String.format("Menu lables %s", i + 1));
+
+        IntStream.range(0, numberOfLables)
+            .forEach(
+                i -> lables[i] = String.format("Menu lables %s", i + 1));
+
         return lables;
     }
 }

@@ -13,7 +13,10 @@ class MenuViewTest {
 
     private ByteArrayOutputStream os;
     private PrintStream prevPs;
+
     private MenuView view;
+    private final String RED = "\u001B[31m";
+    private final String DEFAULT_COLOR = "\u001B[0m";
 
     @BeforeEach
     void initPrivateFields() {
@@ -33,8 +36,10 @@ class MenuViewTest {
     void shouldAlertMessage() {
         String messageToAlert = "Message to alert";
         view.alert(messageToAlert);
-        String expected = String.format("\u001B[31m%s\u001B[0m%n", messageToAlert);
+
+        String expected = String.format("%s%s%s%n", RED, messageToAlert, DEFAULT_COLOR);
         String actual = os.toString();
+
         assertEquals(expected, actual);
     }
 }

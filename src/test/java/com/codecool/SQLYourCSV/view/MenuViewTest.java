@@ -120,12 +120,12 @@ class MenuViewTest {
 
 
     private String[] generateLables(int numberOfLables) {
-        String[] lables = new String[numberOfLables];
+        String[] labels = new String[numberOfLables];
 
         IntStream.range(0, numberOfLables)
             .forEach(
-                i -> lables[i] = String.format("Menu lables %s", i + 1));
+                i -> labels[i] = String.format("Menu lables %s", i + 1));
 
-        return lables;
+        return labels;
     }
 }

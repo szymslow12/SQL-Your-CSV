@@ -64,7 +64,7 @@ class MenuViewTest {
 
     @Test
     void shouldShowMenuWithOneLabel() {
-        String[] label = generateLables(1);
+        String[] label = generateLabels(1);
         view.showMenu(label);
 
         String expected = getExpectedMenu(label);
@@ -76,7 +76,7 @@ class MenuViewTest {
 
     @Test
     void shouldShowMenuWithThreeLabels() {
-        String[] labels = generateLables(3);
+        String[] labels = generateLabels(3);
         view.showMenu(labels);
 
         String expected = getExpectedMenu(labels);
@@ -88,7 +88,7 @@ class MenuViewTest {
 
     @Test
     void shouldShowMenuWithThousandLabels() {
-        String[] labels = generateLables(1000);
+        String[] labels = generateLabels(1000);
         view.showMenu(labels);
 
         String expected = getExpectedMenu(labels);
@@ -119,7 +119,7 @@ class MenuViewTest {
     }
 
 
-    private String[] generateLables(int numberOfLables) {
+    private String[] generateLabels(int numberOfLables) {
         String[] labels = new String[numberOfLables];
 
         IntStream.range(0, numberOfLables)

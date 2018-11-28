@@ -10,7 +10,7 @@ class FileReaderTest {
 
 
     @Test
-    void shouldReadFile() {
+    void shouldReadFileSeparatedByComma() {
         List<String[]> expected = getExpectedListResult();
     }
 

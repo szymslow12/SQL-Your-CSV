@@ -36,13 +36,18 @@ class FileReaderTest {
 
 
     @Test
-    void shouldReadFileReturnProperSplitedLinesByComma() {
+    void shouldReadFileReturnProperSplittedLinesByComma() {
 
     }
 
 
     private void assertValuesAndValidateArraysLength(List<String[]> expected, List<String[]> actual) {
         IntStream.range(0, expected.size()).forEach(i -> assertArrayEquals(expected.get(i), actual.get(i)));
+    }
+
+
+    private void assertValuesAndValidateArraysElements(List<String[]> expected, List<String[]> actual) {
+
     }
 
 

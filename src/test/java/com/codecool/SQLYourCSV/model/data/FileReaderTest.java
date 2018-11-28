@@ -79,7 +79,7 @@ class FileReaderTest {
 
 
     @Test
-    void shouldReadFilesReadTwoFilesWithSameFormat() {
+    void shouldReadFilesReturnProperFilesWithSameFormat_TwoFilesCase() {
         Map<String, List<String[]>> actual = FileReader.readFiles(new String[]{"test-file-comma.csv", "test-file-tabs.csv"});
         List<String[]> expected = getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE);
         actual.values().forEach(value -> assertValuesAndValidateArraysElements(expected, value));

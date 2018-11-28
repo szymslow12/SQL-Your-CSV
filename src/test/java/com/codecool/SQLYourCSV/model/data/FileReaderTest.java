@@ -48,6 +48,13 @@ class FileReaderTest {
     }
 
 
+    @Test
+    void shouldReadFileReturnProperSplittedLinesByTabs() {
+        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
+                FileReader.readFile("test-file-tabs.csv"));
+    }
+
+
     private void assertValuesAndValidateArraysLength(List<String[]> expected, List<String[]> actual) {
         IntStream.range(0, expected.size()).forEach(i -> assertArrayEquals(expected.get(i), actual.get(i)));
     }

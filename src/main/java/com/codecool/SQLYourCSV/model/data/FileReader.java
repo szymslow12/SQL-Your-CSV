@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 public class FileReader {
 
+    //WILL USE FileFormatValidator.valid(String lineToValid)
     public static List<String[]> readFile(String file) throws IOException {
         if (file == null) throw new IllegalArgumentException("Expect String filename: got null");
         return Files.lines(getFilePath(file)).map(line -> line.split(",|:|;|\t")).collect(Collectors.toList());

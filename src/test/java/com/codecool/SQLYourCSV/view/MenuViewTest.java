@@ -112,7 +112,7 @@ class MenuViewTest {
 
         IntStream.range(0, numberOfLables)
             .forEach(
-                i -> labels[i] = String.format("Menu lables %s", i + 1));
+                i -> labels[i] = String.format("Menu labels %s", i + 1));
 
         return labels;
     }

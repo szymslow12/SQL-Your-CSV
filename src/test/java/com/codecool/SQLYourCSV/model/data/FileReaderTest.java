@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,66 +14,69 @@ class FileReaderTest {
 
 
     private final int ROWS_IN_TEST_FILE = 2;
+    private final int COLUMNS_IN_TEST_FILE = 3;
 
     @Test
     void shouldReadFileSeparatedByComma() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-comma.csv"));
     }
 
 
     @Test
     void shouldReadFileSeparatedByTabs() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-tabs.csv"));
     }
 
 
     @Test
     void shouldReadFileSeparatedByColons() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-colons.csv"));
     }
 
 
     @Test
     void shouldReadFileSeparatedBySemicolons() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-semicolons.csv"));
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesByComma() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-comma.csv"));
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesByTabs() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-tabs.csv"));
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesByColons() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-colons.csv"));
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesBySemicolons() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
+        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
             FileReader.readFile("test-file-semicolons.csv"));
     }
 
 
     @Test
-    void shouldReadFilesReadMultipleFiles_twoFiles() {
-
+    void shouldReadFilesReadTwoFiles_SameFormat() {
+        Map<String, List<String[]>> actual = FileReader.readFiles(new String[]{"test-file-comma.csv", "test-file-tabs.csv"});
+        List<String[]> expected = getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE);
+        actual.values().forEach(value -> assertValuesAndValidateArraysElements(expected, value));
     }
 
 
@@ -92,10 +96,10 @@ class FileReaderTest {
     }
 
 
-    private List<String[]> getExpectedListResult(int numberOfRows) {
+    private List<String[]> getExpectedListResult(int numberOfRows, int numberOfColumns) {
         List<String[]> result = new ArrayList<>();
-        result.add(new String[]{"columnName1", "columnName2", "columnName3"});
-        IntStream.range(0, numberOfRows).forEach(i -> result.add(new String[] {getRow(i), getRow(i), getRow(i)}));
+        result.add(IntStream.range(0, numberOfColumns).mapToObj(i -> String.format("columnName%s", i+1)).toArray(String[]::new));
+        IntStream.range(0, numberOfRows).forEach(i -> result.add(IntStream.range(0, numberOfColumns).mapToObj(j -> getRow(i)).toArray(String[]::new)));
         return result;
     }
 

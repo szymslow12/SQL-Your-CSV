@@ -73,7 +73,13 @@ class FileReaderTest {
 
 
     @Test
-    void shouldReadFilesReadTwoFiles_SameFormat() {
+    void shouldReadFileThrowExceptionWhenNullPassed() {
+        assertThrows(IllegalArgumentException.class, () -> FileReader.readFile(null));
+    }
+
+
+    @Test
+    void shouldReadFilesReadTwoFilesWithSameFormat() {
         Map<String, List<String[]>> actual = FileReader.readFiles(new String[]{"test-file-comma.csv", "test-file-tabs.csv"});
         List<String[]> expected = getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE);
         actual.values().forEach(value -> assertValuesAndValidateArraysElements(expected, value));
@@ -81,8 +87,8 @@ class FileReaderTest {
 
 
     @Test
-    void shouldReadFileThrowExceptionWhenNullPassed() {
-        assertThrows(IllegalArgumentException.class, () -> FileReader.readFile(null));
+    void shouldReadFileReadTwoFilesWithDifferentFormat() {
+
     }
 
 
@@ -105,7 +111,7 @@ class FileReaderTest {
 
 
     private String getRow(int rowNum) {
-        //+ 1 becouse first row has number one not 0
+        //+ 1 becouse first row numbers starts from 1 not 0
         return String.format("row%s", rowNum + 1);
     }
 }

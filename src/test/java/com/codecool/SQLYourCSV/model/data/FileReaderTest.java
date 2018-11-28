@@ -43,7 +43,8 @@ class FileReaderTest {
 
     @Test
     void shouldReadFileReturnProperSplittedLinesByComma() {
-
+        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
+            FileReader.readFile("test-file-comma.csv"));
     }
 
 

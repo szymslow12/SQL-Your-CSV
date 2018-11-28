@@ -15,7 +15,10 @@ public class FileReader {
     //WILL USE FileFormatValidator.valid(String lineToValid)
     public static List<String[]> readFile(String file) throws IOException {
         if (file == null) throw new IllegalArgumentException("Expect String filename: got null");
-        return Files.lines(getFilePath(file)).map(line -> line.split(",|:|;|\t")).collect(Collectors.toList());
+
+        return Files.lines(getFilePath(file)).map(
+            line -> line.split(",|:|;|\t")).collect(Collectors.toList()
+        );
     }
 
 
@@ -27,13 +30,15 @@ public class FileReader {
 
 
     public static Map<String, List<String[]>> readFiles(String[] files){
-        return Stream.of(files).collect(Collectors.toMap(file -> file, file -> {
-            try {
-                return readFile(file);
-            } catch (IOException e) {
-                e.printStackTrace();
+        return Stream.of(files).collect(Collectors.toMap(
+            file -> file, file -> {
+                try {
+                    return readFile(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-            return null;
-        }));
+        ));
     }
 }

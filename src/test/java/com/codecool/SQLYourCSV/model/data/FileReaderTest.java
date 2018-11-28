@@ -71,6 +71,12 @@ class FileReaderTest {
 
 
     @Test
+    void shouldReadFilesReadMultipleFiles_twoFiles() {
+
+    }
+
+
+    @Test
     void shouldReadFileThrowExceptionWhenNullPassed() {
         assertThrows(IllegalArgumentException.class, () -> FileReader.readFile(null));
     }

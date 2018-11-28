@@ -87,7 +87,7 @@ class FileReaderTest {
 
 
     @Test
-    void shouldReadFileReadTwoFilesWithDifferentFormat() {
+    void shouldReadFileReadReturnProperFilesWithDifferentFormat_TwoFilesCase() {
 
     }
 

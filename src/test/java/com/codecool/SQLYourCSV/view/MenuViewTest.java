@@ -95,11 +95,13 @@ class MenuViewTest {
     private String getExpectedMenu(String[] labels) {
         StringBuilder sB = new StringBuilder(TOP_MENU_LINE);
 
-        IntStream.range(0, labels.length)
-            .forEach(i -> sB.append(
+        IntStream.range(0, labels.length).forEach(
+            i -> sB.append(
                 String.format("%s%s%s%n", RED,
                 String.format("%s%s. %s", TAB, i + 1, labels[i]),
-                DEFAULT_COLOR)));
+                DEFAULT_COLOR)
+            )
+        );
 
         sB.append(EXIT_PROGRAM_LINE);
         sB.append(END_LINE);
@@ -110,9 +112,9 @@ class MenuViewTest {
     private String[] generateLabels(int numberOfLables) {
         String[] labels = new String[numberOfLables];
 
-        IntStream.range(0, numberOfLables)
-            .forEach(
-                i -> labels[i] = String.format("Menu labels %s", i + 1));
+        IntStream.range(0, numberOfLables).forEach(
+            i -> labels[i] = String.format("Menu labels %s", i + 1)
+        );
 
         return labels;
     }

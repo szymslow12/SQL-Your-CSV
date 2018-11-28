@@ -51,7 +51,14 @@ class FileReaderTest {
     @Test
     void shouldReadFileReturnProperSplittedLinesByTabs() {
         assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
-                FileReader.readFile("test-file-tabs.csv"));
+            FileReader.readFile("test-file-tabs.csv"));
+    }
+
+
+    @Test
+    void shouldReadFileReturnProperSplittedLinesByColons() {
+        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
+                FileReader.readFile("test-file-colons.csv"));
     }
 
 

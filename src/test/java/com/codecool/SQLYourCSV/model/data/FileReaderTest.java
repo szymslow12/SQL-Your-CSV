@@ -2,6 +2,7 @@ package com.codecool.SQLYourCSV.model.data;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -14,62 +15,68 @@ class FileReaderTest {
     private final int ROWS_IN_TEST_FILE = 2;
 
     @Test
-    void shouldReadFileSeparatedByComma() {
+    void shouldReadFileSeparatedByComma() throws IOException {
         assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-comma.csv"));
     }
 
 
     @Test
-    void shouldReadFileSeparatedByTabs() {
+    void shouldReadFileSeparatedByTabs() throws IOException {
         assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-tabs.csv"));
     }
 
 
     @Test
-    void shouldReadFileSeparatedByColons() {
+    void shouldReadFileSeparatedByColons() throws IOException {
         assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-colons.csv"));
     }
 
 
     @Test
-    void shouldReadFileSeparatedBySemicolons() {
+    void shouldReadFileSeparatedBySemicolons() throws IOException {
         assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-semicolons.csv"));
     }
 
 
     @Test
-    void shouldReadFileReturnProperSplittedLinesByComma() {
+    void shouldReadFileReturnProperSplittedLinesByComma() throws IOException {
         assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-comma.csv"));
     }
 
 
     @Test
-    void shouldReadFileReturnProperSplittedLinesByTabs() {
+    void shouldReadFileReturnProperSplittedLinesByTabs() throws IOException {
         assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-tabs.csv"));
     }
 
 
     @Test
-    void shouldReadFileReturnProperSplittedLinesByColons() {
+    void shouldReadFileReturnProperSplittedLinesByColons() throws IOException {
         assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-colons.csv"));
     }
 
 
     @Test
-    void shouldReadFileReturnProperSplittedLinesBySemicolons() {
+    void shouldReadFileReturnProperSplittedLinesBySemicolons() throws IOException {
         assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE),
             FileReader.readFile("test-file-semicolons.csv"));
     }
 
 
-        private void assertValuesAndValidateArraysLength(List<String[]> expected, List<String[]> actual) {
+    @Test
+    void shouldReadFileThrowExceptionWhenNullPassed() {
+        assertThrows(IllegalArgumentException.class, () -> FileReader.readFile(null));
+    }
+
+
+    private void assertValuesAndValidateArraysLength(List<String[]> expected, List<String[]> actual) {
         IntStream.range(0, expected.size()).forEach(i -> assertArrayEquals(expected.get(i), actual.get(i)));
     }
 

@@ -19,57 +19,73 @@ class FileReaderTest {
 
     @Test
     void shouldReadFileSeparatedByComma() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-comma.csv"));
+        assertValuesAndValidateArraysLength(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-comma.csv")
+        );
     }
 
 
     @Test
     void shouldReadFileSeparatedByTabs() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-tabs.csv"));
+        assertValuesAndValidateArraysLength(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-tabs.csv")
+        );
     }
 
 
     @Test
     void shouldReadFileSeparatedByColons() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-colons.csv"));
+        assertValuesAndValidateArraysLength(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-colons.csv")
+        );
     }
 
 
     @Test
     void shouldReadFileSeparatedBySemicolons() throws IOException {
-        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-semicolons.csv"));
+        assertValuesAndValidateArraysLength(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-semicolons.csv")
+        );
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesByComma() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-comma.csv"));
+        assertValuesAndValidateArraysElements(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-comma.csv")
+        );
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesByTabs() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-tabs.csv"));
+        assertValuesAndValidateArraysElements(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-tabs.csv")
+        );
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesByColons() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-colons.csv"));
+        assertValuesAndValidateArraysElements(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-colons.csv")
+        );
     }
 
 
     @Test
     void shouldReadFileReturnProperSplittedLinesBySemicolons() throws IOException {
-        assertValuesAndValidateArraysElements(getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-            FileReader.readFile("test-file-semicolons.csv"));
+        assertValuesAndValidateArraysElements(
+            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
+                FileReader.readFile("test-file-semicolons.csv")
+        );
     }
 
 
@@ -82,8 +98,17 @@ class FileReaderTest {
     @Test
     void shouldReadFilesReturnProperFilesWithSameFormat_TwoFilesCase() {
         List<String[]> expected = getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE);
-        Map<String, List<String[]>> actual = FileReader.readFiles(new String[]{"test-file-comma.csv", "test-file-tabs.csv"});
-        actual.values().forEach(value -> assertValuesAndValidateArraysElements(expected, value));
+
+        Map<String, List<String[]>> actual = FileReader.readFiles(new String[]
+            {
+                "test-file-comma.csv",
+                "test-file-tabs.csv"
+            }
+        );
+
+        actual.values().forEach(
+            value -> assertValuesAndValidateArraysElements(expected, value)
+        );
     }
 
 
@@ -91,8 +116,13 @@ class FileReaderTest {
     void shouldReadFileReadReturnProperFilesWithDifferentFormat_TwoFilesCase() {
         Map<String, List<String[]>> expected = new HashMap<String, List<String[]>>(2) {
             {
-                put("test-file-comma.csv", getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE));
-                put("test-file-five-columns.csv", getExpectedListResult(ROWS_IN_TEST_FILE, 5));
+                put("test-file-comma.csv",
+                    getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE)
+                );
+
+                put("test-file-five-columns.csv",
+                    getExpectedListResult(ROWS_IN_TEST_FILE, 5)
+                );
             }
         };
 
@@ -120,19 +150,32 @@ class FileReaderTest {
 
 
     private void assertValuesAndValidateArraysLength(List<String[]> expected, List<String[]> actual) {
-        IntStream.range(0, expected.size()).forEach(i -> assertArrayEquals(expected.get(i), actual.get(i)));
+        IntStream.range(0, expected.size()).forEach(
+            i -> assertArrayEquals(expected.get(i), actual.get(i)));
     }
 
 
     private void assertValuesAndValidateArraysElements(List<String[]> expected, List<String[]> actual) {
-        IntStream.range(0, expected.size()).forEach(i -> IntStream.range(0, expected.get(i).length).forEach(j -> assertEquals(expected.get(i)[j], actual.get(i)[j])));
+        IntStream.range(0, expected.size()).forEach(
+            i -> IntStream.range(0, expected.get(i).length).forEach(
+                j -> assertEquals(expected.get(i)[j], actual.get(i)[j])
+            )
+        );
     }
 
 
     private List<String[]> getExpectedListResult(int numberOfRows, int numberOfColumns) {
         List<String[]> result = new ArrayList<>();
-        result.add(IntStream.range(0, numberOfColumns).mapToObj(i -> String.format("columnName%s", i+1)).toArray(String[]::new));
-        IntStream.range(0, numberOfRows).forEach(i -> result.add(IntStream.range(0, numberOfColumns).mapToObj(j -> getRow(i)).toArray(String[]::new)));
+
+        result.add(IntStream.range(0, numberOfColumns).mapToObj(
+            i -> String.format("columnName%s", i+1)).toArray(String[]::new)
+        );
+
+        IntStream.range(0, numberOfRows).forEach(
+            i -> result.add(IntStream.range(0, numberOfColumns).mapToObj(
+                j -> getRow(i)).toArray(String[]::new)
+            )
+        );
         return result;
     }
 

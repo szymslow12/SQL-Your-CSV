@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileReader {
 
@@ -24,7 +25,14 @@ public class FileReader {
     }
 
 
-    public static Map<String, List<String[]>> readFiles(String[] files) {
-        return null;
+    public static Map<String, List<String[]>> readFiles(String[] files){
+        return Stream.of(files).collect(Collectors.toMap(file -> file, file -> {
+            try {
+                return readFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }));
     }
 }

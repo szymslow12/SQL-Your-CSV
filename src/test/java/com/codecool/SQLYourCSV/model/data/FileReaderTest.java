@@ -11,27 +11,33 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileReaderTest {
 
 
+    private final int ROWS_IN_TEST_FILE = 2;
+
     @Test
     void shouldReadFileSeparatedByComma() {
-        assertValuesAndValidateArraysLength(getExpectedListResult(2), FileReader.readFile("test-file-comma.csv"));
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+            FileReader.readFile("test-file-comma.csv"));
     }
 
 
     @Test
     void shouldReadFileSeparatedByTabs() {
-        assertValuesAndValidateArraysLength(getExpectedListResult(2), FileReader.readFile("test-file-tabs.csv"));
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+            FileReader.readFile("test-file-tabs.csv"));
     }
 
 
     @Test
     void shouldReadFileSeparatedByColons() {
-        assertValuesAndValidateArraysLength(getExpectedListResult(2), FileReader.readFile("test-file-colons.csv"));
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+            FileReader.readFile("test-file-colons.csv"));
     }
 
 
     @Test
     void shouldReadFileSeparatedBySemicolons() {
-        assertValuesAndValidateArraysLength(getExpectedListResult(2), FileReader.readFile("test-file-semicolons.csv"));
+        assertValuesAndValidateArraysLength(getExpectedListResult(ROWS_IN_TEST_FILE),
+            FileReader.readFile("test-file-semicolons.csv"));
     }
 
 
@@ -47,7 +53,7 @@ class FileReaderTest {
 
 
     private void assertValuesAndValidateArraysElements(List<String[]> expected, List<String[]> actual) {
-
+        IntStream.range(0, expected.size()).forEach(i -> IntStream.range(0, expected.get(i).length).forEach(j -> assertEquals(expected.get(i)[j], actual.get(i)[j])));
     }
 
 

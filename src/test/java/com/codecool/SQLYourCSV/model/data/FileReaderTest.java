@@ -13,8 +13,17 @@ class FileReaderTest {
 
     @Test
     void shouldReadFileSeparatedByComma() {
-        List<String[]> expected = getExpectedListResult(2);
-        List<String[]> actual = FileReader.readFile("test-file-comma.csv");
+        assertValuesAndValidate(getExpectedListResult(2), FileReader.readFile("test-file-comma.csv"));
+    }
+
+
+    @Test
+    void shouldReadFileSeparatedByTabs() {
+        assertValuesAndValidate(getExpectedListResult(2), FileReader.readFile("test-file-tabs.csv"));
+    }
+
+
+    private void assertValuesAndValidate(List<String[]> expected, List<String[]> actual) {
         IntStream.range(0, expected.size()).forEach(i -> assertArrayEquals(expected.get(i), actual.get(i)));
     }
 

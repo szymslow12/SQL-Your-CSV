@@ -15,7 +15,11 @@ public class MenuView implements Alertable {
     public void showMenu(String[] labels) {
         if (labels == null) throw new IllegalArgumentException("Expect String[]: got null");
         alert("WELCOME IN MAIN MENU\n");
-        IntStream.range(0, labels.length).forEach(i -> alert(String.format("\t%s. %s", i + 1, labels[i])));
+
+        IntStream.range(0, labels.length).forEach(
+            i -> alert(String.format("\t%s. %s", i + 1, labels[i]))
+        );
+
         alert("\t0. Exit program");
         System.out.print("\n\u001B[31mEnter a number: \u001B[0m");
     }

@@ -103,7 +103,19 @@ class FileReaderTest {
             }
         );
 
-        expected.keySet().stream().forEach(key -> assertValuesAndValidateArraysElements(expected.get(key), actual.get(key)));
+        expected.keySet().stream().forEach
+        (
+            key -> assertValuesAndValidateArraysElements(expected.get(key), actual.get(key))
+        );
+
+
+    }
+
+
+    @Test
+    void shouldReadFilesThrowExceptionWhenPassedArrayContainNull() {
+        assertThrows(IllegalArgumentException.class, () -> FileReader.readFiles(
+            new String[]{"test-file-comma.csv", null}));
     }
 
 

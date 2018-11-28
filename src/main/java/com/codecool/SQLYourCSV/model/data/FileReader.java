@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 
 public class FileReader {
 
-    //WILL USE FileFormatValidator.valid(String lineToValid)
     public static List<String[]> readFile(String file) throws IOException {
         if (file == null) throw new IllegalArgumentException("Expect String filename: got null");
 

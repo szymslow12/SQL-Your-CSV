@@ -31,16 +31,4 @@ class DataViewTest {
     void setPreviousPrintStream() {
         System.setOut(prevPs);
     }
-
-
-    @Test
-    void shouldAlertMessage() {
-        String messageToAlert = "Message to alert";
-        view.alert(messageToAlert);
-
-        String expected = String.format("%s%s%s%n", CYAN, messageToAlert, DEFAULT_COLOR);
-        String actual = os.toString();
-
-        assertEquals(expected, actual);
-    }
 }

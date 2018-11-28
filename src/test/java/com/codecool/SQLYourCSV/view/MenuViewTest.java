@@ -39,18 +39,6 @@ class MenuViewTest {
 
 
     @Test
-    void shouldAlertMessage() {
-        String messageToAlert = "Message to alert";
-        view.alert(messageToAlert);
-
-        String expected = String.format("%s%s%s%n", RED, messageToAlert, DEFAULT_COLOR);
-        String actual = os.toString();
-
-        assertEquals(expected, actual);
-    }
-
-
-    @Test
     void shouldShowMenuWithoutGivenLabels() {
         String[] labels = new String[0];
         view.showMenu(labels);

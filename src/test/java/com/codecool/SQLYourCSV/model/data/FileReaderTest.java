@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.Map;
@@ -80,15 +81,29 @@ class FileReaderTest {
 
     @Test
     void shouldReadFilesReturnProperFilesWithSameFormat_TwoFilesCase() {
-        Map<String, List<String[]>> actual = FileReader.readFiles(new String[]{"test-file-comma.csv", "test-file-tabs.csv"});
         List<String[]> expected = getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE);
+        Map<String, List<String[]>> actual = FileReader.readFiles(new String[]{"test-file-comma.csv", "test-file-tabs.csv"});
         actual.values().forEach(value -> assertValuesAndValidateArraysElements(expected, value));
     }
 
 
     @Test
     void shouldReadFileReadReturnProperFilesWithDifferentFormat_TwoFilesCase() {
+        Map<String, List<String[]>> expected = new HashMap<String, List<String[]>>(2) {
+            {
+                put("test-file-comma.csv", getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE));
+                put("test-file-five-columns.csv", getExpectedListResult(ROWS_IN_TEST_FILE, 5));
+            }
+        };
 
+        Map<String, List<String[]>> actual = FileReader.readFiles(new String[]
+            {
+                "test-file-comma.csv",
+                "test-file-five-columns.csv"
+            }
+        );
+
+        expected.keySet().stream().forEach(key -> assertValuesAndValidateArraysElements(expected.get(key), actual.get(key)));
     }
 
 

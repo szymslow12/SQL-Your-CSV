@@ -23,6 +23,18 @@ class FileReaderTest {
     }
 
 
+    @Test
+    void shouldReadFileSeparatedByColons() {
+        assertValuesAndValidate(getExpectedListResult(2), FileReader.readFile("test-file-colons.csv"));
+    }
+
+
+    @Test
+    void shouldReadFileSeparatedBySemicolons() {
+        assertValuesAndValidate(getExpectedListResult(2), FileReader.readFile("test-file-semicolons.csv"));
+    }
+
+
     private void assertValuesAndValidate(List<String[]> expected, List<String[]> actual) {
         IntStream.range(0, expected.size()).forEach(i -> assertArrayEquals(expected.get(i), actual.get(i)));
     }

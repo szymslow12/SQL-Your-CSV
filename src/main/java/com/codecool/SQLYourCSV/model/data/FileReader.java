@@ -17,7 +17,12 @@ public class FileReader {
         if (file == null) throw new IllegalArgumentException("Expect String filename: got null");
 
         return Files.lines(getFilePath(file)).map(
-            line -> line.split(",|:|;|\t")).collect(Collectors.toList()
+            line -> {
+                if (FileFormatValidator.validate(line)) {
+                    return line.split(",|:|;|\t");
+                }
+                throw new IllegalStateException("File format is not acceptable");
+            }).collect(Collectors.toList()
         );
     }
 

@@ -19,9 +19,9 @@ public class Row {
     }
 
 
-//    public void setPrimaryKey(Column<?> primaryKey) {
-//        this.primaryKey = primaryKey;
-//    }
+    public void setPrimaryKey(Column<?> primaryKey) {
+        this.primaryKey = primaryKey;
+    }
 
 
     public Column<?> getPrimaryKey() {
@@ -29,9 +29,9 @@ public class Row {
     }
 
 
-//    public void setService(ColumnService service) {
-//        this.service = service;
-//    }
+    public void setService(ColumnService service) {
+        this.service = service;
+    }
 
 
     public ColumnService getService() {

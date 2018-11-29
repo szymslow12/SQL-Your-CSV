@@ -18,4 +18,14 @@ public class ColumnService {
         }
         return container;
     }
+
+    //update methods in uml
+    public Object getValueByName(String name, List<Column<?>> columns) {
+        return columns.stream().filter(column -> column.getName().equalsIgnoreCase(name)).findFirst().get().getValue();
+    }
+
+
+    public Object getValueByIndex(int index, List<Column<?>> columns) {
+        return columns.get(index);
+    }
 }

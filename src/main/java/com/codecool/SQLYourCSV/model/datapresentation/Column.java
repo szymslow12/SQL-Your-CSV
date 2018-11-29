@@ -2,8 +2,13 @@ package com.codecool.SQLYourCSV.model.datapresentation;
 
 public class Column<T> {
 
-   private T value;
-   private String name;
+    private T value;
+    private String name;
+
+    public Column(T value, String name) {
+        this.value = value;
+        this.name = name;
+    }
 
     public T getValue() {
         return value;

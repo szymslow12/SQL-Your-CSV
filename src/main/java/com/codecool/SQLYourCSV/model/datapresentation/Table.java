@@ -2,6 +2,7 @@ package com.codecool.SQLYourCSV.model.datapresentation;
 
 import com.codecool.SQLYourCSV.model.service.RowService;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Table {
@@ -10,6 +11,14 @@ public class Table {
     private List<Row> rows;
     private RowService service;
     private String name;
+
+    public Table(Row headers, RowService service, String name) {
+        this.headers = headers;
+        this.service = service;
+        this.name = name;
+        this.rows = new LinkedList<>();
+    }
+
 
     public void setHeaders(Row headers) {
         this.headers = headers;

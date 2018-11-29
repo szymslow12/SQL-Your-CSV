@@ -55,7 +55,8 @@ class ColumnServiceTest {
     @Test
     void shouldAddColumns() {
         int expected = 10;
-        int actual = service.addColumns(generateColumnArray(expected), new ArrayList<>()).size();
+        int actual = service.addColumns(generateColumnArray(expected),
+            new ArrayList<>()).size();
 
         assertEquals(expected, actual);
     }
@@ -64,7 +65,8 @@ class ColumnServiceTest {
     @Test
     void shouldAddColumnsAddProperColumns() {
         Column<?>[] expected = generateColumnArray(10);
-        Column<?>[] actual =  service.addColumns(expected, new ArrayList<>()).stream().toArray(Column<?>[]::new);
+        Column<?>[] actual =  service.addColumns(expected,
+            new ArrayList<>()).stream().toArray(Column<?>[]::new);
 
         assertArrayEquals(expected, actual);
     }
@@ -72,13 +74,27 @@ class ColumnServiceTest {
 
     @Test
     void shouldAddColumnsThrowExceptionWhenNullPassedInsteadOfColumnArray() {
-        assertThrows(IllegalArgumentException.class, () -> service.addColumns(null, new ArrayList<>()));
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addColumns(null, new ArrayList<>()));
     }
 
 
     @Test
     void shouldAddColumnsThrowExceptionWhenAttemptToAddColumnsToNull() {
-        assertThrows(IllegalArgumentException.class, () -> service.addColumns(generateColumnArray(2), null));
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addColumns(generateColumnArray(2), null));
+    }
+
+
+    @Test
+    void shouldAddColumnsThrowExceptionWhenAttemptToAddNull() {
+        Column<?>[] columsToAdd = new Column<?>[] {
+            new Column<>("value", "name"),
+            null
+        };
+
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addColumns(columsToAdd, new ArrayList<>()));
     }
 
 

@@ -35,4 +35,10 @@ class FileFormatValidatorTest {
         assertFalse(FileFormatValidator.validate("this should not pass"));
     }
 
+
+    @Test
+    void shouldValidateThrowExceptionWhenNullPassed() {
+        assertThrows(IllegalArgumentException.class, () -> FileFormatValidator.validate(null));
+    }
+
 }

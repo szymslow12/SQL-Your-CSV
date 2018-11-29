@@ -26,6 +26,16 @@ public class ColumnService {
 
 
     public Object getValueByIndex(int index, List<Column<?>> columns) {
+        return columns.get(index).getValue();
+    }
+
+
+    public Column<?> getColumnByName(String name, List<Column<?>> columns) {
+        return columns.stream().filter(column -> column.getName().equalsIgnoreCase(name)).findFirst().get();
+    }
+
+
+    public Column<?> getColumnByIndex(int index, List<Column<?>> columns) {
         return columns.get(index);
     }
 }

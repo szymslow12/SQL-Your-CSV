@@ -29,4 +29,10 @@ class FileFormatValidatorTest {
         assertTrue(FileFormatValidator.validate("text   separated   by  comma"));
     }
 
+
+    @Test
+    void shouldValidateReturnFalseOnInCorrectCSV() {
+        assertFalse(FileFormatValidator.validate("this should not pass"));
+    }
+
 }

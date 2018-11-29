@@ -11,12 +11,11 @@ import java.util.Map;
 public class CSVData {
     private Map<String, List<String[]>> data;
 
-    //update uml by rename
     public Map<String, List<String[]>> getAllFilesData() {
         return data;
     }
 
-    //update uml by adding this method
+
     public List<String[]> getSingleFileData(String filename) {
         return data.get(filename);
     }

@@ -63,6 +63,7 @@ public class Row {
                 String.format(" %s |", column.toString())
             )
         );
+
         return sB.toString();
     }
 }

@@ -28,4 +28,10 @@ public class Column<T> {
     public void setName(String name) {
         this.name= name;
     }
+
+    //add to UML
+    @Override
+    public String toString() {
+        return String.format("name: %s, value: %s", name, value.toString());
+    }
 }

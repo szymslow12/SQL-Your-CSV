@@ -38,9 +38,4 @@ public class ColumnService {
     public Column<?> getColumnByIndex(int index, List<Column<?>> columns) {
         return columns.get(index);
     }
-
-
-    public List<Column<?>> getAllColumns(Row row) {
-        return row.getColumns();
-    }
 }

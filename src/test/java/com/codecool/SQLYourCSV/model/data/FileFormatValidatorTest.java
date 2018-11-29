@@ -11,4 +11,10 @@ class FileFormatValidatorTest {
         assertTrue(FileFormatValidator.validate("text,separated,by,comma"));
     }
 
+
+    @Test
+    void shouldValidateReturnTrueOnCorrectCSV_SemicolonCase() {
+        assertTrue(FileFormatValidator.validate("text;separated;by;comma"));
+    }
+
 }

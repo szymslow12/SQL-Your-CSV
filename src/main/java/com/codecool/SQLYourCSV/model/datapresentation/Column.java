@@ -32,6 +32,6 @@ public class Column<T> {
     //add to UML
     @Override
     public String toString() {
-        return String.format("name: %s, value: %s", name, value.toString());
+        return value.toString();
     }
 }

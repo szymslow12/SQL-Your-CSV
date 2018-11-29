@@ -38,6 +38,14 @@ class ColumnServiceTest {
 
     @Test
     void shouldAddColumnThrowExceptionWhenAttemptToAddNull() {
-        assertThrows(IllegalArgumentException.class, () -> service.addColumn(null, new ArrayList<>()));
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addColumn(null, new ArrayList<>()));
+    }
+
+
+    @Test
+    void shouldAddColumnThrowExceptionWhenAttemptToAddColumnToNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addColumn(new Column<>("value", "name"),null));
     }
 }

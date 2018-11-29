@@ -5,8 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -98,6 +100,16 @@ class ColumnServiceTest {
     }
 
 
+    @Test
+    void shouldGetValueByNameReturnProperValue() {
+        String name = "name4";
+        String expected = "value4";
+        String actual = (String) service.getColumnByName(name, getColumnsList(10)).getValue();
+
+        assertEquals(expected, actual);
+    }
+
+
 
     private Column<?>[] generateColumnArray(int size) {
         String value = "value";
@@ -105,5 +117,10 @@ class ColumnServiceTest {
         return IntStream.range(0, 10).mapToObj(
             i -> new Column<>(value + (i + 1), name + (i + 1))
         ).toArray(Column<?>[]::new);
+    }
+
+
+    private List<Column<?>> getColumnsList(int size) {
+        return Stream.of(generateColumnArray(size)).collect(Collectors.toList());
     }
 }

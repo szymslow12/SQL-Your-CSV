@@ -2,6 +2,7 @@ package com.codecool.SQLYourCSV.model.datapresentation;
 
 import com.codecool.SQLYourCSV.model.service.ColumnService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Row {
@@ -10,9 +11,16 @@ public class Row {
     private Column<?> primaryKey;
     private ColumnService service;
 
-    public void setPrimaryKey(Column<?> primaryKey) {
+    public Row(ColumnService service, Column<?> primaryKey) {
+        this.service = service;
         this.primaryKey = primaryKey;
+        columns = new ArrayList<>();
     }
+
+
+//    public void setPrimaryKey(Column<?> primaryKey) {
+//        this.primaryKey = primaryKey;
+//    }
 
 
     public Column<?> getPrimaryKey() {
@@ -20,9 +28,9 @@ public class Row {
     }
 
 
-    public void setService(ColumnService service) {
-        this.service = service;
-    }
+//    public void setService(ColumnService service) {
+//        this.service = service;
+//    }
 
 
     public ColumnService getService() {

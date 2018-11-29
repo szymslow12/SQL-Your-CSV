@@ -49,4 +49,9 @@ public class Table {
     public List<Row> getRows() {
         return rows;
     }
+
+
+    public int size() {
+        return rows.size();
+    }
 }

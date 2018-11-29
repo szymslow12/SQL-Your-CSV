@@ -18,11 +18,6 @@ class FileFormatValidatorTest {
     }
 
 
-    @Test
-    void shouldValidateReturnTrueOnCorrectCSV_ColonCase() {
-        assertTrue(FileFormatValidator.validate("text:separated:by:colons"));
-    }
-
 
     @Test
     void shouldValidateReturnTrueOnCorrectCSV_TabCase() {
@@ -38,7 +33,7 @@ class FileFormatValidatorTest {
 
     @Test
     void shouldValidateReturnFalseOnIncorrectCSV_MultipleDelimiterTypesCase() {
-        assertFalse(FileFormatValidator.validate("this,should;not:pass"));
+        assertFalse(FileFormatValidator.validate("this,should;not\tpass"));
     }
 
     @Test

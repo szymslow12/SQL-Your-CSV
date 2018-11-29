@@ -4,6 +4,7 @@ import com.codecool.SQLYourCSV.model.datapresentation.Column;
 import com.codecool.SQLYourCSV.model.datapresentation.Row;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ColumnService {
 
@@ -14,9 +15,7 @@ public class ColumnService {
 
 
     public List<Column<?>> addColumns(Column<?>[] toAdd, List<Column<?>> container) {
-        for (int i = 0; i < toAdd.length; i++) {
-            container = addColumn(toAdd[i], container);
-        }
+        Stream.of(toAdd).forEach(column -> container.add(column));
         return container;
     }
 

@@ -44,9 +44,15 @@ public class TableService {
 
 
     private Row createHeader(String[] headerNames) {
-        Row header = new Row(new ColumnService(), new Column<String>());
-        Stream.of(headerNames).forEach(name -> header.getService().addColumn(new Column<String>(), header.getColumns()));
+        String primaryKey = headerNames[0];
+        Row header = new Row(new ColumnService(), new Column<String>(primaryKey, primaryKey));
+        Stream.of(headerNames.).forEach(name -> addColumnToHeader(name, header));
         return header;
+    }
+
+
+    private void addColumnToHeader(String name, Row header) {
+        header.setColumns(header.getService().addColumn(new Column<>(name, name), header.getColumns()));
     }
 
 

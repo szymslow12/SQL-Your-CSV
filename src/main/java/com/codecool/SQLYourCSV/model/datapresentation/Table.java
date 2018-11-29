@@ -63,4 +63,12 @@ public class Table {
     public int size() {
         return rows.size();
     }
+
+    //add toString to UML
+    @Override
+    public String toString() {
+        StringBuilder sB = new StringBuilder(headers.toString());
+        rows.stream().forEach(row -> sB.append(row.toString()));
+        return sB.toString();
+    }
 }

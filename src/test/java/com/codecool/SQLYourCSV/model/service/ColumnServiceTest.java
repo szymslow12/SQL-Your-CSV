@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,5 +49,23 @@ class ColumnServiceTest {
     void shouldAddColumnThrowExceptionWhenAttemptToAddColumnToNull() {
         assertThrows(IllegalArgumentException.class,
             () -> service.addColumn(new Column<>("value", "name"),null));
+    }
+
+
+    @Test
+    void shouldAddColumns() {
+        int expected = 10;
+        int actual = service.addColumns(generateColumnArray(expected), new ArrayList<>()).size();
+
+        assertEquals(expected, actual);
+    }
+
+
+    private Column<?>[] generateColumnArray(int size) {
+        String value = "value";
+        String name = "name";
+        return (Column<?>[]) IntStream.range(0, 10).mapToObj(
+            i -> new Column<>(value + (i + 1), name + (i + 1))
+        ).collect(Collectors.toList()).toArray();
     }
 }

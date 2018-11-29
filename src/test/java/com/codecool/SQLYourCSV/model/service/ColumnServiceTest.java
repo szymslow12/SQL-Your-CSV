@@ -69,6 +69,12 @@ class ColumnServiceTest {
         assertArrayEquals(expected, actual);
     }
 
+
+    @Test
+    void shouldAddColumnsThrowExceptionWhenNullPassedInsteadOfColumnArray() {
+        assertThrows(IllegalArgumentException.class, () -> service.addColumns(null, new ArrayList<>()));
+    }
+
     private Column<?>[] generateColumnArray(int size) {
         String value = "value";
         String name = "name";

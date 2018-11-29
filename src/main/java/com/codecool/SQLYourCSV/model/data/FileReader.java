@@ -18,7 +18,7 @@ public class FileReader {
         return Files.lines(getFilePath(file)).map(
             line -> {
                 if (FileFormatValidator.validate(line)) {
-                    return line.split(",|:|;|\t");
+                    return line.split(",|;|\t");
                 }
                 throw new IllegalStateException("File format is not acceptable");
             }).collect(Collectors.toList()

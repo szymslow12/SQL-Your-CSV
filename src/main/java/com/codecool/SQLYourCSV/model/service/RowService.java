@@ -34,7 +34,7 @@ public class RowService {
 
     public Row getRowByColumnValue(Column<?> toFind, List<Row> rows) {
         return rows.stream().filter(
-            row -> row.getService().getAllColumns(row).stream().anyMatch(
+            row -> row.getColumns().stream().anyMatch(
                 column -> findColumnToFind(column, toFind)
             )
         ).findFirst().get();

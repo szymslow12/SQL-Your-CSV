@@ -4,6 +4,6 @@ package com.codecool.SQLYourCSV.model.data;
 public class FileFormatValidator {
 
     public static boolean validate(String toValid) {
-        return false;
+        return toValid.matches("^[^\\s,][^,]*[^\\s,](,[^\\s,][^,]*[^\\s,])*$");
     }
 }

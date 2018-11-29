@@ -27,17 +27,12 @@ public class TableService {
         return data;
     }
 
-//Update uml to not have this method
-//    public Table getTableByName(String name) {
-//        return null;
-//    }
-
-
+//refactor needed
     public Table createTableFromFile(String filename) {
-        if (data.getCSVFileData(filename) == null) {
+        if (data.getSingleFileData(filename) == null) {
             data.loadFromFile(filename);
         }
-        List<String[]> dataFromCSV = data.getCSVFileData(filename);
+        List<String[]> dataFromCSV = data.getSingleFileData(filename);
         String[] columnsNames = dataFromCSV.get(0);
 
         Table table = new Table(

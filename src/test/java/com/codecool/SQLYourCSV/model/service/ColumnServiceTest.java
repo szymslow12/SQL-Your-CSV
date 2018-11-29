@@ -61,11 +61,19 @@ class ColumnServiceTest {
     }
 
 
+    @Test
+    void shouldAddColumnsAddProperColumns() {
+        Column<?>[] expected = generateColumnArray(10);
+        Column<?>[] actual =  service.addColumns(expected, new ArrayList<>()).stream().toArray(Column<?>[]::new);
+
+        assertArrayEquals(expected, actual);
+    }
+
     private Column<?>[] generateColumnArray(int size) {
         String value = "value";
         String name = "name";
-        return (Column<?>[]) IntStream.range(0, 10).mapToObj(
+        return IntStream.range(0, 10).mapToObj(
             i -> new Column<>(value + (i + 1), name + (i + 1))
-        ).collect(Collectors.toList()).toArray();
+        ).toArray(Column<?>[]::new);
     }
 }

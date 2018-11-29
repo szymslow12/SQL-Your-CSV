@@ -12,7 +12,7 @@ public class CSVData {
     private Map<String, List<String[]>> data;
 
     //update uml by rename
-    public Map<String, List<String[]>> getAllData() {
+    public Map<String, List<String[]>> getFullData() {
         return data;
     }
 

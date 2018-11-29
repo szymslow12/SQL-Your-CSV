@@ -64,7 +64,7 @@ public class Table {
         return rows.size();
     }
 
-    //add toString to UML
+
     @Override
     public String toString() {
         StringBuilder sB = new StringBuilder(headers.toString());

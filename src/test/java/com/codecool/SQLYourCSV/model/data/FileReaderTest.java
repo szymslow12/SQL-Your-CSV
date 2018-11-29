@@ -36,15 +36,6 @@ class FileReaderTest {
 
 
     @Test
-    void shouldReadFileSeparatedByColons() throws IOException {
-        assertValuesAndValidateArraysLength(
-            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-                FileReader.readFile("test-file-colons.csv")
-        );
-    }
-
-
-    @Test
     void shouldReadFileSeparatedBySemicolons() throws IOException {
         assertValuesAndValidateArraysLength(
             getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
@@ -67,15 +58,6 @@ class FileReaderTest {
         assertValuesAndValidateArraysElements(
             getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
                 FileReader.readFile("test-file-tabs.csv")
-        );
-    }
-
-
-    @Test
-    void shouldReadFileReturnProperSplittedLinesByColons() throws IOException {
-        assertValuesAndValidateArraysElements(
-            getExpectedListResult(ROWS_IN_TEST_FILE, COLUMNS_IN_TEST_FILE),
-                FileReader.readFile("test-file-colons.csv")
         );
     }
 

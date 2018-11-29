@@ -21,10 +21,10 @@ public class TableService {
         return data;
     }
 
-
-    public Table getTableByName(String name) {
-        return null;
-    }
+//Update uml to not have this method
+//    public Table getTableByName(String name) {
+//        return null;
+//    }
 
 
     public Table createTableFromFile(String filename) {

@@ -10,6 +10,7 @@ public class Column<T> {
         this.name = name;
     }
 
+
     public T getValue() {
         return value;
     }
@@ -29,7 +30,7 @@ public class Column<T> {
         this.name= name;
     }
 
-    //add to UML
+
     @Override
     public String toString() {
         return value.toString();

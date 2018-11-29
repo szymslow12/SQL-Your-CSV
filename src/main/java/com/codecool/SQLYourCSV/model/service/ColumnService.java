@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.datapresentation.Column;
+import com.codecool.SQLYourCSV.model.datapresentation.Row;
 
 import java.util.List;
 
@@ -37,5 +38,10 @@ public class ColumnService {
 
     public Column<?> getColumnByIndex(int index, List<Column<?>> columns) {
         return columns.get(index);
+    }
+
+
+    public List<Column<?>> getAllColumns(Row row) {
+        return row.getColumns();
     }
 }

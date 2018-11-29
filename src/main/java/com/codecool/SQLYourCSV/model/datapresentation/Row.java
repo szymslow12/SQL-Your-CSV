@@ -15,6 +15,7 @@ public class Row {
         this.service = service;
         this.primaryKey = primaryKey;
         columns = new ArrayList<>();
+        columns.add(primaryKey);
     }
 
 
@@ -59,7 +60,7 @@ public class Row {
 
         columns.stream().forEach(
             column -> sB.append(
-                String.format(" name = %s, value = %s |",column.getName(), column.getValue())
+                String.format(" %s |", column.toString())
             )
         );
         return sB.toString();

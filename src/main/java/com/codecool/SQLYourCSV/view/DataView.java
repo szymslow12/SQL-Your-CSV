@@ -11,6 +11,6 @@ public class DataView implements Alertable {
     }
 
     public void showTable(Table table) {
-        alert("Table shown");
+        System.out.println(table.toString());
     }
 }

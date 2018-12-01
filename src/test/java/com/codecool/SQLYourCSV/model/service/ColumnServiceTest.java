@@ -21,7 +21,7 @@ class ColumnServiceTest {
     private Column<?>[] generateColumnArray(int size) {
         String value = "value";
         String name = "name";
-        return IntStream.range(0, 10).mapToObj(
+        return IntStream.range(0, size).mapToObj(
                 i -> new Column<>(value + (i + 1), name + (i + 1))
         ).toArray(Column<?>[]::new);
     }

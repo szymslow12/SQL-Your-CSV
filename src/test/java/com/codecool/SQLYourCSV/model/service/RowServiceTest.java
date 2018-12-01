@@ -54,6 +54,15 @@ class RowServiceTest {
 
 
     @Test
+    void shouldAddRowAddProperRow() {
+        Row expected = new Row(columnService);
+        Row actual = service.addRow(expected, new ArrayList<>()).get(0);
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
     void shouldAddRowThrowExceptionWhenAttemptToAddNull() {
         assertThrows(IllegalArgumentException.class,
             () -> service.addRow(null, new ArrayList<>()));
@@ -74,4 +83,8 @@ class RowServiceTest {
 
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    void shouldAddRowsThrowException
 }

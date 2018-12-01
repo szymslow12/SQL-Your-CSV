@@ -102,12 +102,19 @@ class ColumnServiceTest {
 
 
     @Test
-    void shouldGetValueByNameReturnProperValueOnExistingColumn() {
+    void shouldGetValueByNameReturnProperValueOnExistingColumnName() {
         String name = "name4";
         String expected = "value4";
         String actual = (String) service.getColumnByName(name, getColumnsList(10)).getValue();
 
         assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldGetValueByNameThrowExceptionOnNotExistColumnName() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getValueByName("notExist", getColumnsList(10)));
     }
 
 

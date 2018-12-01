@@ -17,6 +17,21 @@ class ColumnServiceTest {
 
     private ColumnService service;
 
+
+    private Column<?>[] generateColumnArray(int size) {
+        String value = "value";
+        String name = "name";
+        return IntStream.range(0, 10).mapToObj(
+                i -> new Column<>(value + (i + 1), name + (i + 1))
+        ).toArray(Column<?>[]::new);
+    }
+
+
+    private List<Column<?>> getColumnsList(int size) {
+        return Stream.of(generateColumnArray(size)).collect(Collectors.toList());
+    }
+
+
     @BeforeEach
     private void initializaPrivateFields() {
         service = new ColumnService();
@@ -132,16 +147,12 @@ class ColumnServiceTest {
     }
 
 
-    private Column<?>[] generateColumnArray(int size) {
-        String value = "value";
-        String name = "name";
-        return IntStream.range(0, 10).mapToObj(
-            i -> new Column<>(value + (i + 1), name + (i + 1))
-        ).toArray(Column<?>[]::new);
-    }
+    @Test
+    void shouldGetValueByIndexReturnProperValue_ExistColumnIndex() {
+        int indexToFind = 4;
+        String expected = "value4";
+        String actual = (String) service.getValueByIndex(indexToFind, getColumnsList(10));
 
-
-    private List<Column<?>> getColumnsList(int size) {
-        return Stream.of(generateColumnArray(size)).collect(Collectors.toList());
+        assertEquals(expected, actual);
     }
 }

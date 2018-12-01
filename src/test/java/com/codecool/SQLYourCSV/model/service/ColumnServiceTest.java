@@ -119,6 +119,7 @@ class ColumnServiceTest {
     @Test
     void shouldGetValueByNameReturnProperValueOnExistingColumnName() {
         String name = "name4";
+
         String expected = "value4";
         String actual = (String) service.getColumnByName(name, getColumnsList(10)).getValue();
 
@@ -150,6 +151,7 @@ class ColumnServiceTest {
     @Test
     void shouldGetValueByIndexReturnProperValueOnExistColumnIndex() {
         int indexToFind = 4;
+
         String expected = "value4";
         String actual = (String) service.getValueByIndex(indexToFind, getColumnsList(10));
 
@@ -178,5 +180,15 @@ class ColumnServiceTest {
     }
 
 
+
+    @Test
+    void shouldGetColumnByNameReturnProperColumnOnExistColumnName() {
+        List<Column<?>> columns = getColumnsList(10);
+
+        Column<String> expected = (Column<String>) columns.get(3);
+        Column<?> actual = service.getColumnByName(expected.getName(), columns);
+
+        assertEquals(expected, actual);
+    }
 
 }

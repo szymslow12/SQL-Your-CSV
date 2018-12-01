@@ -22,22 +22,22 @@ public class ColumnService {
 
 
     public Object getValueByName(String name, List<Column<?>> columns) {
-        return validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(name)).findFirst().get().getValue();
+        return validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst().get().getValue();
     }
 
 
     public Object getValueByIndex(int index, List<Column<?>> columns) {
-        return validateColumnList(columns).get(index).getValue();
+        return validateColumnList(columns).get(validateIndex(index, columns.size()) - 1).getValue();
     }
 
 
     public Column<?> getColumnByName(String name, List<Column<?>> columns) {
-        return validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(name)).findFirst().get();
+        return validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst().get();
     }
 
 
     public Column<?> getColumnByIndex(int index, List<Column<?>> columns) {
-        return validateColumnList(columns).get(index);
+        return validateColumnList(columns).get(validateIndex(index, columns.size()) - 1);
     }
 
 
@@ -54,5 +54,21 @@ public class ColumnService {
             return toValid;
         }
         throw new IllegalArgumentException("Expect List<Column>: got null");
+    }
+
+
+    private int validateIndex(int index, int columnsNumber) {
+        if (index == 0 || index > columnsNumber) {
+            throw new IllegalArgumentException(String.format("Column with index = %s does not exist!", index));
+        }
+        return index;
+    }
+
+
+    private String validateName(String name) {
+        if (name != null) {
+            return name;
+        }
+        throw new IllegalArgumentException("Expect String: got null");
     }
 }

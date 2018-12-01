@@ -79,12 +79,19 @@ class RowServiceTest {
     @Test
     void shouldAddRows() {
         int expected = 10;
-        int actual = service.addRows(generateRowArray(10, false), new ArrayList<>()).size();
+        int actual = service.addRows(generateRowArray(10, false),
+            new ArrayList<>()).size();
 
         assertEquals(expected, actual);
     }
 
 
     @Test
-    void shouldAddRowsThrowException
+    void shouldAddRowsAddProperRows() {
+        Row[] expected = generateRowArray(10, false);
+        Row[] actual = service.addRows(expected,
+            new ArrayList<>()).stream().toArray(Row[]::new);
+
+        assertArrayEquals(expected, actual);
+    }
 }

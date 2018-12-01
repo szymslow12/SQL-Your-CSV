@@ -237,4 +237,11 @@ class ColumnServiceTest {
         assertThrows(IllegalArgumentException.class,
             () -> service.getColumnByIndex(11, getColumnsList(10)));
     }
+
+
+    @Test
+    void shouldGetColumnByIndexThrowExceptionWhenPassedColumnListIsNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getColumnByIndex(10, null));
+    }
 }

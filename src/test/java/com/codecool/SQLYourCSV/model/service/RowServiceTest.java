@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,12 +19,26 @@ class RowServiceTest {
     @Mock
     private ColumnService columnService;
 
-    private Column<String> primaryKey;
 
     @BeforeAll
     private void initializePrivateFields() {
         MockitoAnnotations.initMocks(this);
         service = new RowService();
+    }
+
+
+    private Row[] generateRowArray(int size, boolean isWithPrimaryKey) {
+        if (isWithPrimaryKey) {
+
+            return IntStream.range(0, size).mapToObj(
+                i -> new Row(
+                    columnService,
+                    new Column<>("value" + i, "name" + i)
+                )
+            ).toArray(Row[]::new);
+        }
+        return IntStream.range(0, size).mapToObj(
+            i -> new Row(columnService)).toArray(Row[]::new);
     }
 
 
@@ -49,5 +64,14 @@ class RowServiceTest {
     void shouldAddRowThrowExceptionWhenRowListIsNull() {
         assertThrows(IllegalArgumentException.class,
             () -> service.addRow(new Row(columnService), null));
+    }
+
+
+    @Test
+    void shouldAddRows() {
+        int expected = 10;
+        int actual = service.addRows(generateRowArray(10, false), new ArrayList<>()).size();
+
+        assertEquals(expected, actual);
     }
 }

@@ -24,7 +24,8 @@ public class ColumnService {
 
 
     public Object getValueByName(String name, List<Column<?>> columns) {
-        Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
+        Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(
+            column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
         return validateColumnFromOptional(columnToFind, name).getValue();
     }
 
@@ -35,7 +36,8 @@ public class ColumnService {
 
 
     public Column<?> getColumnByName(String name, List<Column<?>> columns) {
-        Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
+        Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(
+            column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
         return validateColumnFromOptional(columnToFind, name);
     }
 

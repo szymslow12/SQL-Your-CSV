@@ -230,4 +230,11 @@ class ColumnServiceTest {
         assertThrows(IllegalArgumentException.class,
             () -> service.getColumnByIndex(0, getColumnsList(10)));
     }
+
+
+    @Test
+    void shouldGetColumnByIndexThrowExceptionWhenIndexIsBiggerThanActualColumnsNumber() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getColumnByIndex(11, getColumnsList(10)));
+    }
 }

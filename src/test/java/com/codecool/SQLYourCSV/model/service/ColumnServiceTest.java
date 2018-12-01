@@ -191,4 +191,13 @@ class ColumnServiceTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    void shouldGetColumnByNameThrowExceptionOnNotExistColumnName() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getColumnByName("notExist", getColumnsList(10)));
+    }
+
+
+
 }

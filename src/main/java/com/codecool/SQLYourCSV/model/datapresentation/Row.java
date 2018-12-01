@@ -15,7 +15,12 @@ public class Row {
         this.service = service;
         this.primaryKey = primaryKey;
         columns = new ArrayList<>();
-        columns.add(primaryKey);
+        if (primaryKey != null) columns.add(primaryKey);
+    }
+
+
+    public Row(ColumnService service) {
+        this(service, null);
     }
 
 

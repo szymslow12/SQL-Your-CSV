@@ -36,4 +36,11 @@ class RowServiceTest {
 
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    void shouldAddRowThrowExceptionWhenAttemptToAddNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addRow(null, new ArrayList<>()));
+    }
 }

@@ -2,7 +2,7 @@ package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.datapresentation.Column;
 import com.codecool.SQLYourCSV.model.datapresentation.Row;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,7 +20,7 @@ class RowServiceTest {
     private ColumnService columnService;
 
 
-    @BeforeAll
+    @BeforeEach
     private void initializePrivateFields() {
         MockitoAnnotations.initMocks(this);
         service = new RowService();
@@ -93,5 +93,12 @@ class RowServiceTest {
             new ArrayList<>()).stream().toArray(Row[]::new);
 
         assertArrayEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldAddRowsThrowExceptionWhenNullPassedInsteadRowArray() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addRows(null, new ArrayList<>()));
     }
 }

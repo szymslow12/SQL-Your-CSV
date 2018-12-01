@@ -171,5 +171,12 @@ class ColumnServiceTest {
     }
 
 
+    @Test
+    void shouldGetValueByIndexThrowsExceptionWhenPassedColumnsListIsNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getValueByIndex(10, null));
+    }
+
+
 
 }

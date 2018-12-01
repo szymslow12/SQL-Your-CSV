@@ -102,7 +102,7 @@ class ColumnServiceTest {
 
 
     @Test
-    void shouldGetValueByNameReturnProperValue() {
+    void shouldGetValueByNameReturnProperValueOnExistingColumn() {
         String name = "name4";
         String expected = "value4";
         String actual = (String) service.getColumnByName(name, getColumnsList(10)).getValue();

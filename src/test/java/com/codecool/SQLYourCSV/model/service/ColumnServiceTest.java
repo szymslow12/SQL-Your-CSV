@@ -221,5 +221,13 @@ class ColumnServiceTest {
         Column<String> expected = (Column<String>) columns.get(indexToFind - 1);
         Column<?> actual = service.getColumnByIndex(indexToFind, columns);
 
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldGetColumnByIndexThrowExceptionWhenIndexIsZero() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getColumnByIndex(0, getColumnsList(10)));
     }
 }

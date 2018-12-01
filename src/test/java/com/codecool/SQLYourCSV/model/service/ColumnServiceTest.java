@@ -33,7 +33,7 @@ class ColumnServiceTest {
 
 
     @BeforeEach
-    private void initializaPrivateFields() {
+    private void initializePrivateFields() {
         service = new ColumnService();
     }
 

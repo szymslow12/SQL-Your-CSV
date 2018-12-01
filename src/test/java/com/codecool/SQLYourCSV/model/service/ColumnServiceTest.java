@@ -113,7 +113,15 @@ class ColumnServiceTest {
 
     @Test
     void shouldGetValueByNameThrowExceptionWhenPassedColumnNameIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> service.getValueByName(null, getColumnsList(10)));
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getValueByName(null, getColumnsList(10)));
+    }
+
+
+    @Test
+    void shouldGetValueByNameThrowExceptionWhenPassedColumnsListIsNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getValueByName("nameToFind", null));
     }
 
 

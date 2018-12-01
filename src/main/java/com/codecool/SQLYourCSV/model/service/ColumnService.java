@@ -3,6 +3,7 @@ package com.codecool.SQLYourCSV.model.service;
 import com.codecool.SQLYourCSV.model.datapresentation.Column;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ColumnService {
@@ -14,6 +15,7 @@ public class ColumnService {
 
 
     public List<Column<?>> addColumns(Column<?>[] toAdd, List<Column<?>> container) {
+        if (toAdd == null) throw new IllegalArgumentException("Expect Column<?>[]: got null");
         Stream.of(toAdd).forEach(
             column -> validateColumnList(container).add(validateColumn(column))
         );
@@ -22,7 +24,8 @@ public class ColumnService {
 
 
     public Object getValueByName(String name, List<Column<?>> columns) {
-        return validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst().get().getValue();
+        Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
+        return validateColumnFromOptional(columnToFind, name).getValue();
     }
 
 
@@ -32,7 +35,8 @@ public class ColumnService {
 
 
     public Column<?> getColumnByName(String name, List<Column<?>> columns) {
-        return validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst().get();
+        Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
+        return validateColumnFromOptional(columnToFind, name);
     }
 
 
@@ -59,7 +63,7 @@ public class ColumnService {
 
     private int validateIndex(int index, int columnsNumber) {
         if (index == 0 || index > columnsNumber) {
-            throw new IllegalArgumentException(String.format("Column with index = %s does not exist!", index));
+            throw new IllegalArgumentException(String.format("Column with index = '%s' does not exist!", index));
         }
         return index;
     }
@@ -70,5 +74,13 @@ public class ColumnService {
             return name;
         }
         throw new IllegalArgumentException("Expect String: got null");
+    }
+
+
+    private Column<?> validateColumnFromOptional(Optional<Column<?>> toValid, String nameToFind) {
+        if (toValid.isPresent()) {
+            return toValid.get();
+        }
+        throw new IllegalArgumentException(String.format("Column with name = '%s' does not exist!", nameToFind));
     }
 }

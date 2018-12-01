@@ -148,11 +148,18 @@ class ColumnServiceTest {
 
 
     @Test
-    void shouldGetValueByIndexReturnProperValue_ExistColumnIndex() {
+    void shouldGetValueByIndexReturnProperValueOnExistColumnIndex() {
         int indexToFind = 4;
         String expected = "value4";
         String actual = (String) service.getValueByIndex(indexToFind, getColumnsList(10));
 
         assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldGetValueByIndexThrowsExceptionWhenIndexIsZero() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getValueByIndex(0, getColumnsList(10)));
     }
 }

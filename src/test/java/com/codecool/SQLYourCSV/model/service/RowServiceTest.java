@@ -108,4 +108,13 @@ class RowServiceTest {
         assertThrows(IllegalArgumentException.class,
             () -> service.addRows(generateRowArray(10, false), null));
     }
+
+
+    @Test
+    void shouldAddRowsThrowExceptionWhenAttemptToAddNull() {
+        Row[] toAdd = new Row[] {new Row(columnService), null};
+
+        assertThrows(IllegalArgumentException.class,
+            () -> service.addRows(toAdd, new ArrayList<>()));
+    }
 }

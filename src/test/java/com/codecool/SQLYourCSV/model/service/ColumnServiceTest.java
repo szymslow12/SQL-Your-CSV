@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.datapresentation.Column;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -109,6 +110,11 @@ class ColumnServiceTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    void shouldGetValueByNameThrowExceptionWhenPassedColumnNameIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> service.getValueByName(null, getColumnsList(10)));
+    }
 
 
     private Column<?>[] generateColumnArray(int size) {

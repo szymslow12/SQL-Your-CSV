@@ -1,5 +1,7 @@
 package com.codecool.SQLYourCSV.model.enumeration;
 
+import com.codecool.SQLYourCSV.model.enumeration.helpers.Selector;
+
 public enum Command {
     SELECT(),
     FROM(),

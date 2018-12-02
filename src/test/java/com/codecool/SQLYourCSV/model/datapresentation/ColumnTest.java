@@ -55,9 +55,17 @@ class ColumnTest {
         Column<String> column1 = new Column<>("value", "name");
         Column<String> column2 = new Column<>("value", "name");
 
+        assertNotSame(column1, column2);
         assertEquals(column1.hashCode(), column2.hashCode());
     }
 
 
+    @Test
+    void shouldHashCodeBeDifferentOnDifferentObjects() {
+        Column<String> column1 = new Column<>("value1", "name1");
+        Column<String> column2 = new Column<>("value2", "name2");
 
+        assertNotSame(column1, column2);
+        assertNotEquals(column1.hashCode(), column2.hashCode());
+    }
 }

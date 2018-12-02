@@ -17,4 +17,23 @@ public enum Command {
         this.rules = rules;
     }
 
+
+    public String getName() {
+        return name;
+    }
+
+
+    public boolean isComparator() {
+        return isComparator;
+    }
+
+
+    public Selector<?> selector() {
+        return selector;
+    }
+
+
+    public Rule[] rules() {
+        return rules;
+    }
 }

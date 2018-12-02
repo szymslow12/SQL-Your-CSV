@@ -26,30 +26,31 @@ public class TableService {
         return data;
     }
 
-//refactor needed
+
     public Table createTableFromFile(String filename) {
-        if (data.getSingleFileData(filename) == null) {
-            data.loadFromFile(filename);
-        }
+        loadData(filename);
+
         List<String[]> dataFromCSV = data.getSingleFileData(filename);
         String[] columnsNames = dataFromCSV.get(0);
 
-        Table table = new Table(
-            createHeader(columnsNames),
-            new RowService(),
-            filename.substring(0, filename.indexOf("."))
-        );
+        Table table = createTable(filename, columnsNames);
 
-        IntStream.range(1, dataFromCSV.size()).forEach(
-            i -> table.setRows(
-                table.getService().addRow(
-                    createRow(dataFromCSV.get(i), columnsNames),
-                    table.getRows()
-                )
-            )
-        );
+        addTableRows(table, dataFromCSV, columnsNames);
 
         return table;
+    }
+
+
+    private void loadData(String filename) {
+        if (data.getSingleFileData(filename) == null) {
+            data.loadFromFile(filename);
+        }
+    }
+
+
+    private Table createTable(String filename, String[] columnsNames) {
+        return new Table(createHeader(columnsNames), new RowService(),
+            filename.substring(0, filename.indexOf(".")));
     }
 
 
@@ -63,6 +64,18 @@ public class TableService {
 
     private void addColumnToHeader(String name, Row header) {
         header.setColumns(header.getService().addColumn(new Column<>(name, name), header.getColumns()));
+    }
+
+
+    private void addTableRows(Table table, List<String[]> dataFromCSV, String[] columnsNames) {
+        IntStream.range(1, dataFromCSV.size()).forEach(
+                i -> table.setRows(
+                        table.getService().addRow(
+                                createRow(dataFromCSV.get(i), columnsNames),
+                                table.getRows()
+                        )
+                )
+        );
     }
 
 

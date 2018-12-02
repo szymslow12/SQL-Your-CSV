@@ -40,5 +40,15 @@ class ColumnTest {
     }
 
 
+    @Test
+    void shouldEquals_Symmetric() {
+        Column<String> column1 = new Column<>("value", "name");
+        Column<String> column2 = new Column<>("value", "name");
+
+        assertTrue(column1.equals(column2) && column2.equals(column1));
+        assertEquals(column1.hashCode(), column2.hashCode());
+    }
+
+
 
 }

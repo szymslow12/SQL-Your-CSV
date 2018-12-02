@@ -9,31 +9,31 @@ import java.util.stream.Stream;
 public class RowService {
 
     public List<Row> addRow(Row toAdd, List<Row> rows) {
-        rows.add(validateRow(toAdd));
+        validateRowList(rows).add(validateRow(toAdd));
         return rows;
     }
 
 
     public List<Row> addRows(Row[] toAdd, List<Row> rows) {
-        Stream.of(toAdd).forEach(row -> rows.add(validateRow(row)));
+        Stream.of(toAdd).forEach(row -> validateRowList(rows).add(validateRow(row)));
         return rows;
     }
 
 
     public Row getRowByIndex(int index, List<Row> rows) {
-        return rows.get(validateIndex(index, rows.size()));
+        return validateRowList(rows).get(validateIndex(index, rows.size()));
     }
 
 
     public Row getRowByPrimaryKey(Column<?> primaryKey, List<Row> rows) {
-        return rows.stream().filter(
+        return validateRowList(rows).stream().filter(
             row -> row.getPrimaryKey().getValue() == primaryKey.getValue()
         ).findFirst().get();
     }
 
 
     public Row getRowByColumnValue(Column<?> toFind, List<Row> rows) {
-        return rows.stream().filter(
+        return validateRowList(rows).stream().filter(
             row -> row.getColumns().stream().anyMatch(
                 column -> findColumnToFind(column, toFind)
             )
@@ -59,5 +59,13 @@ public class RowService {
             throw new IllegalArgumentException(String.format("Row with index = '%s' does not exist!", index));
         }
         return index;
+    }
+
+
+    private List<Row> validateRowList(List<Row> toValid) {
+        if (toValid != null) {
+            return toValid;
+        }
+        throw new IllegalArgumentException("Expect List<Row>: got null");
     }
 }

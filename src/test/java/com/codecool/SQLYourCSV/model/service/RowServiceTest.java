@@ -180,5 +180,13 @@ class RowServiceTest {
     }
 
 
-
+    @Test
+    void shouldGetRowByPrimaryKeyThrowExceptionWhenPassedRowListIsNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getRowByPrimaryKey(
+                new Column<>("value1", "name1"),
+                null
+            )
+        );
+    }
 }

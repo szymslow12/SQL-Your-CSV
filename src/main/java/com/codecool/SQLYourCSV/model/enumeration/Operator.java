@@ -1,5 +1,7 @@
 package com.codecool.SQLYourCSV.model.enumeration;
 
+import com.codecool.SQLYourCSV.model.datastructure.Column;
+
 import java.util.EnumSet;
 
 public enum Operator {
@@ -22,4 +24,7 @@ public enum Operator {
     public EnumSet<Command> belongsTo() {
         return belongsTo;
     }
+
+
+    public abstract boolean compare(Column<?> base, Column<?> toCompare);
 }

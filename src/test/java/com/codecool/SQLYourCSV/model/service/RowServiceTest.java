@@ -160,4 +160,15 @@ class RowServiceTest {
         assertThrows(IllegalArgumentException.class,
             () -> service.getRowByIndex(1, null));
     }
+
+
+    @Test
+    void shouldGetRowByPrimaryKeyReturnProperRow() {
+        List<Row> rows = generateRowList(10, true);
+
+        Row expected = rows.get(4);
+        Row actual = service.getRowByPrimaryKey(expected.getPrimaryKey(), rows);
+
+        assertEquals(expected, actual);
+    }
 }

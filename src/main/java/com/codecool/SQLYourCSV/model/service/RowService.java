@@ -21,7 +21,7 @@ public class RowService {
 
 
     public Row getRowByIndex(int index, List<Row> rows) {
-        return rows.get(index);
+        return rows.get(validateIndex(index, rows.size()));
     }
 
 
@@ -51,5 +51,13 @@ public class RowService {
             return toValid;
         }
         throw new IllegalArgumentException("Expect Row: got null");
+    }
+
+
+    private int validateIndex(int index, int rowListSize) {
+        if (index == 0 && index > rowListSize) {
+            throw new IllegalArgumentException(String.format("Row with index = '%s' does not exist!", index));
+        }
+        return index;
     }
 }

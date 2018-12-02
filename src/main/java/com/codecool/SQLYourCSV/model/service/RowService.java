@@ -9,13 +9,13 @@ import java.util.stream.Stream;
 public class RowService {
 
     public List<Row> addRow(Row toAdd, List<Row> rows) {
-        rows.add(toAdd);
+        rows.add(validateRow(toAdd));
         return rows;
     }
 
 
     public List<Row> addRows(Row[] toAdd, List<Row> rows) {
-        Stream.of(toAdd).forEach(row -> rows.add(row));
+        Stream.of(toAdd).forEach(row -> rows.add(validateRow(row)));
         return rows;
     }
 
@@ -43,5 +43,13 @@ public class RowService {
 
     private boolean findColumnToFind(Column<?> column, Column<?> toFind) {
         return column.getName() == toFind.getName() & column.getValue() == toFind.getValue();
+    }
+
+
+    private Row validateRow(Row toValid) {
+        if (toValid != null) {
+            return toValid;
+        }
+        throw new IllegalArgumentException("Expect Row: got null");
     }
 }

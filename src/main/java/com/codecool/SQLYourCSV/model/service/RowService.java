@@ -31,7 +31,7 @@ public class RowService {
         if (primaryKey == null) throw new IllegalArgumentException("Expect Column<?>: got null");
 
         Optional<Row> rowToFind = validateRowList(rows).stream().filter(
-                row -> row.getPrimaryKey().getValue() == primaryKey.getValue()
+                row -> row.getPrimaryKey().equals(primaryKey)
         ).findFirst();
 
         return validateAndGetRowFromOptional(rowToFind, primaryKey.getName(), primaryKey.getValue().toString());
@@ -43,16 +43,11 @@ public class RowService {
 
         Optional<Row> rowToFind = validateRowList(rows).stream().filter(
                 row -> row.getColumns().stream().anyMatch(
-                        column -> findColumnToFind(column, toFind)
+                        column -> column.equals(toFind)
                 )
         ).findFirst();
 
         return validateAndGetRowFromOptional(rowToFind, toFind.getName(), toFind.getValue().toString());
-    }
-
-
-    private boolean findColumnToFind(Column<?> column, Column<?> toFind) {
-        return column.getName() == toFind.getName() & column.getValue() == toFind.getValue();
     }
 
 

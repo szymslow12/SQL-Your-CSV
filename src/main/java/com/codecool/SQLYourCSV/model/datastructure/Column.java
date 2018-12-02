@@ -1,4 +1,4 @@
-package com.codecool.SQLYourCSV.model.datapresentation;
+package com.codecool.SQLYourCSV.model.datastructure;
 
 public class Column<T> {
 

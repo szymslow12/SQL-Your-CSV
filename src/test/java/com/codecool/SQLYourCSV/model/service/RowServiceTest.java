@@ -1,7 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
-import com.codecool.SQLYourCSV.model.datapresentation.Column;
-import com.codecool.SQLYourCSV.model.datapresentation.Row;
+import com.codecool.SQLYourCSV.model.datastructure.Column;
+import com.codecool.SQLYourCSV.model.datastructure.Row;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

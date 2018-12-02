@@ -1,6 +1,6 @@
 package com.codecool.SQLYourCSV.model.service;
 
-import com.codecool.SQLYourCSV.model.datapresentation.Column;
+import com.codecool.SQLYourCSV.model.datastructure.Column;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
-import com.codecool.SQLYourCSV.model.datapresentation.Column;
-import com.codecool.SQLYourCSV.model.datapresentation.Row;
+import com.codecool.SQLYourCSV.model.datastructure.Column;
+import com.codecool.SQLYourCSV.model.datastructure.Row;
 
 import java.util.List;
 import java.util.Optional;

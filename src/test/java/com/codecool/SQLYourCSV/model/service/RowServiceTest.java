@@ -8,7 +8,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -129,5 +131,15 @@ class RowServiceTest {
         });
 
         assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldGetRowByIndexThrowExceptionWhenIndexIsZero() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getRowByIndex(0,
+                Stream.of(generateRowArray(10, false)
+            ).collect(Collectors.toList()))
+        );
     }
 }

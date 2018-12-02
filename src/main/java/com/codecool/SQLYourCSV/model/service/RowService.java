@@ -34,11 +34,7 @@ public class RowService {
                 row -> row.getPrimaryKey().getValue() == primaryKey.getValue()
         ).findFirst();
 
-        return validateRowFromOptional(
-                rowToFind,
-                primaryKey.getName(),
-                primaryKey.getValue().toString()
-        ).get();
+        return validateAndGetRowFromOptional(rowToFind, primaryKey.getName(), primaryKey.getValue().toString());
     }
 
 
@@ -51,11 +47,7 @@ public class RowService {
                 )
         ).findFirst();
 
-        return validateRowFromOptional(
-                rowToFind,
-                toFind.getName(),
-                toFind.getValue().toString()
-        ).get();
+        return validateAndGetRowFromOptional(rowToFind, toFind.getName(), toFind.getValue().toString());
     }
 
 
@@ -90,12 +82,10 @@ public class RowService {
     }
 
 
-    private Optional<Row> validateRowFromOptional(Optional<Row> toValid, String name, String value) {
+    private Row validateAndGetRowFromOptional(Optional<Row> toValid, String name, String value) {
         if (toValid.isPresent()) {
-            return toValid;
+            return toValid.get();
         }
-        throw new IllegalArgumentException(
-            String.format("Row with name = %s, value = %s does not exist", name, value)
-        );
+        return null;
     }
 }

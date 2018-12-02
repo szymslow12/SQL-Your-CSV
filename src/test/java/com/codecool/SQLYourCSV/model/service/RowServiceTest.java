@@ -171,4 +171,14 @@ class RowServiceTest {
 
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    void shouldGetRowByPrimaryKeyThrowExceptionWhenAttemptToFindByNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getRowByPrimaryKey(null, generateRowList(10, true)));
+    }
+
+
+
 }

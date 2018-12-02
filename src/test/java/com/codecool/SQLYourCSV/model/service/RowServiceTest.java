@@ -227,5 +227,15 @@ class RowServiceTest {
     }
 
 
+    @Test
+    void shouldGetRowByColumnValueThrowExceptionWhenRowListIsNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getRowByColumnValue(
+                new Column<>("value1", "name1"), null
+            )
+        );
+    }
+
+
 
 }

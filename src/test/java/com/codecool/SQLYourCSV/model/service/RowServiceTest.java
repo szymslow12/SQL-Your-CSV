@@ -189,4 +189,13 @@ class RowServiceTest {
             )
         );
     }
+
+
+    @Test
+    void shouldGetRowByPrimaryKeyReturnNullWhenAttemptToFindByNotExistKey() {
+        assertNull(service.getRowByPrimaryKey(
+            new Column<>("dont", "exists"),
+            generateRowList(10, true)
+        ));
+    }
 }

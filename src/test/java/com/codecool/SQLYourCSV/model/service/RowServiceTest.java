@@ -209,4 +209,13 @@ class RowServiceTest {
 
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    void shouldGetRowByColumnValueReturnNullWhenAttemptToFindNotExistValue() {
+        assertNull(service.getRowByColumnValue(
+            new Column<>("Not", "exist"),
+            generateRowList(10, true))
+        );
+    }
 }

@@ -50,5 +50,14 @@ class ColumnTest {
     }
 
 
+    @Test
+    void shouldHashCodeBeTheSameOnSimilarObjects() {
+        Column<String> column1 = new Column<>("value", "name");
+        Column<String> column2 = new Column<>("value", "name");
+
+        assertEquals(column1.hashCode(), column2.hashCode());
+    }
+
+
 
 }

@@ -153,4 +153,11 @@ class RowServiceTest {
         assertThrows(IllegalArgumentException.class,
             () -> service.getRowByIndex(11, generateRowList(10, false)));
     }
+
+
+    @Test
+    void shouldGetRowByIndexThrowExceptionWhenPassedRowListIsNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getRowByIndex(1, null));
+    }
 }

@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -41,6 +42,12 @@ class RowServiceTest {
         }
         return IntStream.range(0, size).mapToObj(
             i -> new Row(columnService)).toArray(Row[]::new);
+    }
+
+
+    private List<Row> generateRowList(int size, boolean isWithPrimaryKey) {
+        return Stream.of(generateRowArray(size, isWithPrimaryKey)
+            ).collect(Collectors.toList());
     }
 
 
@@ -137,9 +144,13 @@ class RowServiceTest {
     @Test
     void shouldGetRowByIndexThrowExceptionWhenIndexIsZero() {
         assertThrows(IllegalArgumentException.class,
-            () -> service.getRowByIndex(0,
-                Stream.of(generateRowArray(10, false)
-            ).collect(Collectors.toList()))
-        );
+            () -> service.getRowByIndex(0, ));
+    }
+
+
+    @Test
+    void shouldGetRowByIndexThrowExceptionWhenIndexBiggerThanActualRowNumber() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getRowByIndex(11, ));
     }
 }

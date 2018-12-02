@@ -41,6 +41,11 @@ public class TableService {
     }
 
 
+    public Table createTableFromQuery(Query query ) {
+        return null;
+    }
+
+
     private void loadData(String filename) {
         if (data.getSingleFileData(filename) == null) {
             data.loadFromFile(filename);
@@ -91,10 +96,5 @@ public class TableService {
         );
 
         return row;
-    }
-
-
-    public Table createTableFromQuery(Query query ) {
-        return null;
     }
 }

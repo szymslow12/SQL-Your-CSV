@@ -94,6 +94,8 @@ public class RowService {
         if (toValid.isPresent()) {
             return toValid;
         }
-        throw new IllegalArgumentException("Row with name = %s, value = %s does not exist");
+        throw new IllegalArgumentException(
+            String.format("Row with name = %s, value = %s does not exist", name, value)
+        );
     }
 }

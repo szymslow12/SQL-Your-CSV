@@ -24,8 +24,10 @@ public class ColumnService {
 
 
     public Object getValueByName(String name, List<Column<?>> columns) {
+
         Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(
             column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
+
         return validateColumnFromOptional(columnToFind, name).getValue();
     }
 
@@ -36,8 +38,10 @@ public class ColumnService {
 
 
     public Column<?> getColumnByName(String name, List<Column<?>> columns) {
+
         Optional<Column<?>> columnToFind = validateColumnList(columns).stream().filter(
             column -> column.getName().equalsIgnoreCase(validateName(name))).findFirst();
+
         return validateColumnFromOptional(columnToFind, name);
     }
 
@@ -65,7 +69,9 @@ public class ColumnService {
 
     private int validateIndex(int index, int columnsNumber) {
         if (index == 0 || index > columnsNumber) {
-            throw new IllegalArgumentException(String.format("Column with index = '%s' does not exist!", index));
+            throw new IllegalArgumentException(
+                String.format("Column with index = '%s' does not exist!", index)
+            );
         }
         return index;
     }
@@ -83,6 +89,8 @@ public class ColumnService {
         if (toValid.isPresent()) {
             return toValid.get();
         }
-        throw new IllegalArgumentException(String.format("Column with name = '%s' does not exist!", nameToFind));
+        throw new IllegalArgumentException(
+            String.format("Column with name = '%s' does not exist!", nameToFind)
+        );
     }
 }

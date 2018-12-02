@@ -117,4 +117,17 @@ class RowServiceTest {
         assertThrows(IllegalArgumentException.class,
             () -> service.addRows(toAdd, new ArrayList<>()));
     }
+
+
+    @Test
+    void shouldGetRowByIndexReturnProperRow() {
+        Row expected = new Row(columnService);
+        Row actual = service.getRowByIndex(1, new ArrayList<Row>() {
+            {
+                add(expected);
+            }
+        });
+
+        assertEquals(expected, actual);
+    }
 }

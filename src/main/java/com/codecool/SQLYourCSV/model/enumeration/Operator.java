@@ -12,4 +12,14 @@ public enum Operator {
         this.value = value;
         this.belongsTo = belongsTo;
     }
+
+
+    public String value() {
+        return value;
+    }
+
+
+    public EnumSet<Command> belongsTo() {
+        return belongsTo;
+    }
 }

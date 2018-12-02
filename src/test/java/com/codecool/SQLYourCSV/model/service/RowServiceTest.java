@@ -218,4 +218,14 @@ class RowServiceTest {
             generateRowList(10, true))
         );
     }
+
+
+    @Test
+    void shouldGetRowByColumnValueThrowExceptionWhenPassedNullInsteadColumn() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.getRowByColumnValue(null, generateRowList(10, true)));
+    }
+
+
+
 }

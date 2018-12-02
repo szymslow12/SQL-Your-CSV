@@ -1,5 +1,7 @@
 package com.codecool.SQLYourCSV.model.query;
 
+import com.codecool.SQLYourCSV.model.enumeration.Command;
+
 public class Query {
 
     private Command[] commands;

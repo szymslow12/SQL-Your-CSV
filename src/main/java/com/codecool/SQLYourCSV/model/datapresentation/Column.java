@@ -42,7 +42,6 @@ public class Column<T> {
         Column<?> columnToCompare;
         if (toComapre instanceof Column) {
             columnToCompare = (Column<?>) toComapre;
-            System.out.println(this.hashCode() + " " + columnToCompare.hashCode());
             return this.hashCode() == columnToCompare.hashCode();
         }
         return false;

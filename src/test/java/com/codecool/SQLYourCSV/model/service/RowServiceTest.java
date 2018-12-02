@@ -198,4 +198,15 @@ class RowServiceTest {
             generateRowList(10, true)
         ));
     }
+
+
+    @Test
+    void shouldGetRowByColumnValueReturnProperRow() {
+        Column<String> toFind = new Column<>("value5", "name5");
+
+        Row expected = new Row(columnService, toFind);
+        Row actual = service.getRowByColumnValue(toFind, generateRowList(10, true));
+
+        assertEquals(expected, actual);
+    }
 }

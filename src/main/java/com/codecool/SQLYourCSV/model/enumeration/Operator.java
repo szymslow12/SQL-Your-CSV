@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.enumeration;
 
 import com.codecool.SQLYourCSV.model.datastructure.Column;
+import com.codecool.SQLYourCSV.model.enumeration.helpers.OperatorValuesValidator;
 
 import java.util.EnumSet;
 
@@ -25,7 +26,10 @@ public enum Operator {
 
     EQUALS("=", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
-            return false;
+            if (OperatorValuesValidator.isValid(base, toCompare)) {
+                return base.getValue().hashCode() == toCompare.getValue().hashCode();
+            }
+            throw new IllegalArgumentException("Expect same Type: got different");
         }
     },
 

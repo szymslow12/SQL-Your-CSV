@@ -133,7 +133,7 @@ class OperatorTest {
         Column<String> stringColumn1 = new Column<>("string1", "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> biggerThan(stringColumn, stringColumn1));
+            () -> biggerThan(stringColumn, stringColumn1));
     }
 
 
@@ -193,7 +193,7 @@ class OperatorTest {
         Column<String> stringColumn1 = new Column<>("string1", "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> smallerThan(stringColumn, stringColumn1));
+            () -> smallerThan(stringColumn, stringColumn1));
     }
 
 
@@ -238,6 +238,17 @@ class OperatorTest {
         assertThrows(IllegalArgumentException.class,
             () -> biggerThanOrEquals(null, null));
     }
+
+
+    @Test
+    void shouldBIGGER_THAN_OR_EQUAL_ThrowExceptionWhenAttemptToCompareNotAllowedTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<String> stringColumn1 = new Column<>("string1", "name");
+
+        assertThrows(IllegalArgumentException.class,
+            () -> biggerThanOrEquals(stringColumn, stringColumn1));
+    }
+
 
 
     @Test

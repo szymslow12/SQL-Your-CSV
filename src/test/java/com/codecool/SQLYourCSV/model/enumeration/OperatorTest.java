@@ -99,6 +99,15 @@ class OperatorTest {
         Column<Integer> bigger = new Column<>(2, "name");
         Column<Integer> smaller = new Column<>(1, "name");
 
-        assertFalse(biggerThan(bigger, smaller));
+        assertTrue(biggerThan(bigger, smaller));
+    }
+
+
+    @Test
+    void shouldBIGGER_THAN_CompareProperlySmallerValue() {
+        Column<Integer> bigger = new Column<>(2, "name");
+        Column<Integer> smaller = new Column<>(1, "name");
+
+        assertFalse(biggerThan(smaller, bigger));
     }
 }

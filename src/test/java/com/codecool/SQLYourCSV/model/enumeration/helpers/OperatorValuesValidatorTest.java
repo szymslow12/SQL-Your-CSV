@@ -128,4 +128,62 @@ class OperatorValuesValidatorTest {
         assertThrows(IllegalArgumentException.class,
             () -> OperatorValuesValidator.areBooleans(null, null));
     }
+
+
+    @Test
+    void testAreSelectedType_StringCase() {
+        Column<String> toTest = new Column<>("value", "name");
+
+        assertTrue(OperatorValuesValidator.areSelectedType(toTest, toTest, String.class));
+    }
+
+
+    @Test
+    void testAreSelectedType_OneStringOneDifferent() {
+        Column<String> integerColumn = new Column<>("value", "name");
+        Column<Boolean> booleanColumn = new Column<>(false, "name");
+
+        assertFalse(OperatorValuesValidator.areSelectedType(integerColumn, booleanColumn, String.class));
+    }
+
+
+    @Test
+    void testAreSelectedType_SameTypeAndDifferentSelectedType() {
+        Column<String> toTest1 = new Column<>("value", "name");
+        Column<String> toTest2 = new Column<>("value", "name");
+
+        assertFalse(OperatorValuesValidator.areSelectedType(toTest1, toTest2, Integer.class));
+    }
+
+
+    @Test
+    void testAreSelectedTypeThrowsExceptionWhenNullsIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+            () -> OperatorValuesValidator.areSelectedType(null, null, null));
+    }
+
+
+    @Test
+    void testAreSelectedTypeThrowsExceptionWhenSelectedTypeIsNull() {
+        Column<String> toTest = new Column<>("value", "name");
+
+        assertThrows(IllegalArgumentException.class,
+            () -> OperatorValuesValidator.areSelectedType(toTest, toTest, null));
+    }
+
+
+    @Test
+    void testAreSelectedTypeThrowsExceptionWhenColumnsToCheckAreNull() {
+        assertThrows(IllegalArgumentException.class,
+            () -> OperatorValuesValidator.areSelectedType(null, null, String.class));
+    }
+
+
+    @Test
+    void testAreSelectedTypeThrowsExceptionWhenColumnsToCheckHasNullValues() {
+        Column<String> toTest = new Column<>(null, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> OperatorValuesValidator.areSelectedType(toTest, toTest, String.class));
+    }
 }

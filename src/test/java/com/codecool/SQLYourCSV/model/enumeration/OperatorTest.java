@@ -29,4 +29,13 @@ class OperatorTest {
         assertTrue(compare(first, second));
     }
 
+
+    @Test
+    void shouldEQUALS_CompareProperlyNotSameColumn() {
+        Column<String> first = new Column<>("first", "first");
+        Column<String> second = new Column<>("second", "second");
+
+        assertFalse(compare(first, second));
+    }
+
 }

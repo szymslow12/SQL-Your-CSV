@@ -129,8 +129,13 @@ public enum Operator {
     },
 
     LIKE("like", EnumSet.of(Command.WHERE)) {
-        public boolean compare(Column<?> base, Column<?> toCompare) {
-            return false;
+        public boolean compare(Column<?> toCompare, Column<?> pattern) {
+            if (OperatorValuesValidator.areSameType(toCompare, pattern) &&
+                OperatorValuesValidator.areStrings(toCompare, pattern)) {
+                
+                return ((String) toCompare.getValue()).matches((String) pattern.getValue());
+            }
+            throw new IllegalArgumentException("Expect same Type or Boolean Type: got different");
         }
     },
 

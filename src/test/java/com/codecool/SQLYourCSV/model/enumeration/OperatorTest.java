@@ -300,7 +300,7 @@ class OperatorTest {
         Column<String> stringColumn1 = new Column<>("string1", "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> smallerThanOrEquals(stringColumn, stringColumn1));
+            () -> smallerThanOrEquals(stringColumn, stringColumn1));
     }
 
 
@@ -336,6 +336,16 @@ class OperatorTest {
     void shouldLIKE_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
             () -> like(null, null));
+    }
+
+
+    @Test
+    void shouldLIKE_ThrowExceptionWhenAttemptToCompareNotAllowedTypes() {
+        Column<Integer> stringColumn = new Column<>(1, "name");
+        Column<Integer> stringColumn1 = new Column<>(2, "name");
+
+        assertThrows(IllegalArgumentException.class,
+            () -> like(stringColumn, stringColumn1));
     }
 
 

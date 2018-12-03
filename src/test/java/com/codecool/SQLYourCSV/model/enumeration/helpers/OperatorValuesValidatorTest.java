@@ -95,4 +95,37 @@ class OperatorValuesValidatorTest {
         assertThrows(IllegalArgumentException.class,
             () -> OperatorValuesValidator.areStrings(null, null));
     }
+
+
+    @Test
+    void testAreBooleans_BooleanCase() {
+        Column<Boolean> toTest = new Column<>(true, "name");
+
+        assertTrue(OperatorValuesValidator.areBooleans(toTest, toTest));
+    }
+
+
+    @Test
+    void testAreBooleans_OneBooleanOneDifferent() {
+        Column<Integer> integerColumn = new Column<>(1, "name");
+        Column<Boolean> booleanColumn = new Column<>(false, "name");
+
+        assertFalse(OperatorValuesValidator.areBooleans(integerColumn, booleanColumn));
+    }
+
+
+    @Test
+    void testAreBooleans_NotBooleans() {
+        Column<String> toTest1 = new Column<>("value", "name");
+        Column<String> toTest2 = new Column<>("value", "name");
+
+        assertFalse(OperatorValuesValidator.areBooleans(toTest1, toTest2));
+    }
+
+
+    @Test
+    void testAreBooleansThrowsExceptionWhenNullsIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+            () -> OperatorValuesValidator.areBooleans(null, null));
+    }
 }

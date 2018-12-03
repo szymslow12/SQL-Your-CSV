@@ -353,7 +353,7 @@ class OperatorTest {
     void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_EqualValues() {
         Column<Integer> toCompare = new Column<>(1, "name");
 
-        assertTrue(biggerThanOrEquals(toCompare, toCompare));
+        assertTrue(smallerThanOrEquals(toCompare, toCompare));
     }
 
 
@@ -361,7 +361,7 @@ class OperatorTest {
     void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_LongCase() {
         Column<Long> toCompare = new Column<>(1l, "name");
 
-        assertTrue(biggerThanOrEquals(toCompare, toCompare));
+        assertTrue(smallerThanOrEquals(toCompare, toCompare));
     }
 
 
@@ -369,7 +369,7 @@ class OperatorTest {
     void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_FloatCase() {
         Column<Float> toCompare = new Column<>(1.1f, "name");
 
-        assertTrue(biggerThanOrEquals(toCompare, toCompare));
+        assertTrue(smallerThanOrEquals(toCompare, toCompare));
     }
 
 
@@ -377,7 +377,7 @@ class OperatorTest {
     void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_DoubleCase() {
         Column<Double> toCompare = new Column<>(1.1d, "name");
 
-        assertTrue(biggerThanOrEquals(toCompare, toCompare));
+        assertTrue(smallerThanOrEquals(toCompare, toCompare));
     }
 
 

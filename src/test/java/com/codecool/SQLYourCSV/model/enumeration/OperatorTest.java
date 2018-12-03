@@ -135,4 +135,13 @@ class OperatorTest {
 
         assertFalse(smallerThan(toCompare, toCompare));
     }
+
+
+    @Test
+    void shouldSMALLER_THAN_CompareProperly_BiggerValue() {
+        Column<Integer> bigger = new Column<>(2, "name");
+        Column<Integer> smaller = new Column<>(1, "name");
+
+        assertTrue(smallerThan(bigger, smaller));
+    }
 }

@@ -42,6 +42,6 @@ public class OperatorValuesValidator {
 
 
     private static boolean areColumnsNull(Column<?> toCheck, Column<?> toCheck1) {
-        return toCheck == null || toCheck1 == null;
+        return toCheck == null || toCheck1 == null || toCheck.getValue() == null || toCheck1.getValue() == null;
     }
 }

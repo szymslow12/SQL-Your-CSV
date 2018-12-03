@@ -450,6 +450,14 @@ class OperatorTest {
 
 
     @Test
+    void shouldSMALLER_THAN_OR_EQUAL_ThrowExceptionWhenTypesAreNotAllowed() {
+        Column<Short> notAllowed = new Column<>((short) 1, "name");
+        assertThrows(IllegalArgumentException.class,
+            () -> smallerThanOrEquals(notAllowed, notAllowed));
+    }
+
+
+    @Test
     void shouldLIKE_CompareProperly_ValueMatchPattern() {
         Column<String> toCompare = new Column<>("value", "name");
         Column<String> pattern = new Column<>("^v{1}.*$", "name");

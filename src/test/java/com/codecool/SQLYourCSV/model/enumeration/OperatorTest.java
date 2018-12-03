@@ -28,6 +28,11 @@ class OperatorTest {
     }
 
 
+    private boolean smallerThanOrEquals(Column<?> first, Column<?> second) {
+        return Operator.SMALLER_THAN_OR_EQUAL.compare(first, second);
+    }
+
+
     private boolean like(Column<?> first, Column<?> second) {
         return Operator.LIKE.compare(first, second);
     }
@@ -212,5 +217,48 @@ class OperatorTest {
     void shouldBIGGER_THAN_OR_EQUAL_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
                 () -> biggerThanOrEquals(null, null));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_EqualValues() {
+        Column<Integer> toCompare = new Column<>(1, "name");
+
+        assertTrue(biggerThanOrEquals(toCompare, toCompare));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_BiggerValue() {
+        Column<Integer> bigger = new Column<>(2, "name");
+        Column<Integer> smaller = new Column<>(1, "name");
+
+        assertFalse(smallerThanOrEquals(bigger, smaller));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_SmallerValue() {
+        Column<Integer> bigger = new Column<>(2, "name");
+        Column<Integer> smaller = new Column<>(1, "name");
+
+        assertTrue(smallerThanOrEquals(smaller, bigger));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_OR_EQUAL_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<Integer> integerColumn = new Column<>(1, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> smallerThanOrEquals(stringColumn, integerColumn));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_OR_EQUAL_ThrowExceptionWhenNullIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+                () -> smallerThanOrEquals(null, null));
     }
 }

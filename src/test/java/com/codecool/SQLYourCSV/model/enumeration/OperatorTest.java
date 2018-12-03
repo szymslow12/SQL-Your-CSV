@@ -13,6 +13,36 @@ class OperatorTest {
     }
 
 
+    private boolean biggerThan(Column<?> first, Column<?> second) {
+        return Operator.BIGGER_THAN.compare(first, second);
+    }
+
+
+    private boolean smallerThan(Column<?> first, Column<?> second) {
+        return Operator.SMALLER_THAN.compare(first, second);
+    }
+
+
+    private boolean biggerThanOrEquals(Column<?> first, Column<?> second) {
+        return Operator.BIGGER_THAN_OR_EQULAS.compare(first, second);
+    }
+
+
+    private boolean like(Column<?> first, Column<?> second) {
+        return Operator.LIKE.compare(first, second);
+    }
+
+
+    private boolean and(Column<?> first, Column<?> second) {
+        return Operator.AND.compare(first, second);
+    }
+
+
+    private boolean or(Column<?> first, Column<?> second) {
+        return Operator.OR.compare(first, second);
+    }
+
+
     @Test
     void shouldEQUALS_CompareProperlySameColumn_OneReference() {
         Column<String> toCompare = new Column<>("value", "name");

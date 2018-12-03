@@ -216,7 +216,7 @@ class OperatorTest {
     @Test
     void shouldBIGGER_THAN_OR_EQUAL_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-                () -> biggerThanOrEquals(null, null));
+            () -> biggerThanOrEquals(null, null));
     }
 
 
@@ -252,14 +252,14 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> smallerThanOrEquals(stringColumn, integerColumn));
+            () -> smallerThanOrEquals(stringColumn, integerColumn));
     }
 
 
     @Test
     void shouldSMALLER_THAN_OR_EQUAL_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-                () -> smallerThanOrEquals(null, null));
+            () -> smallerThanOrEquals(null, null));
     }
 
 
@@ -287,13 +287,55 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> like(stringColumn, integerColumn));
+            () -> like(stringColumn, integerColumn));
     }
 
 
     @Test
     void shouldLIKE_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-                () -> like(null, null));
+            () -> like(null, null));
+    }
+
+
+    @Test
+    void shouldAND_CompareProperly_BothConditionAreTrue() {
+        Column<Boolean> toCompare = new Column<>(true, "name");
+
+        assertTrue(and(toCompare, toCompare));
+    }
+
+
+    @Test
+    void shouldAND_CompareProperly_BothConditionAreFalse() {
+        Column<Boolean> toCompare = new Column<>(false, "name");
+
+        assertFalse(and(toCompare, toCompare));
+    }
+
+
+    @Test
+    void shouldAND_CompareProperly_OneConditionIsFalse() {
+        Column<Boolean> falseCondition = new Column<>(false, "name");
+        Column<Boolean> trueCondition = new Column<>(true, "name");
+
+        assertFalse(and(falseCondition, trueCondition));
+    }
+
+
+    @Test
+    void shouldAND_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<Integer> integerColumn = new Column<>(1, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> and(stringColumn, integerColumn));
+    }
+
+
+    @Test
+    void shouldAND_ThrowExceptionWhenNullIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+                () -> and(null, null));
     }
 }

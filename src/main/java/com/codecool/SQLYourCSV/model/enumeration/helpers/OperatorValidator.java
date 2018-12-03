@@ -4,7 +4,7 @@ import com.codecool.SQLYourCSV.model.datastructure.Column;
 
 public class OperatorValidator {
 
-    public boolean validate(Column<?> base, Column<?> toCheck) {
+    public static boolean validate(Column<?> base, Column<?> toCheck) {
         return false;
     }
 }

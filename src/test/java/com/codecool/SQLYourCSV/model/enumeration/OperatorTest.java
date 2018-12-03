@@ -170,4 +170,12 @@ class OperatorTest {
         assertThrows(IllegalArgumentException.class,
                 () -> smallerThan(null, null));
     }
+
+
+    @Test
+    void shouldBIGGER_THAN_OR_EQUAL_CompareProperly_EqualValues() {
+        Column<Integer> toCompare = new Column<>(1, "name");
+
+        assertTrue(biggerThanOrEquals(toCompare, toCompare));
+    }
 }

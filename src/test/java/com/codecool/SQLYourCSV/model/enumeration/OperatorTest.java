@@ -128,6 +128,16 @@ class OperatorTest {
 
 
     @Test
+    void shouldBIGGER_THAN_ThrowExceptionWhenAttemptToCompareNotAllowedTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<String> stringColumn1 = new Column<>("string1", "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> biggerThan(stringColumn, stringColumn1));
+    }
+
+
+    @Test
     void shouldBIGGER_THAN_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
             () -> biggerThan(null, null));

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OperatorTest {
 
 
-    private boolean compare(Column<?> first, Column<?> second) {
+    private boolean equals(Column<?> first, Column<?> second) {
         return Operator.EQUALS.compare(first, second);
     }
 
@@ -17,7 +17,7 @@ class OperatorTest {
     void shouldEQUALS_CompareProperlySameColumn_OneReference() {
         Column<String> toCompare = new Column<>("value", "name");
 
-        assertTrue(compare(toCompare, toCompare));
+        assertTrue(equals(toCompare, toCompare));
     }
 
 
@@ -26,7 +26,7 @@ class OperatorTest {
         Column<String> first = new Column<>("value", "name");
         Column<String> second = new Column<>("value", "name");
 
-        assertTrue(compare(first, second));
+        assertTrue(equals(first, second));
     }
 
 
@@ -35,7 +35,7 @@ class OperatorTest {
         Column<String> first = new Column<>("first", "first");
         Column<String> second = new Column<>("second", "second");
 
-        assertFalse(compare(first, second));
+        assertFalse(equals(first, second));
     }
 
 
@@ -45,13 +45,13 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-            () -> compare(stringColumn, integerColumn));
+            () -> equals(stringColumn, integerColumn));
     }
 
 
     @Test
     void shouldEQUALS_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-            () -> compare(null, null));
+            () -> equals(null, null));
     }
 }

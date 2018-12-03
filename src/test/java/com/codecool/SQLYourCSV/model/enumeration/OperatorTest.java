@@ -52,7 +52,7 @@ class OperatorTest {
 
 
     @Test
-    void shouldEQUALS_CompareProperlySameColumn_TwoReferences() {
+    void shouldEQUALS_CompareProperlySameColumnValue_TwoReferences() {
         Column<String> first = new Column<>("value", "name");
         Column<String> second = new Column<>("value", "name");
 
@@ -61,7 +61,7 @@ class OperatorTest {
 
 
     @Test
-    void shouldEQUALS_CompareProperlyNotSameColumn() {
+    void shouldEQUALS_CompareProperlyNotSameColumnValue() {
         Column<String> first = new Column<>("first", "first");
         Column<String> second = new Column<>("second", "second");
 
@@ -95,7 +95,7 @@ class OperatorTest {
 
 
     @Test
-    void shouldBIGGER_THAN_CompareProperlyBiggerValue() {
+    void shouldBIGGER_THAN_CompareProperly_BiggerValue() {
         Column<Integer> bigger = new Column<>(2, "name");
         Column<Integer> smaller = new Column<>(1, "name");
 
@@ -104,7 +104,7 @@ class OperatorTest {
 
 
     @Test
-    void shouldBIGGER_THAN_CompareProperlySmallerValue() {
+    void shouldBIGGER_THAN_CompareProperly_SmallerValue() {
         Column<Integer> bigger = new Column<>(2, "name");
         Column<Integer> smaller = new Column<>(1, "name");
 
@@ -126,5 +126,13 @@ class OperatorTest {
     void shouldBIGGER_THAN_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
                 () -> biggerThan(null, null));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_CompareProperly_EqualValues() {
+        Column<Integer> toCompare = new Column<>(1, "name");
+
+        assertFalse(smallerThan(toCompare, toCompare));
     }
 }

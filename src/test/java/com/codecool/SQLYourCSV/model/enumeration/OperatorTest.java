@@ -118,14 +118,14 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> biggerThan(stringColumn, integerColumn));
+            () -> biggerThan(stringColumn, integerColumn));
     }
 
 
     @Test
     void shouldBIGGER_THAN_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-                () -> biggerThan(null, null));
+            () -> biggerThan(null, null));
     }
 
 
@@ -161,14 +161,14 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> smallerThan(stringColumn, integerColumn));
+            () -> smallerThan(stringColumn, integerColumn));
     }
 
 
     @Test
     void shouldSMALLER_THAN_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-                () -> smallerThan(null, null));
+            () -> smallerThan(null, null));
     }
 
 
@@ -204,6 +204,13 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> biggerThanOrEquals(stringColumn, integerColumn));
+            () -> biggerThanOrEquals(stringColumn, integerColumn));
+    }
+
+
+    @Test
+    void shouldBIGGER_THAN_OR_EQUAL_ThrowExceptionWhenNullIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+                () -> biggerThanOrEquals(null, null));
     }
 }

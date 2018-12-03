@@ -136,7 +136,10 @@ public enum Operator {
 
     AND("and", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
-            return false;
+            if (OperatorValuesValidator.areBooleans(base, toCompare)) {
+                return (Boolean) base.getValue() && (Boolean) toCompare.getValue();
+            }
+            throw new IllegalArgumentException("Expect same Type or Boolean Type: got different");
         }
     },
 

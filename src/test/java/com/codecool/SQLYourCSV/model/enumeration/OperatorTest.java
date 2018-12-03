@@ -212,7 +212,7 @@ class OperatorTest {
 
     @Test
     void shouldSMALLER_THAN_CompareProperly_LongCase() {
-        Column<Long> toCompare = new Column<>(1l, "name");
+        Column<Long> toCompare = new Column<>(1L, "name");
 
         assertFalse(smallerThan(toCompare, toCompare));
     }
@@ -220,7 +220,7 @@ class OperatorTest {
 
     @Test
     void shouldSMALLER_THAN_CompareProperly_FloatCase() {
-        Column<Float> toCompare = new Column<>(1.1f, "name");
+        Column<Float> toCompare = new Column<>(1.1F, "name");
 
         assertFalse(smallerThan(toCompare, toCompare));
     }
@@ -228,7 +228,7 @@ class OperatorTest {
 
     @Test
     void shouldSMALLER_THAN_CompareProperly_DoubleCase() {
-        Column<Double> toCompare = new Column<>(1.1d, "name");
+        Column<Double> toCompare = new Column<>(1.1D, "name");
 
         assertFalse(smallerThan(toCompare, toCompare));
     }
@@ -276,6 +276,14 @@ class OperatorTest {
 
         assertThrows(IllegalArgumentException.class,
             () -> smallerThan(stringColumn, stringColumn1));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_ThrowExceptionWhenTypesAreNotAllowed() {
+        Column<Short> notAllowed = new Column<>((short) 1, "name");
+        assertThrows(IllegalArgumentException.class,
+                () -> smallerThan(notAllowed, notAllowed));
     }
 
 

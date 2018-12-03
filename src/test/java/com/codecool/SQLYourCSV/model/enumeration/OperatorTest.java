@@ -261,4 +261,39 @@ class OperatorTest {
         assertThrows(IllegalArgumentException.class,
                 () -> smallerThanOrEquals(null, null));
     }
+
+
+    @Test
+    void shouldLIKE_CompareProperly_ValueMatchPattern() {
+        Column<String> toCompare = new Column<>("value", "name");
+        Column<String> pattern = new Column<>("^v", "name");
+
+        assertTrue(like(toCompare, pattern));
+    }
+
+
+    @Test
+    void shouldLIKE_CompareProperly_ValueNotMatchPattern() {
+        Column<String> toCompare = new Column<>("noMatch", "name");
+        Column<String> pattern = new Column<>("^v", "name");
+
+        assertFalse(like(toCompare, pattern));
+    }
+
+
+    @Test
+    void shouldLIKE_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<Integer> integerColumn = new Column<>(1, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> like(stringColumn, integerColumn));
+    }
+
+
+    @Test
+    void shouldLIKE_ThrowExceptionWhenNullIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+                () -> like(null, null));
+    }
 }

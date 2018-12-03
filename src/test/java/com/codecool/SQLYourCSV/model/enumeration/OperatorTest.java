@@ -38,4 +38,13 @@ class OperatorTest {
         assertFalse(compare(first, second));
     }
 
+
+    @Test
+    void shouldEQUALS_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<Integer> integerColumn = new Column<>(1, "name");
+
+        assertThrows(IllegalArgumentException.class,
+            () -> compare(stringColumn, integerColumn));
+    }
 }

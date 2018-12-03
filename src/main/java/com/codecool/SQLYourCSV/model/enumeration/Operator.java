@@ -37,17 +37,39 @@ public enum Operator {
 
     BIGGER_THAN_OR_EQULAS(">=", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
-            return false;
+            if (OperatorValuesValidator.areSameType(base, toCompare) &&
+                    OperatorValuesValidator.areNumbers(base, toCompare)) {
+
+                return castToProperTypeAndCompare(base, toCompare);
+            }
+            throw new IllegalArgumentException("Expect same Type or Number Type: got different");
+        }
+
+        private boolean castToProperTypeAndCompare(Column<?> base, Column<?> toCompare) {
+            if (OperatorValuesValidator.areSelectedType(base, toCompare, Integer.class)) {
+                return (Integer) base.getValue() >= (Integer) toCompare.getValue();
+            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Long.class)) {
+                //write test for long
+                return (Long) base.getValue() >= (Long) toCompare.getValue();
+            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Float.class)) {
+                //write test for flaot
+                return (Float) base.getValue() >= (Float) toCompare.getValue();
+            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Double.class)) {
+                //write test for double
+                return (Double) base.getValue() >= (Double) toCompare.getValue();
+            } else {
+                throw new IllegalArgumentException("Column Types not allowed!");
+            }
         }
     },
 
-    SMALLER_THAN_OR_EQUAL("<=", EnumSet.of(Command.WHERE)) {
+    SMALLER_THAN("<", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
             return false;
         }
     },
 
-    SMALLER_THAN("<", EnumSet.of(Command.WHERE)) {
+    SMALLER_THAN_OR_EQUAL("<=", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
             return false;
         }

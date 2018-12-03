@@ -35,7 +35,7 @@ class OperatorValuesValidatorTest {
     void testAreNumbers_NumbersCase() {
         Column<Integer> toTest = new Column<>(1, "name");
 
-        assertTrue(OperatorValuesValidator.areNumbers());
+        assertTrue(OperatorValuesValidator.areNumbers(toTest, toTest));
     }
 
 
@@ -61,5 +61,38 @@ class OperatorValuesValidatorTest {
     void testAreNumbersThrowsExceptionWhenNullsIsPassed() {
         assertThrows(IllegalArgumentException.class,
             () -> OperatorValuesValidator.areNumbers(null, null));
+    }
+
+
+    @Test
+    void testAreStrings_StringsCase() {
+        Column<String> toTest = new Column<>("value", "name");
+
+        assertTrue(OperatorValuesValidator.areStrings(toTest, toTest));
+    }
+
+
+    @Test
+    void testAreStrings_OneStringOneDifferent() {
+        Column<Integer> integerColumn = new Column<>(1, "name");
+        Column<String> stringColumn = new Column<>("value", "name");
+
+        assertFalse(OperatorValuesValidator.areStrings(integerColumn, stringColumn));
+    }
+
+
+    @Test
+    void testAreStrings_NotStrings() {
+        Column<Integer> toTest1 = new Column<>(1, "name");
+        Column<Integer> toTest2 = new Column<>(1, "name");
+
+        assertFalse(OperatorValuesValidator.areStrings(toTest1, toTest2));
+    }
+
+
+    @Test
+    void testAreStringsThrowsExceptionWhenNullsIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+            () -> OperatorValuesValidator.areStrings(null, null));
     }
 }

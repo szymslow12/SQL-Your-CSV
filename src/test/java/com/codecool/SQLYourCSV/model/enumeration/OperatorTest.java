@@ -47,4 +47,11 @@ class OperatorTest {
         assertThrows(IllegalArgumentException.class,
             () -> compare(stringColumn, integerColumn));
     }
+
+
+    @Test
+    void shouldEQUALS_ThrowExceptionWhenNullIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+            () -> compare(null, null));
+    }
 }

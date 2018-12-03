@@ -142,6 +142,14 @@ class OperatorTest {
 
 
     @Test
+    void shouldBIGGER_THAN_CompareProperly_DoubleCase() {
+        Column<Double> toCompare = new Column<>(1d, "name");
+
+        assertFalse(biggerThan(toCompare, toCompare));
+    }
+
+
+    @Test
     void shouldBIGGER_THAN_CompareProperly_BiggerValue() {
         Column<Integer> bigger = new Column<>(2, "name");
         Column<Integer> smaller = new Column<>(1, "name");

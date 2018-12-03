@@ -110,4 +110,14 @@ class OperatorTest {
 
         assertFalse(biggerThan(smaller, bigger));
     }
+
+
+    @Test
+    void shouldBIGGER_THAN_ThrowExcpetionWhenAttemptToCompareDifferentTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<Integer> integerColumn = new Column<>(1, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> biggerThan(stringColumn, integerColumn));
+    }
 }

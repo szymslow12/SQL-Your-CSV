@@ -4,7 +4,7 @@ import com.codecool.SQLYourCSV.model.datastructure.Column;
 
 public class OperatorValuesValidator {
 
-    public static boolean isValid(Column<?> base, Column<?> toCheck) {
+    public static boolean areSameType(Column<?> base, Column<?> toCheck) {
         return base.getValue().getClass().equals(toCheck.getValue().getClass());
     }
 }

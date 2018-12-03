@@ -127,7 +127,7 @@ class OperatorTest {
 
     @Test
     void shouldBIGGER_THAN_CompareProperly_LongCase() {
-        Column<Long> toCompare = new Column<>(1l, "name");
+        Column<Long> toCompare = new Column<>(1L, "name");
 
         assertFalse(biggerThan(toCompare, toCompare));
     }
@@ -135,7 +135,7 @@ class OperatorTest {
 
     @Test
     void shouldBIGGER_THAN_CompareProperly_FloatCase() {
-        Column<Float> toCompare = new Column<>(1.1f, "name");
+        Column<Float> toCompare = new Column<>(1.1F, "name");
 
         assertFalse(biggerThan(toCompare, toCompare));
     }
@@ -143,7 +143,7 @@ class OperatorTest {
 
     @Test
     void shouldBIGGER_THAN_CompareProperly_DoubleCase() {
-        Column<Double> toCompare = new Column<>(1.1d, "name");
+        Column<Double> toCompare = new Column<>(1.1D, "name");
 
         assertFalse(biggerThan(toCompare, toCompare));
     }
@@ -191,6 +191,14 @@ class OperatorTest {
     void shouldBIGGER_THAN_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
             () -> biggerThan(null, null));
+    }
+
+
+    @Test
+    void shouldBIGGER_THAN_ThrowExceptionWhenTypesAreNotAllowed() {
+        Column<Short> notAllowed = new Column<>((short) 1, "name");
+        assertThrows(IllegalArgumentException.class,
+                () -> biggerThan(notAllowed, notAllowed));
     }
 
 

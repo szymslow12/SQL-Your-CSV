@@ -57,6 +57,14 @@ class OperatorTest {
 
 
     @Test
+    void shouldEQUALS_CompareProperlySameColumn_OneReferenceInteger() {
+        Column<Integer> toCompare = new Column<>(1, "name");
+
+        assertTrue(equals(toCompare, toCompare));
+    }
+
+
+    @Test
     void shouldEQUALS_CompareProperlySameColumnValue_TwoReferences() {
         Column<String> first = new Column<>("value", "name");
         Column<String> second = new Column<>("value", "name");

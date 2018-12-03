@@ -338,4 +338,46 @@ class OperatorTest {
         assertThrows(IllegalArgumentException.class,
                 () -> and(null, null));
     }
+
+
+    @Test
+    void shouldOR_CompareProperly_BothConditionAreTrue() {
+        Column<Boolean> toCompare = new Column<>(true, "name");
+
+        assertTrue(or(toCompare, toCompare));
+    }
+
+
+    @Test
+    void shouldOR_CompareProperly_BothConditionAreFalse() {
+        Column<Boolean> toCompare = new Column<>(false, "name");
+
+        assertFalse(or(toCompare, toCompare));
+    }
+
+
+    @Test
+    void shouldOR_CompareProperly_OneConditionIsFalse() {
+        Column<Boolean> falseCondition = new Column<>(false, "name");
+        Column<Boolean> trueCondition = new Column<>(true, "name");
+
+        assertTrue(or(falseCondition, trueCondition));
+    }
+
+
+    @Test
+    void shouldOR_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<Integer> integerColumn = new Column<>(1, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> and(stringColumn, integerColumn));
+    }
+
+
+    @Test
+    void shouldOR_ThrowExceptionWhenNullIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+                () -> and(null, null));
+    }
 }

@@ -198,7 +198,7 @@ class OperatorTest {
     void shouldBIGGER_THAN_ThrowExceptionWhenTypesAreNotAllowed() {
         Column<Short> notAllowed = new Column<>((short) 1, "name");
         assertThrows(IllegalArgumentException.class,
-                () -> biggerThan(notAllowed, notAllowed));
+            () -> biggerThan(notAllowed, notAllowed));
     }
 
 
@@ -283,7 +283,7 @@ class OperatorTest {
     void shouldSMALLER_THAN_ThrowExceptionWhenTypesAreNotAllowed() {
         Column<Short> notAllowed = new Column<>((short) 1, "name");
         assertThrows(IllegalArgumentException.class,
-                () -> smallerThan(notAllowed, notAllowed));
+            () -> smallerThan(notAllowed, notAllowed));
     }
 
 
@@ -363,6 +363,13 @@ class OperatorTest {
             () -> biggerThanOrEquals(stringColumn, stringColumn1));
     }
 
+
+    @Test
+    void shouldBIGGER_THAN_OR_EQUAL_ThrowExceptionWhenTypesAreNotAllowed() {
+        Column<Short> notAllowed = new Column<>((short) 1, "name");
+        assertThrows(IllegalArgumentException.class,
+            () -> biggerThanOrEquals(notAllowed, notAllowed));
+    }
 
 
     @Test

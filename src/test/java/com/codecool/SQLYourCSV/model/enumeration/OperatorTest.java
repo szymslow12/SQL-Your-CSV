@@ -113,7 +113,7 @@ class OperatorTest {
 
 
     @Test
-    void shouldBIGGER_THAN_ThrowExcpetionWhenAttemptToCompareDifferentTypes() {
+    void shouldBIGGER_THAN_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
         Column<String> stringColumn = new Column<>("string", "name");
         Column<Integer> integerColumn = new Column<>(1, "name");
 
@@ -152,5 +152,15 @@ class OperatorTest {
         Column<Integer> smaller = new Column<>(1, "name");
 
         assertTrue(smallerThan(smaller, bigger));
+    }
+
+
+    @Test
+    void shouldSMALLER_THAN_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<Integer> integerColumn = new Column<>(1, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> smallerThan(stringColumn, integerColumn));
     }
 }

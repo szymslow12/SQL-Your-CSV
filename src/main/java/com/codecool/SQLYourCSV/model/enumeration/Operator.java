@@ -18,6 +18,12 @@ public enum Operator {
         }
     },
 
+    SMALLER_THAN_OR_EQUAL("<=", EnumSet.of(Command.WHERE)) {
+        public boolean compare(Column<?> base, Column<?> toCompare) {
+            return false;
+        }
+    },
+
     SMALLER_THAN("<", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
             return false;

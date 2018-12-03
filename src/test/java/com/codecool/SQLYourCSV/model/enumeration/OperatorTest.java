@@ -24,7 +24,7 @@ class OperatorTest {
 
 
     private boolean biggerThanOrEquals(Column<?> first, Column<?> second) {
-        return Operator.BIGGER_THAN_OR_EQULAS.compare(first, second);
+        return Operator.BIGGER_THAN_OR_EQUAL.compare(first, second);
     }
 
 

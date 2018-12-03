@@ -8,8 +8,28 @@ import java.util.EnumSet;
 public enum Operator {
     BIGGER_THAN(">", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
-            return false;
+            if (OperatorValuesValidator.areSameType(base, toCompare) &&
+                OperatorValuesValidator.areNumbers(base, toCompare)) {
+
+                return castToProperTypeAndCompare(base, toCompare);
+            }
+            throw new IllegalArgumentException("Expect same Type or Number Type: got different");
         }
+
+        private boolean castToProperTypeAndCompare(Column<?> base, Column<?> toCompare) {
+            if (OperatorValuesValidator.areSelectedType(base, toCompare, Integer.class)) {
+                return (Integer) base.getValue() > (Integer) toCompare.getValue();
+            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Long.class)) {
+                return (Long) base.getValue() > (Long) toCompare.getValue();
+            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Float.class)) {
+                return (Float) base.getValue() > (Float) toCompare.getValue();
+            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Short.class)) {
+                return (Short) base.getValue() > (Short) toCompare.getValue();
+            } else {
+                throw new IllegalArgumentException("Column Types not allowed!");
+            }
+        }
+
     },
 
     BIGGER_THAN_OR_EQULAS(">=", EnumSet.of(Command.WHERE)) {
@@ -32,7 +52,7 @@ public enum Operator {
 
     EQUALS("=", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
-            if (OperatorValuesValidator.isValid(base, toCompare)) {
+            if (OperatorValuesValidator.areSameType(base, toCompare)) {
                 return base.getValue().hashCode() == toCompare.getValue().hashCode();
             }
             throw new IllegalArgumentException("Expect same Type: got different");

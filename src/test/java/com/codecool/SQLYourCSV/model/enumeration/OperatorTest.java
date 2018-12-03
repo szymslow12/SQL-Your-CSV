@@ -135,7 +135,7 @@ class OperatorTest {
 
     @Test
     void shouldBIGGER_THAN_CompareProperly_FloatCase() {
-        Column<Float> toCompare = new Column<>(1f, "name");
+        Column<Float> toCompare = new Column<>(1.1f, "name");
 
         assertFalse(biggerThan(toCompare, toCompare));
     }
@@ -143,7 +143,7 @@ class OperatorTest {
 
     @Test
     void shouldBIGGER_THAN_CompareProperly_DoubleCase() {
-        Column<Double> toCompare = new Column<>(1d, "name");
+        Column<Double> toCompare = new Column<>(1.1d, "name");
 
         assertFalse(biggerThan(toCompare, toCompare));
     }
@@ -212,7 +212,7 @@ class OperatorTest {
 
     @Test
     void shouldSMALLER_THAN_CompareProperly_FloatCase() {
-        Column<Float> toCompare = new Column<>(1f, "name");
+        Column<Float> toCompare = new Column<>(1.1f, "name");
 
         assertFalse(smallerThan(toCompare, toCompare));
     }
@@ -220,7 +220,7 @@ class OperatorTest {
 
     @Test
     void shouldSMALLER_THAN_CompareProperly_DoubleCase() {
-        Column<Double> toCompare = new Column<>(1d, "name");
+        Column<Double> toCompare = new Column<>(1.1d, "name");
 
         assertFalse(smallerThan(toCompare, toCompare));
     }
@@ -289,7 +289,7 @@ class OperatorTest {
 
     @Test
     void shouldBIGGER_THAN_OR_EQUAL_CompareProperly_FloatCase() {
-        Column<Float> toCompare = new Column<>(1f, "name");
+        Column<Float> toCompare = new Column<>(1.1f, "name");
 
         assertTrue(biggerThanOrEquals(toCompare, toCompare));
     }
@@ -297,7 +297,7 @@ class OperatorTest {
 
     @Test
     void shouldBIGGER_THAN_OR_EQUAL_CompareProperly_DoubleCase() {
-        Column<Double> toCompare = new Column<>(1d, "name");
+        Column<Double> toCompare = new Column<>(1.1d, "name");
 
         assertTrue(biggerThanOrEquals(toCompare, toCompare));
     }
@@ -367,7 +367,7 @@ class OperatorTest {
 
     @Test
     void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_FloatCase() {
-        Column<Float> toCompare = new Column<>(1f, "name");
+        Column<Float> toCompare = new Column<>(1.1f, "name");
 
         assertTrue(biggerThanOrEquals(toCompare, toCompare));
     }
@@ -375,7 +375,7 @@ class OperatorTest {
 
     @Test
     void shouldSMALLER_THAN_OR_EQUAL_CompareProperly_DoubleCase() {
-        Column<Double> toCompare = new Column<>(1d, "name");
+        Column<Double> toCompare = new Column<>(1.1d, "name");
 
         assertTrue(biggerThanOrEquals(toCompare, toCompare));
     }

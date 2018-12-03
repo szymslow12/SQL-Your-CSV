@@ -22,6 +22,15 @@ public class OperatorValuesValidator {
     }
 
 
+    public static boolean areSelectedType(Column<?> toCheck, Column<?> toCheck1, Class selectedType) {
+        if (areColumnsNull(toCheck, toCheck1) || selectedType == null)
+            throw new IllegalArgumentException("Expect Column<?> or Class: got null");
+
+        return toCheck.getValue().getClass().equals(selectedType) &&
+                toCheck1.getValue().getClass().equals(selectedType);
+    }
+
+
     private static boolean areColumnsNull(Column<?> toCheck, Column<?> toCheck1) {
         return toCheck == null || toCheck1 == null;
     }

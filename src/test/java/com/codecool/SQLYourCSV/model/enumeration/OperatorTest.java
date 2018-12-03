@@ -392,6 +392,16 @@ class OperatorTest {
 
 
     @Test
+    void shouldAND_ThrowExceptionWhenAttemptToCompareNotAllowedTypes() {
+        Column<Integer> stringColumn = new Column<>(1, "name");
+        Column<Integer> stringColumn1 = new Column<>(2, "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> and(stringColumn, stringColumn1));
+    }
+
+
+    @Test
     void shouldOR_CompareProperly_BothConditionAreTrue() {
         Column<Boolean> toCompare = new Column<>(true, "name");
 

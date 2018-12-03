@@ -163,4 +163,11 @@ class OperatorTest {
         assertThrows(IllegalArgumentException.class,
                 () -> smallerThan(stringColumn, integerColumn));
     }
+
+
+    @Test
+    void shouldSMALLER_THAN_ThrowExceptionWhenNullIsPassed() {
+        assertThrows(IllegalArgumentException.class,
+                () -> smallerThan(null, null));
+    }
 }

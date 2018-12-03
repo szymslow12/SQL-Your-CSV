@@ -187,4 +187,13 @@ class OperatorTest {
 
         assertTrue(biggerThanOrEquals(bigger, smaller));
     }
+
+
+    @Test
+    void shouldBIGGER_THAN_OR_EQUAL_CompareProperly_SmallerValue() {
+        Column<Integer> bigger = new Column<>(2, "name");
+        Column<Integer> smaller = new Column<>(1, "name");
+
+        assertFalse(biggerThanOrEquals(smaller, bigger));
+    }
 }

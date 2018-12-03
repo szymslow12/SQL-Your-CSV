@@ -188,6 +188,16 @@ class OperatorTest {
 
 
     @Test
+    void shouldSMALLER_THAN_ThrowExceptionWhenAttemptToCompareNotAllowedTypes() {
+        Column<String> stringColumn = new Column<>("string", "name");
+        Column<String> stringColumn1 = new Column<>("string1", "name");
+
+        assertThrows(IllegalArgumentException.class,
+                () -> smallerThan(stringColumn, stringColumn1));
+    }
+
+
+    @Test
     void shouldBIGGER_THAN_OR_EQUAL_CompareProperly_EqualValues() {
         Column<Integer> toCompare = new Column<>(1, "name");
 

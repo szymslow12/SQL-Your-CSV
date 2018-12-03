@@ -20,11 +20,14 @@ public enum Operator {
             if (OperatorValuesValidator.areSelectedType(base, toCompare, Integer.class)) {
                 return (Integer) base.getValue() > (Integer) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Long.class)) {
+                //write test for long
                 return (Long) base.getValue() > (Long) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Float.class)) {
+                //write test for flaot
                 return (Float) base.getValue() > (Float) toCompare.getValue();
-            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Short.class)) {
-                return (Short) base.getValue() > (Short) toCompare.getValue();
+            } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Double.class)) {
+                //write test for double
+                return (Double) base.getValue() > (Double) toCompare.getValue();
             } else {
                 throw new IllegalArgumentException("Column Types not allowed!");
             }

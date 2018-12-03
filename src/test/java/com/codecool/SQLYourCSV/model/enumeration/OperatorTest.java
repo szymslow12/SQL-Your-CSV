@@ -380,14 +380,14 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> and(stringColumn, integerColumn));
+            () -> and(stringColumn, integerColumn));
     }
 
 
     @Test
     void shouldAND_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-                () -> and(null, null));
+            () -> and(null, null));
     }
 
 
@@ -397,7 +397,7 @@ class OperatorTest {
         Column<Integer> stringColumn1 = new Column<>(2, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> and(stringColumn, stringColumn1));
+            () -> and(stringColumn, stringColumn1));
     }
 
 
@@ -432,13 +432,23 @@ class OperatorTest {
         Column<Integer> integerColumn = new Column<>(1, "name");
 
         assertThrows(IllegalArgumentException.class,
-                () -> and(stringColumn, integerColumn));
+            () -> and(stringColumn, integerColumn));
     }
 
 
     @Test
     void shouldOR_ThrowExceptionWhenNullIsPassed() {
         assertThrows(IllegalArgumentException.class,
-                () -> and(null, null));
+            () -> and(null, null));
+    }
+
+
+    @Test
+    void shouldOR_ThrowExceptionWhenAttemptToCompareNotAllowedTypes() {
+        Column<Integer> stringColumn = new Column<>(1, "name");
+        Column<Integer> stringColumn1 = new Column<>(2, "name");
+
+        assertThrows(IllegalArgumentException.class,
+            () -> or(stringColumn, stringColumn1));
     }
 }

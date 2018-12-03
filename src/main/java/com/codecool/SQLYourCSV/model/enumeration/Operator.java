@@ -20,13 +20,10 @@ public enum Operator {
             if (OperatorValuesValidator.areSelectedType(base, toCompare, Integer.class)) {
                 return (Integer) base.getValue() > (Integer) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Long.class)) {
-                //write test for long
                 return (Long) base.getValue() > (Long) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Float.class)) {
-                //write test for flaot
                 return (Float) base.getValue() > (Float) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Double.class)) {
-                //write test for double
                 return (Double) base.getValue() > (Double) toCompare.getValue();
             } else {
                 throw new IllegalArgumentException("Column Types not allowed!");
@@ -49,13 +46,10 @@ public enum Operator {
             if (OperatorValuesValidator.areSelectedType(base, toCompare, Integer.class)) {
                 return (Integer) base.getValue() >= (Integer) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Long.class)) {
-                //write test for long
                 return (Long) base.getValue() >= (Long) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Float.class)) {
-                //write test for flaot
                 return (Float) base.getValue() >= (Float) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Double.class)) {
-                //write test for double
                 return (Double) base.getValue() >= (Double) toCompare.getValue();
             } else {
                 throw new IllegalArgumentException("Column Types not allowed!");
@@ -77,13 +71,10 @@ public enum Operator {
             if (OperatorValuesValidator.areSelectedType(base, toCompare, Integer.class)) {
                 return (Integer) base.getValue() < (Integer) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Long.class)) {
-                //write test for long
                 return (Long) base.getValue() < (Long) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Float.class)) {
-                //write test for flaot
                 return (Float) base.getValue() < (Float) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Double.class)) {
-                //write test for double
                 return (Double) base.getValue() < (Double) toCompare.getValue();
             } else {
                 throw new IllegalArgumentException("Column Types not allowed!");
@@ -94,7 +85,7 @@ public enum Operator {
     SMALLER_THAN_OR_EQUAL("<=", EnumSet.of(Command.WHERE)) {
         public boolean compare(Column<?> base, Column<?> toCompare) {
             if (OperatorValuesValidator.areSameType(base, toCompare) &&
-                    OperatorValuesValidator.areNumbers(base, toCompare)) {
+                OperatorValuesValidator.areNumbers(base, toCompare)) {
 
                 return castToProperTypeAndCompare(base, toCompare);
             }
@@ -105,13 +96,10 @@ public enum Operator {
             if (OperatorValuesValidator.areSelectedType(base, toCompare, Integer.class)) {
                 return (Integer) base.getValue() <= (Integer) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Long.class)) {
-                //write test for long
                 return (Long) base.getValue() <= (Long) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Float.class)) {
-                //write test for flaot
                 return (Float) base.getValue() <= (Float) toCompare.getValue();
             } else if (OperatorValuesValidator.areSelectedType(base, toCompare, Double.class)) {
-                //write test for double
                 return (Double) base.getValue() <= (Double) toCompare.getValue();
             } else {
                 throw new IllegalArgumentException("Column Types not allowed!");
@@ -132,7 +120,7 @@ public enum Operator {
         public boolean compare(Column<?> toCompare, Column<?> pattern) {
             if (OperatorValuesValidator.areSameType(toCompare, pattern) &&
                 OperatorValuesValidator.areStrings(toCompare, pattern)) {
-                
+
                 return ((String) toCompare.getValue()).matches((String) pattern.getValue());
             }
             throw new IllegalArgumentException("Expect same Type or Boolean Type: got different");

@@ -307,7 +307,7 @@ class OperatorTest {
     @Test
     void shouldLIKE_CompareProperly_ValueMatchPattern() {
         Column<String> toCompare = new Column<>("value", "name");
-        Column<String> pattern = new Column<>("^v", "name");
+        Column<String> pattern = new Column<>("^v{1}.*$", "name");
 
         assertTrue(like(toCompare, pattern));
     }
@@ -316,7 +316,7 @@ class OperatorTest {
     @Test
     void shouldLIKE_CompareProperly_ValueNotMatchPattern() {
         Column<String> toCompare = new Column<>("noMatch", "name");
-        Column<String> pattern = new Column<>("^v", "name");
+        Column<String> pattern = new Column<>("^v{1}.*$", "name");
 
         assertFalse(like(toCompare, pattern));
     }

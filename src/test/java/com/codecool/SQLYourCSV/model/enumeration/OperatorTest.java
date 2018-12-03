@@ -92,6 +92,15 @@ class OperatorTest {
 
 
     @Test
+    void shouldEQUALS_CompareProperlyNotSameColumnValueInteger() {
+        Column<Integer> first = new Column<>(1, "first");
+        Column<Integer> second = new Column<>(2, "second");
+
+        assertFalse(equals(first, second));
+    }
+
+
+    @Test
     void shouldEQUALS_ThrowExceptionWhenAttemptToCompareDifferentTypes() {
         Column<String> stringColumn = new Column<>("string", "name");
         Column<Integer> integerColumn = new Column<>(1, "name");

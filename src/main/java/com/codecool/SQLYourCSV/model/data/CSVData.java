@@ -11,13 +11,13 @@ import java.util.Map;
 public class CSVData {
     private Map<String, List<String[]>> data;
 
-    public Map<String, List<String[]>> getAllFilesData() {
+    public Map<String, List<String[]>> getAllData() {
         return data;
     }
 
 
-    public List<String[]> getSingleFileData(String filename) {
-        return data.get(filename);
+    public List<String[]> getSingleData(String dataName) {
+        return data.get(dataName);
     }
 
 

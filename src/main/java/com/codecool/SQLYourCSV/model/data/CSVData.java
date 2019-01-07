@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class CSVData {
+public class CSVData implements Data {
     private Map<String, List<String[]>> data;
 
     public Map<String, List<String[]>> getAllData() {

@@ -30,7 +30,7 @@ public class TableService {
     public Table createTableFromFile(String filename) {
         loadData(filename);
 
-        List<String[]> dataFromCSV = data.getSingleFileData(filename);
+        List<String[]> dataFromCSV = data.getSingleData(filename);
         String[] columnsNames = dataFromCSV.get(0);
 
         Table table = createTable(filename, columnsNames);
@@ -47,7 +47,7 @@ public class TableService {
 
 
     private void loadData(String filename) {
-        if (data.getSingleFileData(filename) == null) {
+        if (data.getSingleData(filename) == null) {
             data.loadFromFile(filename);
         }
     }

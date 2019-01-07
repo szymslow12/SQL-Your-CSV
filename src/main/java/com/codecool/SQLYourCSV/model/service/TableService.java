@@ -7,7 +7,10 @@ import com.codecool.SQLYourCSV.model.datastructure.Table;
 import com.codecool.SQLYourCSV.model.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.math.NumberUtils;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -90,11 +93,23 @@ public class TableService {
         IntStream.range(1, columnsName.length).forEach(
             i -> row.setColumns(
                 row.getService().addColumn(
-                    new Column<>(rowValues[i], columnsName[i]), row.getColumns()
+                    new Column<>(checkAndCastIfIsNumber(rowValues[i]), columnsName[i]), row.getColumns()
                 )
             )
         );
 
         return row;
+    }
+
+
+    private Object checkAndCastIfIsNumber(String toCheck) {
+        if (NumberUtils.isNumber(toCheck)) {
+            try {
+                return NumberFormat.getInstance().parse(toCheck);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return toCheck;
     }
 }

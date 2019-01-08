@@ -20,6 +20,10 @@ public class Table {
     }
 
 
+    public Table() {
+
+    }
+
     public void setHeaders(Row headers) {
         this.headers = headers;
     }

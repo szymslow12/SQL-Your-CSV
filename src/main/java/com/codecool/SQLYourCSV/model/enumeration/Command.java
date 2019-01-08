@@ -3,17 +3,19 @@ package com.codecool.SQLYourCSV.model.enumeration;
 import com.codecool.SQLYourCSV.model.enumeration.helpers.OperatorValues;
 import com.codecool.SQLYourCSV.model.enumeration.helpers.Selector;
 
+import java.util.EnumSet;
+
 public enum Command {
-    SELECT("select", false, new Selector<String[]>(), new Rule[] {Rule.SELECT_RULE_1}),
-    FROM("from", false, new Selector<String>(), new Rule[] {Rule.FROM_RULE_1, Rule.FROM_RULE_2}),
-    WHERE("where", true, new Selector<OperatorValues>(), new Rule[] {Rule.WHERE_RULE_1});
+    SELECT("select", false, new Selector<String[]>(), EnumSet.of(Rule.SELECT_RULE_1)),
+    FROM("from", false, new Selector<String>(), EnumSet.of(Rule.FROM_RULE_1, Rule.FROM_RULE_2)),
+    WHERE("where", true, new Selector<OperatorValues>(), EnumSet.of(Rule.WHERE_RULE_1));
 
     private String name;
     private boolean isComparator;
     private Selector<?> selector;
-    private Rule[] rules;
+    private EnumSet<Rule> rules;
 
-    Command(String name, boolean isComparator, Selector<?> selector, Rule[] rules) {
+    Command(String name, boolean isComparator, Selector<?> selector, EnumSet<Rule> rules) {
         this.name = name;
         this.isComparator = isComparator;
         this.selector = selector;
@@ -36,7 +38,7 @@ public enum Command {
     }
 
 
-    public Rule[] rules() {
+    public EnumSet<Rule> rules() {
         return rules;
     }
 }

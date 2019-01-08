@@ -2,7 +2,6 @@ package com.codecool.SQLYourCSV.model.query;
 
 import com.codecool.SQLYourCSV.model.enumeration.Command;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -26,12 +25,13 @@ public class QueryParser {
         );
         Function<String, Command> mapToCommand = queryPart -> Command.valueOf(queryPart.toUpperCase());
 
-        List<Command> commandList = Stream.of(queryParts).filter(findCommand).
-            map(mapToCommand).collect(Collectors.toList());
+        Command[] commands = Stream.of(queryParts).filter(findCommand).
+            map(mapToCommand).toArray(Command[]::new);
 
         System.out.println(Arrays.toString(queryParts));
         Stream.of(queryParts).forEach(p -> System.out.println(p));
-        commandList.forEach(e -> System.out.println(e));
+        Stream.of(commands).forEach(e -> System.out.println(e));
+        query.setCommands(commands);
         return null;
     }
 }

@@ -19,6 +19,7 @@ public class ContentController {
     public String resultForm(HttpServletRequest request, Model model) {
         String name = request.getParameter("name");
 
+//        model.addAttribute("name". name);
         return "sheetQl";
     }
 }

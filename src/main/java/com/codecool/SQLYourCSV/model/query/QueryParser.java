@@ -21,6 +21,13 @@ public class QueryParser {
         }
         Query query = new Query();
         String[] queryParts = toParse.split(" |, |,");
+        Predicate<String> findCommand = queryPart -> Stream.of(Command.values()).anyMatch(
+                command -> queryPart.equalsIgnoreCase(command.getName())
+        );
+        Function<String, Command> mapToCommand = queryPart -> Command.valueOf(queryPart.toUpperCase());
+
+        List<Command> commandList = Stream.of(queryParts).filter(findCommand).
+            map(mapToCommand).collect(Collectors.toList());
 
         System.out.println(Arrays.toString(queryParts));
         Stream.of(queryParts).forEach(p -> System.out.println(p));

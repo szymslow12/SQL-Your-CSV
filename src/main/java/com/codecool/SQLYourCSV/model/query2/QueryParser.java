@@ -2,58 +2,98 @@ package com.codecool.SQLYourCSV.model.query2;
 
 import com.codecool.SQLYourCSV.model.enumeration.Statements;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.List;
 
 public class QueryParser {
 
-    private String query;
-    Query queryObject = new Query();
+    private List<String> splitedQuery;
+    private Query queryObject = new Query();
 
     public QueryParser(String query) {
-        this.query = query.toUpperCase();
+        this.splitedQuery = getSplitedQuery(query);
     }
 
     public void queryParser() {
+        checkQueryIsProper();
 
-        if (isEmpty()) throw new IllegalArgumentException("Query is null!");
-        if (lackSemicolonAtEnd()) throw new IllegalArgumentException("Missing semicolon!");
+        String statement = getStatement().toUpperCase();
 
-        String statement = getStatement();
-        if (statement == null) {
-            throw new IllegalArgumentException("Wrong or missing statement");
-        } else queryObject.setStatement(getStatement());
+        queryObject.setStatement(statement);
 
+        deleteStatementFromQuery(statement);
 
+        getColumnsName();
 
         System.out.println(queryObject.toString());
 
     }
 
-    private boolean isEmpty() {
-        return query == null;
+    private List<String> getSplitedQuery(String query) {
+        return Arrays.asList(query.split(" +|, +|,"));
     }
 
-    private boolean lackSemicolonAtEnd() {
-        return query.charAt(query.length() - 1) != ";".charAt(0);
+    private void checkQueryIsProper() {
+        if (isEmpty()) throw new IllegalArgumentException("Query is not complete!");
+        if (!isSemicolonAtEnd()) throw new IllegalArgumentException("Missing semicolon!");
+        if (!isStatementInQuery()) throw new IllegalArgumentException("Any statement in query or in wrong position");
+    }
+
+    private boolean isEmpty() {
+        return splitedQuery.size() == 1;
+    }
+
+    private boolean isSemicolonAtEnd() {
+        int lastElementIndex = splitedQuery.size() - 1;
+        return splitedQuery.get(lastElementIndex).contains(";");
+    }
+
+    private boolean isStatementInQuery() {
+        int stmtIndexPos1 = 0;
+        int stmtIndexPos2 = 1;
+        Statements[] statements = Statements.values();
+        for (Statements statement : statements) {
+            if (statement.getStatement().equalsIgnoreCase(splitedQuery.get(stmtIndexPos1))) {
+                return true;
+            }
+            String twoWordStatement = getTwoWordStatement(stmtIndexPos1, stmtIndexPos2);
+            if (statement.getStatement().equalsIgnoreCase(twoWordStatement)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String getStatement() {
-        int maxStatementSize = 16;
-        String possibleStatement = query.substring(0, maxStatementSize);
-        Statements[] values = Statements.values();
-        for (Statements value : values) {
-            if (possibleStatement.contains(value.getStatement())) {
-                return value.getStatement();
+        int stmtIndexPos1 = 0;
+        int stmtIndexPos2 = 1;
+        Statements[] statements = Statements.values();
+        for (Statements statement : statements) {
+            String twoWordStatement = getTwoWordStatement(stmtIndexPos1, stmtIndexPos2);
+            if (statement.getStatement().equalsIgnoreCase(twoWordStatement)) {
+                return twoWordStatement;
+            }
+            if (statement.getStatement().equalsIgnoreCase(splitedQuery.get(stmtIndexPos1))) {
+                return (String.valueOf(statement));
             }
         }
         return null;
+    }
+
+    private String getTwoWordStatement(int stmtIndexPos1, int stmtIndexPos2) {
+        return splitedQuery.get(stmtIndexPos1) + " " + splitedQuery.get(stmtIndexPos2);
 
     }
 
-    private String[] getColumns() {
-        String statement = queryObject.getStatement();
-        Pattern p = Pattern.compile("\\(.*?\\)");
-        Matcher m = p.matcher(statement);
+    private void deleteStatementFromQuery(String statement) {
+        String[] s = statement.split(" ");
+        for (String string : s) {
+            splitedQuery.remove(string);
+        }
     }
+
+    private void getColumnsName() {
+
+    }
+
 }

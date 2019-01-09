@@ -36,13 +36,6 @@ hr {
 }
 
 
-#table {
-    width: 100%;
-    height: 100%;
-}
-
-
-
 #query {
     width: 98%;
     height: 80%;
@@ -104,4 +97,13 @@ hr {
 .content {
     width: 100%;
     height: auto;
+}
+
+.table {
+    width: 100%;
+    height: 100%;
+}
+
+.table td {
+    background-color: red;
 }

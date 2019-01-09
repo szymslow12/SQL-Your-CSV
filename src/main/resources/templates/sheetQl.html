@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--<link rel="stylesheet" href="/static/css/reset.css" type="text/css">-->
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1 th:text="'Hello, ' + ${name} + '!'"></h1>
+    <form method="post">
+        <input type="text" name="name">
+        <button type="submit">Say hello!</button>
+    </form>
+</div>
+    <footer>
+        <a href="http://www.freepik.com">Designed by Creative_hat / Freepik</a>
+    </footer>
+
+</body>
+</html>

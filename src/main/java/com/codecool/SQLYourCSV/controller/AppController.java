@@ -5,7 +5,7 @@ import com.codecool.SQLYourCSV.view.MenuView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@Controller
+//@Controller
 public class AppController {
 
     @Autowired

@@ -33,6 +33,11 @@ body{
 }
 
 
+.box-shadow {
+    box-shadow: 3px 3px 3px black;
+}
+
+
 
 #footer {
 

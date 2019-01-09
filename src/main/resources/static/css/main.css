@@ -19,17 +19,18 @@ body{
     align-content: center;
 }
 
+
 #query-form {
     width: 49%;
-    height: 80%;
-    background-color: transparent;
+    height: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 
 #result {
     width: 49%;
     height: 80%;
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 
@@ -37,6 +38,15 @@ body{
     box-shadow: 3px 3px 3px black;
 }
 
+
+.margin {
+    margin: 5px;
+}
+
+
+.border {
+    border: 1px solid black;
+}
 
 
 #footer {

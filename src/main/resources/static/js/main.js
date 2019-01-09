@@ -1,3 +1,3 @@
 function adjustHeight(elem) {
-    elem.style.height = String(window.scrollY);
+    elem.style.height = (window.innerHeight - document.getElementById("footer").offsetHeight) + "px";
 }

@@ -27,7 +27,7 @@
                     <th th:each="column: *{headers.getColumns()}" th:text="${column.getName()}"></th>
                 </tr>
                 <tr th:each="row: *{rows}">
-                    <td th:each="column: ${row.getColumns()}" th:text="${column.getValue()}"></td>
+                    <td class="table-line" th:each="column: ${row.getColumns()}" th:text="${column.getValue()}"></td>
                 </tr>
             </table>
         </div>

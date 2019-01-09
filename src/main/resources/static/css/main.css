@@ -5,3 +5,16 @@ body{
     background-size: 100% auto;
     background-repeat: no-repeat;
 }
+
+#content {
+    width: 100%;
+    height: auto;
+}
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}

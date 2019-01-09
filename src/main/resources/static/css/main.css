@@ -22,12 +22,14 @@ body{
 #query-form {
     width: 40%;
     height: 250px;
+    background-color: mediumvioletred;
 }
 
 
 #result {
     width: 40%;
     height: 250px;
+    background-color: palevioletred;
 }
 
 

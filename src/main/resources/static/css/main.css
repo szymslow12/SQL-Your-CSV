@@ -20,17 +20,18 @@ body{
 }
 
 #query-form {
-    width: 40%;
-    height: 250px;
-    background-color: mediumvioletred;
+    width: 49%;
+    height: 80%;
+    background-color: transparent;
 }
 
 
 #result {
-    width: 40%;
-    height: 250px;
-    background-color: palevioletred;
+    width: 49%;
+    height: 80%;
+    background-color: transparent;
 }
+
 
 
 #footer {

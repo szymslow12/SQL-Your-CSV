@@ -1,5 +1,6 @@
 package com.codecool.SQLYourCSV.controller;
 
+import com.codecool.SQLYourCSV.model.datastructure.Table;
 import com.codecool.SQLYourCSV.model.query.QueryParser;
 import com.codecool.SQLYourCSV.model.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,16 @@ public class ContentController {
     private TableService service;
 
     @GetMapping("/sheetql")
-    public String content() {
+    public String content(Model model) {
+        model.addAttribute("isSentQuery", false);
         return "sheetQl";
     }
 
     @PostMapping("/sheetql")
     public String result(Model model, @RequestBody String query) {
-//        String name = request.getParameter("name");
-
-        model.addAttribute("table", service.createTableFromQuery(QueryParser.parse(query)));
+        Table table = service.createTableFromFile("test-file-tabs.csv");
+        model.addAttribute("isSentQuery", true);
+        model.addAttribute("table", table);
         return "sheetQl";
     }
 }

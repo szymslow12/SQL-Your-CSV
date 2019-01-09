@@ -1,9 +1,13 @@
 package com.codecool.SQLYourCSV.model.query;
 
 import com.codecool.SQLYourCSV.model.enumeration.Command;
+import com.codecool.SQLYourCSV.model.enumeration.Rule;
+import com.codecool.SQLYourCSV.model.enumeration.helpers.OperatorValues;
+import com.codecool.SQLYourCSV.model.enumeration.helpers.Selector;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
@@ -30,15 +34,25 @@ public class QueryParser {
         Command[] commands = Stream.of(queryParts).filter(findCommand).
             map(mapToCommand).toArray(Command[]::new);
 
-        System.out.println(Arrays.toString(queryParts));
-        Stream.of(queryParts).forEach(p -> System.out.println(p));
-        Stream.of(commands).forEach(e -> System.out.println(e.selector().getValue()));
         Stream.of(commands).forEach(command -> {
             List<String> queryPartsAsList = Arrays.asList(queryParts);
-            IntStream.range(findIndex(command, queryPartsAsList), queryPartsAsList.size()).map(i -> );
+            if (command.getName().equalsIgnoreCase("SELECT")) {
+                Object columns = IntStream.range(
+                    findIndex(command, queryPartsAsList) + 1,
+                    findIndex(Command.FROM, queryPartsAsList)
+                ).mapToObj(queryPartsAsList::get).toArray(String[]::new);
+                command.selector().setValue(columns);
+            } else if (command.getName().equalsIgnoreCase("FROM")) {
+                String tableName = queryPartsAsList.get(findIndex(command, queryPartsAsList) + 1);
+                Object tableNameAsObject = checkAndRemoveSemicolon(tableName);
+                command.selector().setValue(tableNameAsObject);
+            } else if (command.getName().equalsIgnoreCase("FROM")) {
+                OperatorValues operatorValues = new OperatorValues();
+
+            }
         });
         query.setCommands(commands);
-        return null;
+        return query;
     }
 
 
@@ -48,11 +62,16 @@ public class QueryParser {
 
 
     private static int findIndex(Command command, List<String> queryParts) {
-        IntPredicate findIndex = i -> command.getName().equalsIgnoreCase(queryParts.get(i));
-        OptionalInt index = IntStream.range(0, queryParts.size()).filter(findIndex).findFirst();
+        IntPredicate findIndexOfCommand = i -> command.getName().equalsIgnoreCase(queryParts.get(i));
+        OptionalInt index = IntStream.range(0, queryParts.size()).filter(findIndexOfCommand).findFirst();
         if (index.isPresent()) {
             return index.getAsInt();
         }
         throw new IllegalArgumentException(String.format("Query is not valid missing %s", command.getName()));
+    }
+
+
+    private static String checkAndRemoveSemicolon(String toCheck) {
+       return toCheck.contains(";") ? toCheck.substring(0, toCheck.indexOf(";")): toCheck;
     }
 }

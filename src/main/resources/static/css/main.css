@@ -12,11 +12,8 @@ body{
 }
 
 
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+#footer {
+
 }
 
 
@@ -34,13 +31,21 @@ body{
 }
 
 
+
+#query {
+    width: 98%;
+    height: 98%;
+    resize: none;
+}
+
+
 .box-shadow {
     box-shadow: 3px 3px 3px black;
 }
 
 
 .margin {
-    margin: 5px;
+    margin: 1%;
 }
 
 
@@ -49,6 +54,9 @@ body{
 }
 
 
-#footer {
-
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }

@@ -8,7 +8,7 @@ public class SQLYourCSV {
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(
-                "META-INF/SQLYourCSV.xml");
+                "META-INF/SheetQL.xml");
         ((AppController) context.getBean("appController")).run();
     }
 }

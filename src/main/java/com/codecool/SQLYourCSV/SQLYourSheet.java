@@ -8,9 +8,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-public class SQLYourCSV {
-
+public class SQLYourSheet {
     public static void main(String[] args) {
+        try {
+            GoogleAuthorizeUtil.authorize();
+        } catch (IOException | GeneralSecurityException e) {
+            e.printStackTrace();
+        }
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 "META-INF/SQLYourCSV.xml");
         ((AppController) context.getBean("appController")).run();

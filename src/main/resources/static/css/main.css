@@ -81,3 +81,11 @@ hr {
     align-items: center;
     flex-direction: column;
 }
+
+
+.button {
+    width: 50px;
+    height: 37.5px;
+    border-radius: 15px;
+    text-align: center;
+}

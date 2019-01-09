@@ -1,5 +1,6 @@
 package com.codecool.SQLYourCSV.controller;
 
+import com.codecool.SQLYourCSV.model.query.QueryParser;
 import com.codecool.SQLYourCSV.model.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,7 @@ public class ContentController {
     public String result(Model model, @RequestBody String query) {
 //        String name = request.getParameter("name");
 
-//        model.addAttribute("name". name);
-        System.out.println(query);
+        model.addAttribute("table", service.createTableFromQuery(QueryParser.parse(query)));
         return "sheetQl";
     }
 }

@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.query;
 
 import com.codecool.SQLYourCSV.model.enumeration.Command;
+import com.codecool.SQLYourCSV.model.enumeration.Operator;
 import com.codecool.SQLYourCSV.model.enumeration.Rule;
 import com.codecool.SQLYourCSV.model.enumeration.helpers.OperatorValues;
 import com.codecool.SQLYourCSV.model.enumeration.helpers.Selector;
@@ -49,6 +50,7 @@ public class QueryParser {
             } else if (command.getName().equalsIgnoreCase("WHERE")) {
                 OperatorValues operatorValues = new OperatorValues();
                 List<String> operatorValuesAsString = findWhereValues(queryPartsAsList);
+                Operator operator = findOperator(operatorValuesAsString.get(1));
                 System.out.println(operatorValuesAsString);
             }
         });
@@ -79,5 +81,21 @@ public class QueryParser {
 
     private static List<String> findWhereValues(List<String> queryParts) {
         return queryParts.subList(findIndex(Command.WHERE, queryParts) + 1, queryParts.size());
+    }
+
+
+    private static Operator findOperator(String operator) {
+        Optional<Operator> optionalOperator = Stream.of(Operator.values()).filter(
+            o -> o.value().equalsIgnoreCase(operator)
+        ).findFirst();
+        return getOperatorFromOptional(optionalOperator);
+    }
+
+
+    private static Operator getOperatorFromOptional(Optional<Operator> optional) {
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        throw new IllegalArgumentException("Bad operator");
     }
 }

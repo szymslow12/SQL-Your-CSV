@@ -46,9 +46,10 @@ public class QueryParser {
                 String tableName = queryPartsAsList.get(findIndex(command, queryPartsAsList) + 1);
                 Object tableNameAsObject = checkAndRemoveSemicolon(tableName);
                 command.selector().setValue(tableNameAsObject);
-            } else if (command.getName().equalsIgnoreCase("FROM")) {
+            } else if (command.getName().equalsIgnoreCase("WHERE")) {
                 OperatorValues operatorValues = new OperatorValues();
-
+                List<String> operatorValuesAsString = findWhereValues(queryPartsAsList);
+                System.out.println(operatorValuesAsString);
             }
         });
         query.setCommands(commands);
@@ -73,5 +74,10 @@ public class QueryParser {
 
     private static String checkAndRemoveSemicolon(String toCheck) {
        return toCheck.contains(";") ? toCheck.substring(0, toCheck.indexOf(";")): toCheck;
+    }
+
+
+    private static List<String> findWhereValues(List<String> queryParts) {
+        return queryParts.subList(findIndex(Command.WHERE, queryParts) + 1, queryParts.size());
     }
 }

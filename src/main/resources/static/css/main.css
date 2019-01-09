@@ -18,3 +18,19 @@ body{
     align-items: center;
     align-content: center;
 }
+
+#query-form {
+    width: 40%;
+    height: 250px;
+}
+
+
+#result {
+    width: 40%;
+    height: 250px;
+}
+
+
+#footer {
+
+}

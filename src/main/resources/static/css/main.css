@@ -1,4 +1,7 @@
 /*////// Body //// */
 body{
-    background-image: url("static/assets/background.jpg");
+    width: 100%;
+    background-image: url("/assets/background.jpg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
 }

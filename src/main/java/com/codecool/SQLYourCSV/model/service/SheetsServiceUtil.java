@@ -12,7 +12,6 @@ import java.security.GeneralSecurityException;
 
 @Service
 public class SheetsServiceUtil {
-    @Autowired
     private static Credential credential;
     private static final String APPLICATION_NAME = "Google Sheets Demo";
 

@@ -22,12 +22,12 @@
             </div>
         </form>
         <div id="result" class="box-shadow margin border" th:object="${isSentQuery}">
-            <table id="table" th:object="${table}" th:if="${isSentQuery}">
+            <table class="table" th:object="${table}" th:if="${isSentQuery}">
                 <tr>
                     <th th:each="column: *{headers.getColumns()}" th:text="${column.getName()}"></th>
                 </tr>
                 <tr th:each="row: *{rows}">
-                    <td class="table-line" th:each="column: ${row.getColumns()}" th:text="${column.getValue()}"></td>
+                    <td th:each="column: ${row.getColumns()}" th:text="${column.getValue()}"></td>
                 </tr>
             </table>
         </div>

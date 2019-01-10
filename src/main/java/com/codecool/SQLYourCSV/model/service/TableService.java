@@ -39,6 +39,8 @@ public class TableService {
 
     public Table createTableFromFile(String filename) {
 //        loadData(filename);
+        if (filename == null || !filename.contains("."))
+            throw new IllegalArgumentException("Wrong file name or file name is null!");
 
         List<String[]> dataFromCSV = data.getSingleData(filename);
         String[] columnsNames = dataFromCSV.get(0);

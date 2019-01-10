@@ -164,4 +164,10 @@ class TableServiceTest {
     void shouldCreateTableFromQueryThrowExceptionWhenNullPassed() {
         assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromQuery(null));
     }
+
+
+    @Test
+    void shouldCreateTableFromQueryReturnTableWithHeader() {
+        assertNotNull(tableService.createTableFromQuery(query).getHeaders());
+    }
 }

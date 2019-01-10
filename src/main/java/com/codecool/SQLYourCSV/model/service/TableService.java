@@ -41,7 +41,6 @@ public class TableService {
 
 
     public Table createTableFromFile(String filename) {
-//        loadData(filename);
         if (filename == null || !filename.contains("."))
             throw new IllegalArgumentException("Wrong file name or file name is null!");
 
@@ -62,16 +61,19 @@ public class TableService {
         }
         String dataName = query.getTableName();
         List<String[]> data = validateAndGetData(dataName);
-        String[] columnsNameFromQuery = query.getColumns();
-        String[] columnsNameFromData = data.get(0);
-        Table fullTable = createFullTable(dataName, columnsNameFromData, data);
-        Table table = new Table();
+        String[] dataColumns = data.get(0);
+        Table fullTable = createFullTable(dataName, dataColumns, data);
+        return createTableFromQuery(fullTable, query.getColumns(), dataColumns);
+    }
 
-        table.setName(dataName);
-        setTableHeadersFromQuery(table, columnsNameFromQuery, columnsNameFromData);
-        table.setRows(IntStream.range(0, data.size() - 1).
-            mapToObj(createRowFromQuery(fullTable, columnsNameFromQuery)).
-            collect(Collectors.toList())
+
+    private Table createTableFromQuery(Table fullTable, String[] queryColumns, String[] dataColumns) {
+        Table table = new Table();
+        table.setName(fullTable.getName());
+        setTableHeadersFromQuery(table, queryColumns, dataColumns);
+        table.setRows(IntStream.range(0, fullTable.size()).
+                mapToObj(createRowFromQuery(fullTable, queryColumns)).
+                collect(Collectors.toList())
         );
         return table;
     }
@@ -139,11 +141,6 @@ public class TableService {
         };
         return createRowsFromData;
     }
-//    private void loadData(String filename) {
-//        if (data.getSingleData(filename) == null && data.getClass().getSimpleName().equals("CSVData")) {
-//            ((CSVData) data).loadFromFile(filename);
-//        }
-//    }
 
 
     private Table createTable(String filename, String[] columnsNames) {

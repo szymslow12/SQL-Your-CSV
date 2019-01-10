@@ -16,7 +16,7 @@ public class QueryParser {
         createQueryList(query);
     }
 
-    public Query parse(String query) {
+    public static Query parse(String query) {
         return new Query();
     }
 

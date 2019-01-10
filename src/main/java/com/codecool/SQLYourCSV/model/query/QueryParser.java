@@ -12,14 +12,14 @@ public class QueryParser {
 
     private List<String> splitedQuery = new ArrayList<>();
     private Query queryObject = new Query();
-    private String query;
+    private String queryString;
 
     public static Query parse(String query) {
         return new QueryParser().queryParser(query); }
 
     public Query queryParser(String query) {
-        this.query = query;
-        createQueryList(query);
+        this.queryString = query;
+        createQueryList();
         deleteTooMuchSpaces();
         if (!checkSelectQueryIsProper()) throw new IllegalArgumentException("Query is no proper!");
 
@@ -46,15 +46,15 @@ public class QueryParser {
         return queryObject;
     }
 
-    private void createQueryList(String query) {
-        String[] split = query.toUpperCase().split(" +|, +|,");
+    private void createQueryList() {
+        String[] split = queryString.toUpperCase().split(" +|, +|,");
         Collections.addAll(splitedQuery, split);
     }
 
     private void deleteTooMuchSpaces() {
-        this.query = query.replaceAll("\\s+", " ");
-        this.query = query.replaceAll(" ,", ",");
-        this.query = query.replaceAll(", ", ",");
+        this.queryString = queryString.replaceAll("\\s+", " ");
+        this.queryString = queryString.replaceAll(" ,", ",");
+        this.queryString = queryString.replaceAll(", ", ",");
     }
 
     private String getStatement() {
@@ -81,20 +81,20 @@ public class QueryParser {
     private boolean checkClauseExist() {
         String tableName = queryObject.getTableName();
         Pattern selectRegex = Pattern.compile("FROM " + tableName + ".*", Pattern.CASE_INSENSITIVE);
-        return selectRegex.matcher(query).find();
+        return selectRegex.matcher(queryString).find();
 
     }
 
     private boolean checkSelectQueryIsProper() {
-        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)( WHERE .+?=?'.+')?;", Pattern.CASE_INSENSITIVE);
-        return selectRegex.matcher(query).find();
+        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)(?: WHERE .+?=?'.+')?(?: )?;", Pattern.CASE_INSENSITIVE);
+        return selectRegex.matcher(queryString).find();
     }
 
     private String[] getColumnsName() {
         String group = "";
         String statement = queryObject.getStatement();
         Pattern columnsName = Pattern.compile(statement + " (.*) FROM.*", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = columnsName.matcher(query);
+        Matcher matcher = columnsName.matcher(queryString);
         if (matcher.matches()) {
             group = matcher.group(1);
         }
@@ -103,8 +103,8 @@ public class QueryParser {
 
     private String getTableName() {
         String tableName = "";
-        Pattern columnsName = Pattern.compile(".*FROM (.*) (?:WHERE .*=?'.*');", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = columnsName.matcher(query);
+        Pattern columnsName = Pattern.compile(".*FROM (.*)(?: WHERE.*)?;", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(queryString);
         if (matcher.matches()) {
             tableName = matcher.group(1);
         }
@@ -116,7 +116,7 @@ public class QueryParser {
         String tableName = queryObject.getTableName();
         Pattern columnsName = Pattern.compile(
                 ".*FROM " + tableName + " (\\w+) (?:.*=.*)", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = columnsName.matcher(query);
+        Matcher matcher = columnsName.matcher(queryString);
         if (matcher.matches()) {
             clauseName = matcher.group(1);
         }
@@ -128,7 +128,7 @@ public class QueryParser {
         String clauseName = queryObject.getClauseName();
         Pattern columnsName = Pattern.compile(
                 ".*" + clauseName + " (\\w+)?=.*", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = columnsName.matcher(query);
+        Matcher matcher = columnsName.matcher(queryString);
         if (matcher.matches()) {
             clauseCondition = matcher.group(1);
         }
@@ -139,7 +139,7 @@ public class QueryParser {
         String clauseValue = "";
         Pattern columnsName = Pattern.compile(
                 ".*=?'(.*)'.*", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = columnsName.matcher(query);
+        Matcher matcher = columnsName.matcher(queryString);
         if (matcher.matches()) {
             clauseValue = matcher.group(1);
         }

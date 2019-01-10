@@ -1,11 +1,9 @@
 package com.codecool.SQLYourCSV.model.service;
 
-import com.codecool.SQLYourCSV.model.data.CSVData;
 import com.codecool.SQLYourCSV.model.data.Data;
 import com.codecool.SQLYourCSV.model.datastructure.Column;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
-import com.codecool.SQLYourCSV.model.enumeration.Command;
 import com.codecool.SQLYourCSV.model.query2.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

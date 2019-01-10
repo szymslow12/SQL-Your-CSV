@@ -178,4 +178,12 @@ class TableServiceTest {
 
         assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromQuery(query));
     }
+
+
+    @Test
+    void shouldCreateTableFromQueryThrowExceptionWhenDataFromGivenTableIsEmpty() {
+        when(data.getSingleData(anyString())).thenReturn(createTestTableData(0, 0));
+
+        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromQuery(query));
+    }
 }

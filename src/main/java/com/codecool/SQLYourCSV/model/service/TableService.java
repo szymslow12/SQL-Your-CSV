@@ -62,6 +62,8 @@ public class TableService {
         List<String[]> data = validateAndGetData(query.getTableName());
         String[] columnsNameFromQuery = query.getColumns();
         String[] columnsNameFromData = data.get(0);
+        Table fullTable = createTable(query.getTableName(), columnsNameFromData);
+        addTableRows(fullTable, data, columnsNameFromData);
         Table table = new Table();
         table.setHeaders(
             createHeader(
@@ -70,9 +72,12 @@ public class TableService {
         );
         IntFunction<Row> createRowsFromData = i -> {
             Row row = new Row(new ColumnService());
+            RowService rowService = fullTable.getService();
+            Row fullRow = rowService.getRowByIndex(i + 1, fullTable.getRows());
+            ColumnService columnService = fullRow.getService();
 
-            IntFunction<Column<Object>> createColumn =
-                j -> new Column<>(checkAndCastIfIsNumber("value"), columnsNameFromQuery[j]);
+            IntFunction<Column<?>> createColumn =
+                j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
 
             row.setColumns(
                 IntStream.range(0, columnsNameFromQuery.length).
@@ -125,7 +130,7 @@ public class TableService {
 
     private Table createTable(String filename, String[] columnsNames) {
         return new Table(createHeader(columnsNames), new RowService(),
-            filename.substring(0, filename.indexOf(".")));
+            filename.contains(".") ? filename.substring(0, filename.indexOf(".")): filename);
     }
 
 

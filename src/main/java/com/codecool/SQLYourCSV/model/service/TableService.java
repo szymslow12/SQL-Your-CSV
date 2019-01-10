@@ -74,7 +74,9 @@ public class TableService {
     }
 
 
+    private String[] checkAndGetColumnNamesIfExist(String[] columnsFromQuery, String[] columnsFromData) {
 
+    }
 
 //    private void loadData(String filename) {
 //        if (data.getSingleData(filename) == null && data.getClass().getSimpleName().equals("CSVData")) {

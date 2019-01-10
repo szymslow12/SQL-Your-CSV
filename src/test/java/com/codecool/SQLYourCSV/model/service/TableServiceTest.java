@@ -198,9 +198,18 @@ class TableServiceTest {
 
 
     @Test
-    void shouldCreateTableThrowExceptionWhenColumnsInQueryDoesNotExistInTable() {
+    void shouldCreateTableFromQueryThrowExceptionWhenColumnsInQueryDoesNotExistInTable() {
         when(query.getColumns()).thenReturn(new String[] {"not_exist", "not_exist2"});
 
         assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromQuery(query));
+    }
+
+
+    @Test
+    void shouldCreateTableFromQueryReturnTableWithAllRowsExcludingHeader() {
+        int expected = 4;
+        int actual = tableService.createTableFromQuery(query).size();
+
+        assertEquals(expected, actual);
     }
 }

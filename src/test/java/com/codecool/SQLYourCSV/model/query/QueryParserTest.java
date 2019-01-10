@@ -51,6 +51,24 @@ class QueryParserTest {
         Assert.assertEquals(expected, result);
     }
 
+    @Test
+    void testQueryWithTooMuchColumnsInQueryExpectedIllegarlExpcetion() {
+        String statement = "Select column1 from table_name table2 where cond='result'";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
+    }
+
+    @Test
+    void testQueryWitchoutCommasInClauseValues() {
+        String statement = "Select column1 from table_name where cond=result";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
+    }
+
 //    @Test
 //    void testQueryWhenTooMuchSemicolonAtEndExpectedIllegalException(){
 //        String statement = "Select * from table_name where cond='result';;;;";
@@ -59,5 +77,7 @@ class QueryParserTest {
 //                    QueryParser.parse(statement);
 //                });
 //    }
+
+
 
 }

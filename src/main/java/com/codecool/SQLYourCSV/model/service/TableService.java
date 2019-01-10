@@ -72,8 +72,8 @@ public class TableService {
         table.setName(fullTable.getName());
         setTableHeadersFromQuery(table, queryColumns, dataColumns);
         table.setRows(IntStream.range(0, fullTable.size()).
-                mapToObj(createRowFromQuery(fullTable, queryColumns)).
-                collect(Collectors.toList())
+            mapToObj(createRowFromQuery(fullTable, queryColumns)).
+            collect(Collectors.toList())
         );
         return table;
     }
@@ -81,9 +81,9 @@ public class TableService {
 
     private void setTableHeadersFromQuery(Table table, String[] columnsNameFromQuery, String[] columnsNameFromData) {
         table.setHeaders(
-                createHeader(
-                        checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
-                )
+            createHeader(
+                checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
+            )
         );
     }
 
@@ -96,12 +96,12 @@ public class TableService {
             ColumnService columnService = fullRow.getService();
 
             IntFunction<Column<?>> createColumn =
-                    j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
+                j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
 
             row.setColumns(
-                    IntStream.range(0, columnsNameFromQuery.length).
-                            mapToObj(createColumn).
-                            collect(Collectors.toList())
+                IntStream.range(0, columnsNameFromQuery.length).
+                mapToObj(createColumn).
+                collect(Collectors.toList())
             );
             return row;
         };

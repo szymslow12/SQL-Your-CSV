@@ -54,6 +54,9 @@ public class TableService {
 
 
     public Table createTableFromQuery(Query query ) {
+        if (query == null) {
+            throw new IllegalArgumentException("Query is not given, received null!");
+        }
         Table table = new Table();
         return table;
     }

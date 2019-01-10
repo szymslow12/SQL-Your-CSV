@@ -101,6 +101,8 @@ hr {
 
 .table {
     width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px 5px;
 }
 
 
@@ -108,7 +110,6 @@ hr {
     padding: 10px;
     border: 1px solid black;
     box-shadow: 1px 1px 1px #333333;
-    background-color: rgba(0, 255, 255, 1);
 }
 
 

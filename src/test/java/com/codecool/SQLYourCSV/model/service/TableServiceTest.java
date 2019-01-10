@@ -69,6 +69,6 @@ class TableServiceTest {
 
     @Test
     void shouldCreateTableFromFileCreateTableWhenTableNameIsGiven() {
-        assertNotNull(tableService.createTableFromFile("tableName"));
+        assertNotNull(tableService.createTableFromFile("tableName.csv"));
     }
 }

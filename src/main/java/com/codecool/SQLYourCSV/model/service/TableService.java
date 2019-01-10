@@ -58,6 +58,7 @@ public class TableService {
             throw new IllegalArgumentException("Query is not given, received null!");
         }
         Table table = new Table();
+        table.setHeaders(new Row(new ColumnService()));
         return table;
     }
 

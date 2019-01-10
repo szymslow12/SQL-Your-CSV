@@ -73,7 +73,7 @@ public class TableService {
 
 
     private void loadData(String filename) {
-        if (data.getSingleData(filename) == null && data.getClass().equals(CSVData.class)) {
+        if (data.getSingleData(filename) == null && data.getClass().getSimpleName().equals("CSVData")) {
             ((CSVData) data).loadFromFile(filename);
         }
     }

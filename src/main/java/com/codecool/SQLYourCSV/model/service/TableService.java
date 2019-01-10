@@ -62,7 +62,11 @@ public class TableService {
         String[] columnsNameFromQuery = query.getColumns();
         String[] columnsNameFromData = data.get(0);
         Table table = new Table();
-        table.setHeaders(createHeader(new String[]{"col1", "col2", "col3"}));
+        table.setHeaders(
+            createHeader(
+                checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
+            )
+        );
         return table;
     }
 

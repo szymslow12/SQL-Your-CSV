@@ -1,22 +1,81 @@
 package com.codecool.SQLYourCSV.model.query;
 
-import com.codecool.SQLYourCSV.model.enumeration.Command;
+import java.util.Arrays;
 
 public class Query {
 
-    private Command[] commands;
+    private String statement;
 
-    public void setCommands(Command[] commands) {
-        this.commands = commands;
+    private String[] columns;
+
+    private String tableName;
+
+    private String clauseName;
+
+    private String clauseValue;
+
+    private String clauseCondition;
+
+    public Query() {
     }
 
-
-    public Command[] getCommands() {
-        return commands;
+    public String getClauseCondition() {
+        return clauseCondition;
     }
 
+    public void setClauseCondition(String clauseCondition) {
+        this.clauseCondition = clauseCondition;
+    }
 
-    public boolean contains(Command toFind) {
-        return false;
+    public String getStatement() {
+        return statement;
+    }
+
+    public void setStatement(String statement) {
+        this.statement = statement;
+    }
+
+    public String[] getColumns() {
+        return columns;
+    }
+
+    public void setColumns(String[] columns) {
+        this.columns = columns;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getClauseName() {
+        return clauseName;
+    }
+
+    public void setClauseName(String clauseName) {
+        this.clauseName = clauseName;
+    }
+
+    public String getClauseValue() {
+        return clauseValue;
+    }
+
+    public void setClauseValue(String clauseValue) {
+        this.clauseValue = clauseValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Query{" +
+                "statement='" + statement + '\'' +
+                ", columns=" + Arrays.toString(columns) +
+                ", tableName='" + tableName + '\'' +
+                ", clauseName='" + clauseName + '\'' +
+                ", clauseCondition='" + clauseCondition + '\'' +
+                ", clauseValue='" + clauseValue + '\'' +
+                '}';
     }
 }

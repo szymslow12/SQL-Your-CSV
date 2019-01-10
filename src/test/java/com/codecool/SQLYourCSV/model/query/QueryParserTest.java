@@ -26,7 +26,7 @@ class QueryParserTest {
 
     @Test
     void testQueryWhenNoSemicolonAtEndExpectIllegalExcepion(){
-        String statement = "Select * from table_name where cond='result'";
+        String statement = "Select table from table_name where cond='result'";
         assertThrows(IllegalArgumentException.class,
                 () ->{
                     QueryParser.parse(statement);
@@ -53,7 +53,7 @@ class QueryParserTest {
 
     @Test
     void testQueryWithTooMuchColumnsInQueryExpectedIllegarlExpcetion() {
-        String statement = "Select column1 from table_name table2 where cond='result'";
+        String statement = "Select column1 from table_name table2 where cond='result';";
         assertThrows(IllegalArgumentException.class,
                 () ->{
                     QueryParser.parse(statement);
@@ -61,23 +61,39 @@ class QueryParserTest {
     }
 
     @Test
-    void testQueryWitchoutCommasInClauseValues() {
-        String statement = "Select column1 from table_name where cond=result";
+    void testQueryWitchoutCommasInClauseValuesExpectedIllegalExcpetion() {
+        String statement = "Select column1 from table_name where cond=result;";
         assertThrows(IllegalArgumentException.class,
                 () ->{
                     QueryParser.parse(statement);
                 });
     }
 
-//    @Test
-//    void testQueryWhenTooMuchSemicolonAtEndExpectedIllegalException(){
-//        String statement = "Select * from table_name where cond='result';;;;";
-//        assertThrows(IllegalArgumentException.class,
-//                () ->{
-//                    QueryParser.parse(statement);
-//                });
-//    }
+    @Test
+    void testQueryWithSemicolonInQueryExpectedIllegalExcpetion() {
+        String statement = "Select column1 from ;table_name where cond='result';";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
+    }
 
+    @Test
+    void testQueryWithNewLineExpectedIllegalExcpetion() {
+        String statement = "Select column1 from \ntable_name where cond='result';";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
+    }
 
+    @Test
+    void testQueryWhenTooMuchSemicolonAtEndExpectedIllegalException(){
+        String statement = "Select * from table_name where cond='result';;;;";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
+    }
 
 }

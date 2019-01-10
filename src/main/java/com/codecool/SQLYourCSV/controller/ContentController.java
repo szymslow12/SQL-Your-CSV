@@ -24,9 +24,9 @@ public class ContentController {
 
     @PostMapping("/sheetql")
     public String result(Model model, @RequestBody String query) {
-        Table table = service.createTableFromQuery(QueryParser.parse(query));
+//        Table table = service.createTableFromQuery(QueryParser.parse(query));
         model.addAttribute("isSentQuery", true);
-        model.addAttribute("table", table);
+//        model.addAttribute("table", table);
         return "sheetQl";
     }
 }

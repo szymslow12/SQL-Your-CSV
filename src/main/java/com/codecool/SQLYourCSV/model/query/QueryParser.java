@@ -14,6 +14,9 @@ public class QueryParser {
     private Query queryObject = new Query();
     private String query;
 
+    public static Query parse(String query) {
+        return new QueryParser().queryParser(query); }
+
     public Query queryParser(String query) {
         this.query = query;
         createQueryList(query);

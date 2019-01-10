@@ -89,7 +89,7 @@ public class QueryParser {
     }
 
     private boolean checkSelectQueryIsProper() {
-        Pattern selectRegex = Pattern.compile("SELECT ([a-zA-Z*][a-zA-Z0-9_.-]*)(?:,[a-zA-Z][a-zA-Z0-9_.-]*)? " +
+        Pattern selectRegex = Pattern.compile("SELECT (?!select)([a-zA-Z*][a-zA-Z0-9_.-]*)(?:,[a-zA-Z][a-zA-Z0-9_.-]*)? " +
                 "FROM ([a-zA-Z][a-zA-Z0-9_.])+" +
                 "(?: WHERE [a-zA-Z][a-zA-Z0-9_.-]+='[a-zA-Z][a-zA-Z0-9_.]*')?;", Pattern.CASE_INSENSITIVE);
 

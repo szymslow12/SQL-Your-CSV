@@ -78,4 +78,13 @@ class QueryParserTest {
                 });
     }
 
+    @Test
+    void testQueryWithTwoSelectStatementExpectedIllegalExcpetion() {
+        String statement = "Select column1 from ;table_name where select='result';";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
+    }
+
 }

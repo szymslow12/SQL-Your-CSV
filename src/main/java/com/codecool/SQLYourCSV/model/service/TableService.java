@@ -67,27 +67,10 @@ public class TableService {
         Table fullTable = createFullTable(dataName, columnsNameFromData, data);
         Table table = new Table();
 
+        table.setName(dataName);
         setTableHeadersFromQuery(table, columnsNameFromQuery, columnsNameFromData);
-
-        IntFunction<Row> createRowsFromData = i -> {
-            Row row = new Row(new ColumnService());
-            RowService rowService = fullTable.getService();
-            Row fullRow = rowService.getRowByIndex(i + 1, fullTable.getRows());
-            ColumnService columnService = fullRow.getService();
-
-            IntFunction<Column<?>> createColumn =
-                j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
-
-            row.setColumns(
-                IntStream.range(0, columnsNameFromQuery.length).
-                mapToObj(createColumn).
-                collect(Collectors.toList())
-            );
-            return row;
-        };
-
         table.setRows(IntStream.range(0, data.size() - 1).
-            mapToObj(createRowsFromData).
+            mapToObj(createRowFromQuery(fullTable, columnsNameFromQuery)).
             collect(Collectors.toList())
         );
         return table;
@@ -136,6 +119,26 @@ public class TableService {
         );
     }
 
+
+    private IntFunction<Row> createRowFromQuery(Table fullTable, String[] columnsNameFromQuery) {
+        IntFunction<Row> createRowsFromData = i -> {
+            Row row = new Row(new ColumnService());
+            RowService rowService = fullTable.getService();
+            Row fullRow = rowService.getRowByIndex(i + 1, fullTable.getRows());
+            ColumnService columnService = fullRow.getService();
+
+            IntFunction<Column<?>> createColumn =
+                j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
+
+            row.setColumns(
+                IntStream.range(0, columnsNameFromQuery.length).
+                    mapToObj(createColumn).
+                    collect(Collectors.toList())
+            );
+            return row;
+        };
+        return createRowsFromData;
+    }
 //    private void loadData(String filename) {
 //        if (data.getSingleData(filename) == null && data.getClass().getSimpleName().equals("CSVData")) {
 //            ((CSVData) data).loadFromFile(filename);

@@ -3,21 +3,25 @@ package com.codecool.SQLYourCSV.model.query2;
 import com.codecool.SQLYourCSV.model.enumeration.Statements;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class QueryParser {
 
     private List<String> splitedQuery = new ArrayList<>();
     private Query queryObject = new Query();
+    private String query;
 
     public QueryParser(String query) {
         createQueryList(query);
+        this.query = query;
     }
 
     public void queryParser() {
-        checkQueryIsProper();
+//        checkQueryIsProper();
+        checkSelectQueryIsProper();
 
         String statement = getStatement().toUpperCase();
 
@@ -39,11 +43,14 @@ public class QueryParser {
     }
 
     private void checkQueryIsProper() {
+        if (!checkSelectQueryIsProper()) throw new IllegalArgumentException("Query is no proper!");
+        // TODO: delete useless comments
         if (isEmpty()) throw new IllegalArgumentException("Query is not complete!");
-        if (!isSemicolonAtEnd()) throw new IllegalArgumentException("Missing semicolon!");
-        if (!isStatementInQuery()) throw new IllegalArgumentException("Any statement in query or in wrong position");
-        if (!isFromKeywordInQuery()) throw new IllegalArgumentException("Missing from keyword!");
-        if(missingColumnNames()) throw new IllegalArgumentException("Columns names in wrong position or any columns name are entered!");
+//        if (!isSemicolonAtEnd()) throw new IllegalArgumentException("Missing semicolon!");
+//        if (!isStatementInQuery()) throw new IllegalArgumentException("Any statement in query or in wrong position");
+//        if (!isFromKeywordInQuery()) throw new IllegalArgumentException("Missing from keyword!");
+//        if(missingColumnNames()) throw new IllegalArgumentException("Columns names in wrong position or any columns name are entered!");
+
     }
 
     private boolean isEmpty() {
@@ -95,7 +102,7 @@ public class QueryParser {
                 return (String.valueOf(statement));
             }
         }
-        return null;
+        throw new IllegalArgumentException("UNEXPECTED ERROR 505 !!");
     }
 
     private String getTwoWordStatement(int stmtIndexPos1, int stmtIndexPos2) {
@@ -111,17 +118,26 @@ public class QueryParser {
     }
 
     private String[] getColumnsName() {
-        int fromKeyWordIndex = getFromKeywordIndex();
-        String[] strings = splitedQuery.stream().toArray(String[]::new);
-        return Arrays.copyOf(strings, fromKeyWordIndex);
-
+        String group = "";
+        String statement = queryObject.getStatement();
+        Pattern columnsName = Pattern.compile(statement + " (.*) FROM .*" , Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(query);
+        if(matcher.matches()) {
+            group = matcher.group(1);
+        }
+        return group.split( "\\s+,\\s+");
     }
 
     private int getFromKeywordIndex() {
-        for(int i = 0; i < splitedQuery.size(); i++){
-            if(splitedQuery.get(i).equalsIgnoreCase("FROM")) return i;
+        for (int i = 0; i < splitedQuery.size(); i++) {
+            if (splitedQuery.get(i).equalsIgnoreCase("FROM")) return i;
         }
         return 0;
+    }
+
+    private boolean checkSelectQueryIsProper() {
+        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)( WHERE .+?=?'.+')?;", Pattern.CASE_INSENSITIVE);
+        return selectRegex.matcher(query).find();
     }
 
 }

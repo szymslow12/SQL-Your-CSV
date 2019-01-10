@@ -16,6 +16,10 @@ public class QueryParser {
         createQueryList(query);
     }
 
+    public Query parse(String query) {
+        return new Query();
+    }
+
     public void queryParser() {
         checkQueryIsProper();
 

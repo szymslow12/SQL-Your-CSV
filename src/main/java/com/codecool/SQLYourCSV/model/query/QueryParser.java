@@ -86,7 +86,7 @@ public class QueryParser {
     }
 
     private boolean checkSelectQueryIsProper() {
-        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)(?: WHERE .+?=?'.+')?(?: )?;", Pattern.CASE_INSENSITIVE);
+        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)(?: WHERE .+?=?'.+')?(?: )(?: )?;", Pattern.CASE_INSENSITIVE);
         return selectRegex.matcher(queryString).find();
     }
 

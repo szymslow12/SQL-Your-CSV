@@ -2,6 +2,7 @@ package com.codecool.SQLYourCSV.model.query;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class QueryParserTest {
 
@@ -21,6 +22,24 @@ class QueryParserTest {
                 " clauseCondition='cond', clauseValue='result'}";
         String result = QueryParser.parse(statement).toString();
         Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    void testQueryWhenNoSemicolonAtEnd(){
+        String statement = "Select * from table_name where cond='result'";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
+    }
+
+    @Test
+    void testQueryWhenTooMuchSemicolonAtEnd(){
+        String statement = "Select * from table_name where cond='result';;";
+        assertThrows(IllegalArgumentException.class,
+                () ->{
+                    QueryParser.parse(statement);
+                });
     }
 
 }

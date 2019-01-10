@@ -58,6 +58,8 @@ public class TableService {
             throw new IllegalArgumentException("Query is not given, received null!");
         }
         List<String[]> data = validateAndGetData(query.getTableName());
+        String[] columnsNameFromQuery = query.getColumns();
+        String[] columnsNameFromData = data.get(0);
         Table table = new Table();
         table.setHeaders(createHeader(new String[]{"col1", "col2", "col3"}));
         return table;
@@ -70,6 +72,9 @@ public class TableService {
         }
         return toValidate;
     }
+
+
+
 
 //    private void loadData(String filename) {
 //        if (data.getSingleData(filename) == null && data.getClass().getSimpleName().equals("CSVData")) {

@@ -1,4 +1,4 @@
-package com.codecool.SQLYourCSV.model.query2;
+package com.codecool.SQLYourCSV.model.query;
 
 import com.codecool.SQLYourCSV.model.enumeration.Statements;
 

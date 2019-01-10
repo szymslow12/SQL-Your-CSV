@@ -3,7 +3,7 @@ package com.codecool.SQLYourCSV.model.service;
 import com.codecool.SQLYourCSV.model.data.Data;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
-import com.codecool.SQLYourCSV.model.query2.Query;
+import com.codecool.SQLYourCSV.model.query.Query;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

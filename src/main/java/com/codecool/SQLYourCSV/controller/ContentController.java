@@ -1,7 +1,7 @@
 package com.codecool.SQLYourCSV.controller;
 
 import com.codecool.SQLYourCSV.model.datastructure.Table;
-import com.codecool.SQLYourCSV.model.query.QueryParser;
+import com.codecool.SQLYourCSV.model.query2.QueryParser;
 import com.codecool.SQLYourCSV.model.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

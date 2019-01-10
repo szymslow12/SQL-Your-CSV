@@ -41,7 +41,7 @@ public class FileReader {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                return null;
+                return new ArrayList<>();
             }
         ));
     }

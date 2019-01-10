@@ -57,13 +57,14 @@ public class TableService {
         if (query == null) {
             throw new IllegalArgumentException("Query is not given, received null!");
         }
+
         Table table = new Table();
         table.setHeaders(new Row(new ColumnService()));
         return table;
     }
 
-    private List<String[]> validateAndGetData(String filename) {
-        List<String[]> toValidate = data.getSingleData(filename);
+    private List<String[]> validateAndGetData(String dataName) {
+        List<String[]> toValidate = data.getSingleData(dataName);
         if (toValidate == null || toValidate.size() == 0) {
             throw new IllegalArgumentException("Data from file is empty or data is null!");
         }

@@ -67,6 +67,7 @@ public class TableService {
                 checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
             )
         );
+        table.setRows(IntStream.range(0, 4).mapToObj(i -> new Row(new ColumnService())).collect(Collectors.toList()));
         return table;
     }
 

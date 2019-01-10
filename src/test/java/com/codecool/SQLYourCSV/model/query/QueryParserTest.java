@@ -52,7 +52,7 @@ class QueryParserTest {
     }
 
     @Test
-    void testQueryWithTooMuchColumnsInQueryExpectedIllegarlExpcetion() {
+    void testQueryWithTooMuchColumnsInQueryExpectedIllegalExpcetion() {
         String statement = "Select column1 from table_name table2 where cond='result';";
         assertThrows(IllegalArgumentException.class,
                 () ->{
@@ -72,24 +72,6 @@ class QueryParserTest {
     @Test
     void testQueryWithSemicolonInQueryExpectedIllegalExcpetion() {
         String statement = "Select column1 from ;table_name where cond='result';";
-        assertThrows(IllegalArgumentException.class,
-                () ->{
-                    QueryParser.parse(statement);
-                });
-    }
-
-    @Test
-    void testQueryWithNewLineExpectedIllegalExcpetion() {
-        String statement = "Select column1 from \ntable_name where cond='result';";
-        assertThrows(IllegalArgumentException.class,
-                () ->{
-                    QueryParser.parse(statement);
-                });
-    }
-
-    @Test
-    void testQueryWhenTooMuchSemicolonAtEndExpectedIllegalException(){
-        String statement = "Select * from table_name where cond='result';;;;";
         assertThrows(IllegalArgumentException.class,
                 () ->{
                     QueryParser.parse(statement);

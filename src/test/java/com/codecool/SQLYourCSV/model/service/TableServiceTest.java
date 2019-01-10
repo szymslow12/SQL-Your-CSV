@@ -35,11 +35,6 @@ class TableServiceTest {
     @BeforeAll
     private void initMocks() {
         MockitoAnnotations.initMocks(this);
-        when(query.getTableName()).thenReturn("tableName");
-        when(query.getColumns()).thenReturn(new String[]{"column_1", "column_2", "column_3"});
-        when(query.getClauseName()).thenReturn("WHERE");
-        when(query.getStatement()).thenReturn("SELECT");
-        when(data.getSingleData(anyString())).thenReturn(createTestTableData(5, 5));
     }
 
 
@@ -61,14 +56,100 @@ class TableServiceTest {
     }
 
     @BeforeEach
-    private void initPrivateFields() {
+    private void initPrivateFieldsAndSetStubs() {
         this.tableService = new TableService();
         tableService.setData(data);
+        when(query.getTableName()).thenReturn("tableName");
+        when(query.getColumns()).thenReturn(new String[]{"column_1", "column_2", "column_3"});
+        when(query.getClauseName()).thenReturn("WHERE");
+        when(query.getStatement()).thenReturn("SELECT");
+        when(data.getSingleData(anyString())).thenReturn(createTestTableData(5, 5));
     }
 
 
     @Test
     void shouldCreateTableFromFileCreateTableWhenTableNameIsGiven() {
         assertNotNull(tableService.createTableFromFile("tableName.csv"));
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileThrowExceptionWhenFileNameIsNotProper() {
+        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromFile("bad-table-name"));
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileThrowExceptionWhenFileNameIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromFile(null));
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileReturnTableWithProperNumberOfRowsExcludingHeaderRow() {
+        Table toTest = tableService.createTableFromFile("tableName.csv");
+
+        int expected = 4;
+        int actual = toTest.size();
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileReturnTableWithProperNumberOfRowsIncludingHeaderRow() {
+        Table toTest = tableService.createTableFromFile("tableName.csv");
+
+        int expected = 5;
+        int actual = toTest.size() + (toTest.getHeaders() != null ? 1: 0);
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileReturnTableWithProperNumberOfColumnsInRows() {
+        Table toTest = tableService.createTableFromFile("tableName.csv");
+
+        int expected = 5;
+
+        IntConsumer testNumberOfColumns = i -> {
+            int actual;
+            if (i == 0) {
+                actual = toTest.getHeaders().size();
+                assertEquals(expected, actual);
+            } else {
+//                minus one because index of rows starts from 0 but index 0 is used to test header
+//                so index 1 and bigger is used to test columns in rows so that why there is minus one
+                actual = toTest.getRows().get(i - 1).size();
+                assertEquals(expected, actual);
+            }
+        };
+
+        IntStream.range(0, 5).forEach(testNumberOfColumns);
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileThrowExceptionWhenPassedDataIsEmpty() {
+        when(data.getSingleData(anyString())).thenReturn(createTestTableData(0, 0));
+
+        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromFile("tableName.csv"));
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileThrowExceptionWhenPassedDataIsNull() {
+        when(data.getSingleData(anyString())).thenReturn(null);
+
+        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromFile("tableName.csv"));
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileCreateTableWhenOnlyColumnsNamesArePassed() {
+        when(data.getSingleData(anyString())).thenReturn(createTestTableData(1, 5));
+
+        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromFile("tableName.csv"));
     }
 }

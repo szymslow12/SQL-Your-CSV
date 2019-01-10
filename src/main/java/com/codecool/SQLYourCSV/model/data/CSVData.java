@@ -17,6 +17,7 @@ public class CSVData implements Data {
 
 
     public List<String[]> getSingleData(String dataName) {
+        loadFromFile(dataName);
         return data.get(dataName);
     }
 

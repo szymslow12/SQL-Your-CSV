@@ -2,22 +2,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!--<link rel="stylesheet" href="/static/css/reset.css" type="text/css">-->
-    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/main.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<div>
-    <h1 th:text="'Hello, ' + ${name} + '!'"></h1>
-    <form method="post">
-        <input type="text" name="name">
-        <button type="submit">Say hello!</button>
-    </form>
-</div>
-    <footer>
+<body onload="adjustHeight(document.getElementById('content'))">
+    <div id="content" class="flex-center content">
+        <form id="query-form" class="box-shadow margin border flex-column">
+            <textarea id="query" placeholder="Enter your query"></textarea>
+            <hr/>
+            <div class="flex-center content">
+                <button class="button border margin" type="button" onclick="sendQuery()">
+                    Send
+                </button>
+                <button class="button border margin" type="button" onclick="alert('Reset')">
+                    Reset
+                </button>
+            </div>
+        </form>
+        <div id="result" class="box-shadow margin border" th:object="${isSentQuery}">
+            <table class="table" th:object="${table}" th:if="${isSentQuery}">
+                <tr>
+                    <th th:each="column: *{headers.getColumns()}" th:text="${column.getName()}"></th>
+                </tr>
+                <tr th:each="row: *{rows}">
+                    <td th:each="column: ${row.getColumns()}" th:text="${column.getValue()}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <footer id="footer">
         <a href="http://www.freepik.com">Designed by Creative_hat / Freepik</a>
     </footer>
-
+    <script src="/js/main.js"></script>
 </body>
 </html>

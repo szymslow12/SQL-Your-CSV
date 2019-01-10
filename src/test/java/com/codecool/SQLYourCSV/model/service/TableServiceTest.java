@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.data.Data;
+import com.codecool.SQLYourCSV.model.data.SheetData;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
 import com.codecool.SQLYourCSV.model.query.Query;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.when;
 class TableServiceTest {
 
     @Mock
-    private Data data;
+    private SheetData data;
 
     @Mock
     private Query query;

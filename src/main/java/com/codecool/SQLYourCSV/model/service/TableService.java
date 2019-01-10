@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.data.Data;
+import com.codecool.SQLYourCSV.model.data.SheetData;
 import com.codecool.SQLYourCSV.model.datastructure.Column;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
@@ -21,10 +22,10 @@ import java.util.stream.Stream;
 @Service
 public class TableService {
 
-    @Autowired
     private Data data;
 
-    public void setData(Data data) {
+    @Autowired
+    public void setData(SheetData data) {
         this.data = data;
     }
 

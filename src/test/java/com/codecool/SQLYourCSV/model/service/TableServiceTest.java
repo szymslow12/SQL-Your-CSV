@@ -4,6 +4,7 @@ import com.codecool.SQLYourCSV.model.data.CSVData;
 import com.codecool.SQLYourCSV.model.data.Data;
 import com.codecool.SQLYourCSV.model.query2.Query;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -57,4 +58,8 @@ class TableServiceTest {
         return IntStream.range(0, rowsNumber).mapToObj(createTableData).collect(Collectors.toList());
     }
 
+    @BeforeEach
+    private void initPrivateFields() {
+        this.tableService = new TableService();
+    }
 }

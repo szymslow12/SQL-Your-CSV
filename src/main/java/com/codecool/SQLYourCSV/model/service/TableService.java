@@ -27,7 +27,7 @@ public class TableService {
     @Autowired
     private Data data;
 
-    public void setData(CSVData data) {
+    public void setData(Data data) {
         this.data = data;
     }
 

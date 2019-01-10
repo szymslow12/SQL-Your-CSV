@@ -42,7 +42,7 @@ public class TableService {
         if (filename == null || !filename.contains("."))
             throw new IllegalArgumentException("Wrong file name or file name is null!");
 
-        List<String[]> dataFromCSV = data.getSingleData(filename);
+        List<String[]> dataFromCSV = validateAndGetData(filename);
         String[] columnsNames = dataFromCSV.get(0);
 
         Table table = createTable(filename, columnsNames);
@@ -73,6 +73,13 @@ public class TableService {
         return table;
     }
 
+    private List<String[]> validateAndGetData(String filename) {
+        List<String[]> toValidate = data.getSingleData(filename);
+        if (toValidate == null || toValidate.size() == 0) {
+            throw new IllegalArgumentException("Data from file is empty or data is null!");
+        }
+        return toValidate;
+    }
 
 //    private void loadData(String filename) {
 //        if (data.getSingleData(filename) == null && data.getClass().getSimpleName().equals("CSVData")) {

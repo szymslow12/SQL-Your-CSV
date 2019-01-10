@@ -57,7 +57,7 @@ public class TableService {
         if (query == null) {
             throw new IllegalArgumentException("Query is not given, received null!");
         }
-
+        List<String[]> data = validateAndGetData(query.getTableName());
         Table table = new Table();
         table.setHeaders(new Row(new ColumnService()));
         return table;

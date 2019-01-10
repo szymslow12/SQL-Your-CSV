@@ -103,7 +103,7 @@ public class QueryParser {
 
     private String getTableName() {
         String tableName = "";
-        Pattern columnsName = Pattern.compile(".*FROM (.*)(?: WHERE.*)?;", Pattern.CASE_INSENSITIVE);
+        Pattern columnsName = Pattern.compile(".*FROM (\\w+)(?: WHERE.*)?;", Pattern.CASE_INSENSITIVE);
         Matcher matcher = columnsName.matcher(queryString);
         if (matcher.matches()) {
             tableName = matcher.group(1);

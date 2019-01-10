@@ -234,8 +234,10 @@ class TableServiceTest {
         IntConsumer getRows = i -> IntStream.range(0, toTest.getRows().get(i).size()).
             forEach(j -> {
                 Row row = toTest.getRows().get(i);
-                String expected = String.format("value_%s", j);
-                assertTrue(getValueFromEachColumn(j, row).equals(expected));
+                String expected = String.format("value_%s", j + 1);
+                String actual = getValueFromEachColumn(j, row);
+
+                assertTrue(actual.equals(expected));
             });
         IntStream.range(0, toTest.size()).forEach(getRows);
     }

@@ -1,10 +1,12 @@
 package com.codecool.SQLYourCSV.model.service;
 
-import com.codecool.SQLYourCSV.model.data.CSVData;
 import com.codecool.SQLYourCSV.model.data.Data;
+import com.codecool.SQLYourCSV.model.datastructure.Table;
 import com.codecool.SQLYourCSV.model.query2.Query;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -18,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TableServiceTest {
 
     @Mock
@@ -37,7 +40,6 @@ class TableServiceTest {
         when(query.getClauseName()).thenReturn("WHERE");
         when(query.getStatement()).thenReturn("SELECT");
         when(data.getSingleData(anyString())).thenReturn(createTestTableData(5, 5));
-        when(data.getClass().getSimpleName()).thenReturn("CSVData");
     }
 
 
@@ -61,5 +63,12 @@ class TableServiceTest {
     @BeforeEach
     private void initPrivateFields() {
         this.tableService = new TableService();
+        tableService.setData(data);
+    }
+
+
+    @Test
+    void shouldCreateTableFromFileCreateTableWhenTableNameIsGiven() {
+        assertNotNull(tableService.createTableFromFile("tableName"));
     }
 }

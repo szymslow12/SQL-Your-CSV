@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -75,7 +76,21 @@ public class TableService {
 
 
     private String[] checkAndGetColumnNamesIfExist(String[] columnsFromQuery, String[] columnsFromData) {
+        boolean columnsExist = compareColumns(columnsFromQuery, columnsFromData);
+        if (columnsExist) {
+            return columnsFromQuery;
+        }
+        throw new IllegalArgumentException("Column not exists in data!");
+    }
 
+
+    private boolean compareColumns(String[] columnsFromQuery, String[] columnsFromData) {
+        Predicate<String> checkColumns = columnFromQuery -> {
+            Predicate<String> compareNames = columnFromData -> columnFromQuery.equals(columnFromData);
+            return Stream.of(columnsFromData).anyMatch(compareNames);
+        };
+
+        return Stream.of(columnsFromQuery).allMatch(checkColumns);
     }
 
 //    private void loadData(String filename) {

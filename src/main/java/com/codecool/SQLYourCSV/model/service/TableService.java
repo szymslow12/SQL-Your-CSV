@@ -59,7 +59,7 @@ public class TableService {
         }
         List<String[]> data = validateAndGetData(query.getTableName());
         Table table = new Table();
-        table.setHeaders(new Row(new ColumnService()));
+        table.setHeaders(createHeader(new String[]{"col1", "col2", "col3"}));
         return table;
     }
 

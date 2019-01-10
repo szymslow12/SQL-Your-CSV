@@ -1,14 +1,14 @@
 package com.codecool.SQLYourCSV.model.enumeration.helpers;
 
-public class Selector<T> {
+public class Selector {
 
-    private T value;
+    private Object value;
 
-    public T getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(T value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 }

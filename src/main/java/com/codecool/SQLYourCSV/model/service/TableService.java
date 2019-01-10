@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -59,17 +60,15 @@ public class TableService {
         if (query == null) {
             throw new IllegalArgumentException("Query is not given, received null!");
         }
-        List<String[]> data = validateAndGetData(query.getTableName());
+        String dataName = query.getTableName();
+        List<String[]> data = validateAndGetData(dataName);
         String[] columnsNameFromQuery = query.getColumns();
         String[] columnsNameFromData = data.get(0);
-        Table fullTable = createTable(query.getTableName(), columnsNameFromData);
-        addTableRows(fullTable, data, columnsNameFromData);
+        Table fullTable = createFullTable(dataName, columnsNameFromData, data);
         Table table = new Table();
-        table.setHeaders(
-            createHeader(
-                checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
-            )
-        );
+
+        setTableHeadersFromQuery(table, columnsNameFromQuery, columnsNameFromData);
+
         IntFunction<Row> createRowsFromData = i -> {
             Row row = new Row(new ColumnService());
             RowService rowService = fullTable.getService();
@@ -119,6 +118,22 @@ public class TableService {
         };
 
         return Stream.of(columnsFromQuery).allMatch(checkColumns);
+    }
+
+
+    private Table createFullTable(String dataName, String[] columnsNames, List<String[]> data) {
+        Table fullTable = createTable(dataName, columnsNames);
+        addTableRows(fullTable, data, columnsNames);
+        return fullTable;
+    }
+
+
+    private void setTableHeadersFromQuery(Table table, String[] columnsNameFromQuery, String[] columnsNameFromData) {
+        table.setHeaders(
+            createHeader(
+                checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
+            )
+        );
     }
 
 //    private void loadData(String filename) {

@@ -55,21 +55,6 @@ public class TableService {
 
     public Table createTableFromQuery(Query query ) {
         Table table = new Table();
-        table.setService(new RowService());
-        Command[] commands = query.getCommands();
-        Stream.of(commands).forEach(command -> {
-            if (command.getName().equalsIgnoreCase("SELECT")) {
-                String[] columnsNames = (String[]) command.selector().getValue();
-                Row headers = new Row(new ColumnService());
-                Function<String, Column<String>> mapToColumn = colName -> new Column<>(colName, colName);
-                headers.setColumns(Stream.of(columnsNames).map(mapToColumn).collect(Collectors.toList()));
-                table.setHeaders(headers);
-            } else if (command.getName().equalsIgnoreCase("FROM")) {
-                String tableName = (String) command.selector().getValue();
-                table.setName(tableName);
-            }
-        });
-        table.setRows(new LinkedList<>());
         return table;
     }
 

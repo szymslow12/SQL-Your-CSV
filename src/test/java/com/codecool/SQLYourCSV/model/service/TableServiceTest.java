@@ -174,6 +174,8 @@ class TableServiceTest {
 
     @Test
     void shouldCreateTableFromQueryThrowExceptionWhenDataFromGivenTableIsNull() {
+        when(query.getTableName()).thenReturn(null);
+
         assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromQuery(query));
     }
 }

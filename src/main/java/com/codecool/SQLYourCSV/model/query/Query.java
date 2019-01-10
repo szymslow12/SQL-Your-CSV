@@ -14,15 +14,17 @@ public class Query {
 
     private String clauseValue;
 
+    private String clauseCondition;
+
     public Query() {
     }
 
-    public Query(String statement, String[] columns, String tableName, String clauseName, String clauseValue) {
-        this.statement = statement;
-        this.columns = columns;
-        this.tableName = tableName;
-        this.clauseName = clauseName;
-        this.clauseValue = clauseValue;
+    public String getClauseCondition() {
+        return clauseCondition;
+    }
+
+    public void setClauseCondition(String clauseCondition) {
+        this.clauseCondition = clauseCondition;
     }
 
     public String getStatement() {
@@ -72,6 +74,7 @@ public class Query {
                 ", columns=" + Arrays.toString(columns) +
                 ", tableName='" + tableName + '\'' +
                 ", clauseName='" + clauseName + '\'' +
+                ", clauseCondition='" + clauseCondition + '\'' +
                 ", clauseValue='" + clauseValue + '\'' +
                 '}';
     }

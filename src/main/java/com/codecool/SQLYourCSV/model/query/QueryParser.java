@@ -3,38 +3,47 @@ package com.codecool.SQLYourCSV.model.query;
 import com.codecool.SQLYourCSV.model.enumeration.Statements;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class QueryParser {
 
     private List<String> splitedQuery = new ArrayList<>();
     private Query queryObject = new Query();
-
-    public QueryParser(String query) {
-        createQueryList(query);
-    }
+    private String query;
 
     public static Query parse(String query) {
-        return new Query();
-    }
+        return new QueryParser().queryParser(query); }
 
-    public void queryParser() {
-        checkQueryIsProper();
+    public Query queryParser(String query) {
+        this.query = query;
+        createQueryList(query);
+        deleteTooMuchSpaces();
+        if (!checkSelectQueryIsProper()) throw new IllegalArgumentException("Query is no proper!");
 
         String statement = getStatement().toUpperCase();
-
         queryObject.setStatement(statement);
 
-        deleteStatementFromQuery(statement);
-
         String[] columnsName = getColumnsName();
-
         queryObject.setColumns(columnsName);
+
+        String tableName = getTableName();
+        queryObject.setTableName(tableName);
+
+        if (checkClauseExist()) {
+            String clauseName = getClauseName();
+            queryObject.setClauseName(clauseName);
+            String clauseCondition = getClauseCondition();
+            queryObject.setClauseCondition(clauseCondition);
+            String clauseValue = getClauseValue();
+            queryObject.setClauseValue(clauseValue);
+        }
 
         System.out.println(queryObject.toString());
 
+        return queryObject;
     }
 
     private void createQueryList(String query) {
@@ -42,48 +51,10 @@ public class QueryParser {
         Collections.addAll(splitedQuery, split);
     }
 
-    private void checkQueryIsProper() {
-        if (isEmpty()) throw new IllegalArgumentException("Query is not complete!");
-        if (!isSemicolonAtEnd()) throw new IllegalArgumentException("Missing semicolon!");
-        if (!isStatementInQuery()) throw new IllegalArgumentException("Any statement in query or in wrong position");
-        if (!isFromKeywordInQuery()) throw new IllegalArgumentException("Missing from keyword!");
-        if(missingColumnNames()) throw new IllegalArgumentException("Columns names in wrong position or any columns name are entered!");
-    }
-
-    private boolean isEmpty() {
-        return splitedQuery.size() == 1;
-    }
-
-    private boolean isSemicolonAtEnd() {
-        int lastElementIndex = splitedQuery.size() - 1;
-        return splitedQuery.get(lastElementIndex).contains(";");
-    }
-
-    private boolean isStatementInQuery() {
-        int stmtIndexPos1 = 0;
-        int stmtIndexPos2 = 1;
-        Statements[] statements = Statements.values();
-        for (Statements statement : statements) {
-            if (statement.getStatement().equalsIgnoreCase(splitedQuery.get(stmtIndexPos1))) {
-                return true;
-            }
-            String twoWordStatement = getTwoWordStatement(stmtIndexPos1, stmtIndexPos2);
-            if (statement.getStatement().equalsIgnoreCase(twoWordStatement)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isFromKeywordInQuery() {
-        for (String s : splitedQuery) {
-            if (s.equalsIgnoreCase("from")) return true;
-        }
-        return false;
-    }
-
-    private boolean missingColumnNames() {
-        return splitedQuery.get(0).equalsIgnoreCase("from");
+    private void deleteTooMuchSpaces() {
+        this.query = query.replaceAll("\\s+", " ");
+        this.query = query.replaceAll(" ,", ",");
+        this.query = query.replaceAll(", ", ",");
     }
 
     private String getStatement() {
@@ -99,7 +70,7 @@ public class QueryParser {
                 return (String.valueOf(statement));
             }
         }
-        return null;
+        throw new IllegalArgumentException("UNEXPECTED ERROR 505 !!");
     }
 
     private String getTwoWordStatement(int stmtIndexPos1, int stmtIndexPos2) {
@@ -107,25 +78,72 @@ public class QueryParser {
 
     }
 
-    private void deleteStatementFromQuery(String statement) {
-        String[] s = statement.split(" ");
-        for (String word : s) {
-            splitedQuery.remove(word);
-        }
+    private boolean checkClauseExist() {
+        String tableName = queryObject.getTableName();
+        Pattern selectRegex = Pattern.compile("FROM " + tableName + ".*", Pattern.CASE_INSENSITIVE);
+        return selectRegex.matcher(query).find();
+
+    }
+
+    private boolean checkSelectQueryIsProper() {
+        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)( WHERE .+?=?'.+');", Pattern.CASE_INSENSITIVE);
+        return selectRegex.matcher(query).find();
     }
 
     private String[] getColumnsName() {
-        int fromKeyWordIndex = getFromKeywordIndex();
-        String[] strings = splitedQuery.stream().toArray(String[]::new);
-        return Arrays.copyOf(strings, fromKeyWordIndex);
-
+        String group = "";
+        String statement = queryObject.getStatement();
+        Pattern columnsName = Pattern.compile(statement + " (.*) FROM.*", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(query);
+        if (matcher.matches()) {
+            group = matcher.group(1);
+        }
+        return group.trim().split("\\s+,\\s+");
     }
 
-    private int getFromKeywordIndex() {
-        for(int i = 0; i < splitedQuery.size(); i++){
-            if(splitedQuery.get(i).equalsIgnoreCase("FROM")) return i;
+    private String getTableName() {
+        String tableName = "";
+        Pattern columnsName = Pattern.compile(".*FROM (.*) (?:WHERE .*=?'.*');", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(query);
+        if (matcher.matches()) {
+            tableName = matcher.group(1);
         }
-        return 0;
+        return tableName;
+    }
+
+    private String getClauseName() {
+        String clauseName = "";
+        String tableName = queryObject.getTableName();
+        Pattern columnsName = Pattern.compile(
+                ".*FROM " + tableName + " (\\w+) (?:.*=.*)", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(query);
+        if (matcher.matches()) {
+            clauseName = matcher.group(1);
+        }
+        return clauseName;
+    }
+
+    private String getClauseCondition() {
+        String clauseCondition = "";
+        String clauseName = queryObject.getClauseName();
+        Pattern columnsName = Pattern.compile(
+                ".*" + clauseName + " (\\w+)?=.*", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(query);
+        if (matcher.matches()) {
+            clauseCondition = matcher.group(1);
+        }
+        return clauseCondition;
+    }
+
+    private String getClauseValue() {
+        String clauseValue = "";
+        Pattern columnsName = Pattern.compile(
+                ".*=?'(.*)'.*", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(query);
+        if (matcher.matches()) {
+            clauseValue = matcher.group(1);
+        }
+        return clauseValue;
     }
 
 }

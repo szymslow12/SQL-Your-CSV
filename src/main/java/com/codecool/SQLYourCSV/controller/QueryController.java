@@ -7,7 +7,7 @@ import com.codecool.SQLYourCSV.view.DataView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@Controller
+//@Controller
 public class QueryController {
 
     @Autowired

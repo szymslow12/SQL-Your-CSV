@@ -6,7 +6,7 @@ import com.codecool.SQLYourCSV.model.datastructure.Column;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
 import com.codecool.SQLYourCSV.model.enumeration.Command;
-import com.codecool.SQLYourCSV.model.query.Query;
+import com.codecool.SQLYourCSV.model.query2.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.math.NumberUtils;

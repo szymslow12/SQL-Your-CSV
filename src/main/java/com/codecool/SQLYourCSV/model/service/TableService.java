@@ -1,19 +1,19 @@
 package com.codecool.SQLYourCSV.model.service;
 
-import com.codecool.SQLYourCSV.model.data.CSVData;
+import com.codecool.SQLYourCSV.model.data.Data;
 import com.codecool.SQLYourCSV.model.datastructure.Column;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
-import com.codecool.SQLYourCSV.model.enumeration.Command;
+import com.codecool.SQLYourCSV.model.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -22,22 +22,23 @@ import java.util.stream.Stream;
 public class TableService {
 
     @Autowired
-    private CSVData data;
+    private Data data;
 
-    public void setData(CSVData data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
 
-    public CSVData getData() {
+    public Data getData() {
         return data;
     }
 
 
     public Table createTableFromFile(String filename) {
-        loadData(filename);
+        if (filename == null || !filename.contains("."))
+            throw new IllegalArgumentException("Wrong file name or file name is null!");
 
-        List<String[]> dataFromCSV = data.getSingleData(filename);
+        List<String[]> dataFromCSV = validateAndGetData(filename);
         String[] columnsNames = dataFromCSV.get(0);
 
         Table table = createTable(filename, columnsNames);
@@ -48,37 +49,98 @@ public class TableService {
     }
 
 
-//    public Table createTableFromQuery(Query query ) {
-//        Table table = new Table();
-//        table.setService(new RowService());
-//        Command[] commands = query.getCommands();
-//        Stream.of(commands).forEach(command -> {
-//            if (command.getName().equalsIgnoreCase("SELECT")) {
-//                String[] columnsNames = (String[]) command.selector().getValue();
-//                Row headers = new Row(new ColumnService());
-//                Function<String, Column<String>> mapToColumn = colName -> new Column<>(colName, colName);
-//                headers.setColumns(Stream.of(columnsNames).map(mapToColumn).collect(Collectors.toList()));
-//                table.setHeaders(headers);
-//            } else if (command.getName().equalsIgnoreCase("FROM")) {
-//                String tableName = (String) command.selector().getValue();
-//                table.setName(tableName);
-//            }
-//        });
-//        table.setRows(new LinkedList<>());
-//        return table;
-//    }
-
-
-    private void loadData(String filename) {
-        if (data.getSingleData(filename) == null) {
-            data.loadFromFile(filename);
+    public Table createTableFromQuery(Query query ) {
+        if (query == null) {
+            throw new IllegalArgumentException("Query is not given, received null!");
         }
+        String dataName = query.getTableName();
+        List<String[]> data = validateAndGetData(dataName);
+        String[] dataColumns = data.get(0);
+        Table fullTable = createFullTable(dataName, dataColumns, data);
+        return createTableFromQuery(fullTable, query.getColumns(), dataColumns);
+    }
+
+
+    private Table createTableFromQuery(Table fullTable, String[] queryColumns, String[] dataColumns) {
+        Table table = new Table();
+        table.setName(fullTable.getName());
+        setTableHeadersFromQuery(table, queryColumns, dataColumns);
+        table.setRows(IntStream.range(0, fullTable.size()).
+            mapToObj(createRowFromQuery(fullTable, queryColumns)).
+            collect(Collectors.toList())
+        );
+        return table;
+    }
+
+
+    private void setTableHeadersFromQuery(Table table, String[] columnsNameFromQuery, String[] columnsNameFromData) {
+        table.setHeaders(
+            createHeader(
+                checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
+            )
+        );
+    }
+
+
+    private IntFunction<Row> createRowFromQuery(Table fullTable, String[] columnsNameFromQuery) {
+        IntFunction<Row> createRowsFromData = i -> {
+            Row row = new Row(new ColumnService());
+            RowService rowService = fullTable.getService();
+            Row fullRow = rowService.getRowByIndex(i + 1, fullTable.getRows());
+            ColumnService columnService = fullRow.getService();
+
+            IntFunction<Column<?>> createColumn =
+                j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
+
+            row.setColumns(
+                IntStream.range(0, columnsNameFromQuery.length).
+                mapToObj(createColumn).
+                collect(Collectors.toList())
+            );
+            return row;
+        };
+        return createRowsFromData;
+    }
+
+
+    private List<String[]> validateAndGetData(String dataName) {
+        List<String[]> toValidate = data.getSingleData(dataName);
+        if (toValidate == null || toValidate.size() == 0) {
+            throw new IllegalArgumentException("Data from file is empty or data is null!");
+        }
+        return toValidate;
+    }
+
+
+    private String[] checkAndGetColumnNamesIfExist(String[] columnsFromQuery, String[] columnsFromData) {
+        boolean columnsExist = compareColumns(columnsFromQuery, columnsFromData);
+        if (columnsExist) {
+            return columnsFromQuery;
+        }
+        throw new IllegalArgumentException("Column not exists in data!");
+    }
+
+
+    private boolean compareColumns(String[] columnsFromQuery, String[] columnsFromData) {
+        Predicate<String> checkColumns = columnFromQuery -> {
+            Predicate<String> compareNames = columnFromData -> columnFromQuery.equals(columnFromData);
+            return Stream.of(columnsFromData).anyMatch(compareNames);
+        };
+
+        return Stream.of(columnsFromQuery).allMatch(checkColumns);
+    }
+
+
+    private Table createFullTable(String dataName, String[] columnsNames, List<String[]> data) {
+        Table fullTable = createTable(dataName, columnsNames);
+        addTableRows(fullTable, data, columnsNames);
+        return fullTable;
     }
 
 
     private Table createTable(String filename, String[] columnsNames) {
         return new Table(createHeader(columnsNames), new RowService(),
-            filename.substring(0, filename.indexOf(".")));
+            filename.contains(".") ? filename.substring(0, filename.indexOf(".")): filename);
     }
 
 

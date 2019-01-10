@@ -212,4 +212,17 @@ class TableServiceTest {
 
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    void shouldCreateTableFromQueryReturnTableWithProperNumberOfColumnsInEachRow() {
+        Table toTest = tableService.createTableFromQuery(query);
+        int expected = 3;
+
+        IntStream.range(0, toTest.size()).forEach(i -> {
+            int actual = toTest.getRows().get(i).size();
+            assertEquals(expected, actual);
+        });
+
+    }
 }

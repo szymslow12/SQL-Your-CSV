@@ -78,6 +78,37 @@ public class TableService {
         return table;
     }
 
+
+    private void setTableHeadersFromQuery(Table table, String[] columnsNameFromQuery, String[] columnsNameFromData) {
+        table.setHeaders(
+                createHeader(
+                        checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
+                )
+        );
+    }
+
+
+    private IntFunction<Row> createRowFromQuery(Table fullTable, String[] columnsNameFromQuery) {
+        IntFunction<Row> createRowsFromData = i -> {
+            Row row = new Row(new ColumnService());
+            RowService rowService = fullTable.getService();
+            Row fullRow = rowService.getRowByIndex(i + 1, fullTable.getRows());
+            ColumnService columnService = fullRow.getService();
+
+            IntFunction<Column<?>> createColumn =
+                    j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
+
+            row.setColumns(
+                    IntStream.range(0, columnsNameFromQuery.length).
+                            mapToObj(createColumn).
+                            collect(Collectors.toList())
+            );
+            return row;
+        };
+        return createRowsFromData;
+    }
+
+
     private List<String[]> validateAndGetData(String dataName) {
         List<String[]> toValidate = data.getSingleData(dataName);
         if (toValidate == null || toValidate.size() == 0) {
@@ -110,36 +141,6 @@ public class TableService {
         Table fullTable = createTable(dataName, columnsNames);
         addTableRows(fullTable, data, columnsNames);
         return fullTable;
-    }
-
-
-    private void setTableHeadersFromQuery(Table table, String[] columnsNameFromQuery, String[] columnsNameFromData) {
-        table.setHeaders(
-            createHeader(
-                checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
-            )
-        );
-    }
-
-
-    private IntFunction<Row> createRowFromQuery(Table fullTable, String[] columnsNameFromQuery) {
-        IntFunction<Row> createRowsFromData = i -> {
-            Row row = new Row(new ColumnService());
-            RowService rowService = fullTable.getService();
-            Row fullRow = rowService.getRowByIndex(i + 1, fullTable.getRows());
-            ColumnService columnService = fullRow.getService();
-
-            IntFunction<Column<?>> createColumn =
-                j -> columnService.getColumnByName(columnsNameFromQuery[j], fullRow.getColumns());
-
-            row.setColumns(
-                IntStream.range(0, columnsNameFromQuery.length).
-                    mapToObj(createColumn).
-                    collect(Collectors.toList())
-            );
-            return row;
-        };
-        return createRowsFromData;
     }
 
 

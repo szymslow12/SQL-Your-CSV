@@ -89,7 +89,7 @@ public class QueryParser {
     }
 
     private boolean checkSelectQueryIsProper() {
-        Pattern selectRegex = Pattern.compile("SELECT (?!select)([a-zA-Z*][a-zA-Z0-9_.-]*)(?:,[a-zA-Z][a-zA-Z0-9_.-]*)? " +
+        Pattern selectRegex = Pattern.compile("SELECT (?!select){1}(([a-zA-Z*][a-zA-Z0-9_.-])(?:,[a-zA-Z][a-zA-Z0-9_.-]*)?)* " +
                 "FROM ([a-zA-Z][a-zA-Z0-9_.])+" +
                 "(?: WHERE [a-zA-Z][a-zA-Z0-9_.-]+='[a-zA-Z][a-zA-Z0-9_.]*')?;", Pattern.CASE_INSENSITIVE);
 
@@ -104,7 +104,7 @@ public class QueryParser {
         if (matcher.matches()) {
             group = matcher.group(1);
         }
-        return group.trim().split("\\s+,\\s+");
+        return group.split(",");
     }
 
     private String getTableName() {

@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.data.Data;
+import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
 import com.codecool.SQLYourCSV.model.query2.Query;
 import org.junit.jupiter.api.BeforeAll;
@@ -223,6 +224,24 @@ class TableServiceTest {
             int actual = toTest.getRows().get(i).size();
             assertEquals(expected, actual);
         });
+    }
 
+
+    @Test
+    void shouldCreateTableFromQueryReturnTableWithProperColumnValues() {
+        Table toTest = tableService.createTableFromQuery(query);
+
+        IntConsumer getRows = i -> IntStream.range(0, toTest.getRows().get(i).size()).
+            forEach(j -> {
+                Row row = toTest.getRows().get(i);
+                String expected = String.format("value_%s", j);
+                assertTrue(getValueFromEachColumn(j, row).equals(expected));
+            });
+        IntStream.range(0, toTest.size()).forEach(getRows);
+    }
+
+
+    private String getValueFromEachColumn(int index, Row row) {
+        return (String) row.getColumns().get(index).getValue();
     }
 }

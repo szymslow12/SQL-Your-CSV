@@ -25,6 +25,11 @@ public class SheetData implements Data {
 
     @Override
     public List<String[]> getSingleData(String dataName) {
+        try {
+            loadFromFile(dataName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return data.get(dataName);
     }
 

@@ -1,6 +1,7 @@
 package com.codecool.SQLYourCSV.model.service;
 
 import com.codecool.SQLYourCSV.model.data.CSVData;
+import com.codecool.SQLYourCSV.model.data.Data;
 import com.codecool.SQLYourCSV.model.datastructure.Column;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
@@ -24,14 +25,14 @@ import java.util.stream.Stream;
 public class TableService {
 
     @Autowired
-    private CSVData data;
+    private Data data;
 
     public void setData(CSVData data) {
         this.data = data;
     }
 
 
-    public CSVData getData() {
+    public Data getData() {
         return data;
     }
 
@@ -72,8 +73,8 @@ public class TableService {
 
 
     private void loadData(String filename) {
-        if (data.getSingleData(filename) == null) {
-            data.loadFromFile(filename);
+        if (data.getSingleData(filename) == null && data.getClass().equals(CSVData.class)) {
+            ((CSVData) data).loadFromFile(filename);
         }
     }
 

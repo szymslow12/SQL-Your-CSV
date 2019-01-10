@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -67,17 +68,24 @@ public class TableService {
                 checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
             )
         );
-        table.setRows(
-            IntStream.range(0, data.size() - 1).mapToObj(
-                i -> {
-                    Row row = new Row(new ColumnService());
-                    row.setColumns(
-                            IntStream.range(0, columnsNameFromQuery.length).mapToObj(
-                                    j -> new Column<>(checkAndCastIfIsNumber("value"), columnsNameFromQuery[j])
-                            ).collect(Collectors.toList())
-                    );
-                    return row;
-                }).collect(Collectors.toList()));
+        IntFunction<Row> createRowsFromData = i -> {
+            Row row = new Row(new ColumnService());
+
+            IntFunction<Column<Object>> createColumn =
+                j -> new Column<>(checkAndCastIfIsNumber("value"), columnsNameFromQuery[j]);
+
+            row.setColumns(
+                IntStream.range(0, columnsNameFromQuery.length).
+                mapToObj(createColumn).
+                collect(Collectors.toList())
+            );
+            return row;
+        };
+
+        table.setRows(IntStream.range(0, data.size() - 1).
+            mapToObj(createRowsFromData).
+            collect(Collectors.toList())
+        );
         return table;
     }
 

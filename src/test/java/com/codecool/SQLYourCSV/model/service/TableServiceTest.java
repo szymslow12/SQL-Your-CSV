@@ -186,4 +186,13 @@ class TableServiceTest {
 
         assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromQuery(query));
     }
+
+
+    @Test
+    void shouldCreateTableFromQueryReturnTableWithProperColumnsNumberInHeader() {
+        int expected = 3;
+        int actual = tableService.createTableFromQuery(query).getHeaders().size();
+
+        assertEquals(expected, actual);
+    }
 }

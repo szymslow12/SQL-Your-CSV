@@ -25,7 +25,7 @@ class QueryParserTest {
     }
 
     @Test
-    void testQueryWhenNoSemicolonAtEnd(){
+    void testQueryWhenNoSemicolonAtEndExpectIllegalExcepion(){
         String statement = "Select * from table_name where cond='result'";
         assertThrows(IllegalArgumentException.class,
                 () ->{
@@ -34,12 +34,30 @@ class QueryParserTest {
     }
 
     @Test
-    void testQueryWhenTooMuchSemicolonAtEnd(){
-        String statement = "Select * from table_name where cond='result';;";
+    void testMultipleColumnWithoutCommaExpectIllegalException(){
+        String statement = "Select column1 column2 from table_name where cond='result'";
         assertThrows(IllegalArgumentException.class,
                 () ->{
                     QueryParser.parse(statement);
                 });
     }
+
+    @Test
+    void testQueryWithTooMuchSpacesExpectedSuccess() {
+        String statement = "Select * from          table_name    where cond   =    'result';";
+        String expected = "Query{statement='SELECT', columns=[*], tableName='table_name', clauseName='where'," +
+                " clauseCondition='cond', clauseValue='result'}";
+        String result = QueryParser.parse(statement).toString();
+        Assert.assertEquals(expected, result);
+    }
+
+//    @Test
+//    void testQueryWhenTooMuchSemicolonAtEndExpectedIllegalException(){
+//        String statement = "Select * from table_name where cond='result';;;;";
+//        assertThrows(IllegalArgumentException.class,
+//                () ->{
+//                    QueryParser.parse(statement);
+//                });
+//    }
 
 }

@@ -153,8 +153,15 @@ class TableServiceTest {
         assertNotNull(tableService.createTableFromFile("tableName.csv").getHeaders());
     }
 
+
     @Test
     void shouldCreateTableFromQueryReturnTable() {
         assertNotNull(tableService.createTableFromQuery(query));
+    }
+
+
+    @Test
+    void shouldCreateTableFromQueryThrowExceptionWhenNullPassed() {
+        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromQuery(null));
     }
 }

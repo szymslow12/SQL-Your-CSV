@@ -152,4 +152,9 @@ class TableServiceTest {
 
         assertNotNull(tableService.createTableFromFile("tableName.csv").getHeaders());
     }
+
+    @Test
+    void shouldCreateTableFromQueryReturnTable() {
+        assertNotNull(tableService.createTableFromQuery(query));
+    }
 }

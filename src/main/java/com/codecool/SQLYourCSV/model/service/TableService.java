@@ -67,7 +67,17 @@ public class TableService {
                 checkAndGetColumnNamesIfExist(columnsNameFromQuery, columnsNameFromData)
             )
         );
-        table.setRows(IntStream.range(0, 4).mapToObj(i -> new Row(new ColumnService())).collect(Collectors.toList()));
+        table.setRows(
+            IntStream.range(0, data.size() - 1).mapToObj(
+                i -> {
+                    Row row = new Row(new ColumnService());
+                    row.setColumns(
+                            IntStream.range(0, columnsNameFromQuery.length).mapToObj(
+                                    j -> new Column<>(checkAndCastIfIsNumber("value"), columnsNameFromQuery[j])
+                            ).collect(Collectors.toList())
+                    );
+                    return row;
+                }).collect(Collectors.toList()));
         return table;
     }
 

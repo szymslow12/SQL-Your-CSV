@@ -20,18 +20,17 @@ public class QueryParser {
     }
 
     public void queryParser() {
-//        checkQueryIsProper();
-        checkSelectQueryIsProper();
+
+        if (!checkSelectQueryIsProper()) throw new IllegalArgumentException("Query is no proper!");
 
         String statement = getStatement().toUpperCase();
-
         queryObject.setStatement(statement);
 
-        deleteStatementFromQuery(statement);
-
         String[] columnsName = getColumnsName();
-
         queryObject.setColumns(columnsName);
+
+        String tableName = getTableName();
+        queryObject.setTableName(tableName);
 
         System.out.println(queryObject.toString());
 
@@ -40,53 +39,6 @@ public class QueryParser {
     private void createQueryList(String query) {
         String[] split = query.toUpperCase().split(" +|, +|,");
         Collections.addAll(splitedQuery, split);
-    }
-
-    private void checkQueryIsProper() {
-        if (!checkSelectQueryIsProper()) throw new IllegalArgumentException("Query is no proper!");
-        // TODO: delete useless comments
-        if (isEmpty()) throw new IllegalArgumentException("Query is not complete!");
-//        if (!isSemicolonAtEnd()) throw new IllegalArgumentException("Missing semicolon!");
-//        if (!isStatementInQuery()) throw new IllegalArgumentException("Any statement in query or in wrong position");
-//        if (!isFromKeywordInQuery()) throw new IllegalArgumentException("Missing from keyword!");
-//        if(missingColumnNames()) throw new IllegalArgumentException("Columns names in wrong position or any columns name are entered!");
-
-    }
-
-    private boolean isEmpty() {
-        return splitedQuery.size() == 1;
-    }
-
-    private boolean isSemicolonAtEnd() {
-        int lastElementIndex = splitedQuery.size() - 1;
-        return splitedQuery.get(lastElementIndex).contains(";");
-    }
-
-    private boolean isStatementInQuery() {
-        int stmtIndexPos1 = 0;
-        int stmtIndexPos2 = 1;
-        Statements[] statements = Statements.values();
-        for (Statements statement : statements) {
-            if (statement.getStatement().equalsIgnoreCase(splitedQuery.get(stmtIndexPos1))) {
-                return true;
-            }
-            String twoWordStatement = getTwoWordStatement(stmtIndexPos1, stmtIndexPos2);
-            if (statement.getStatement().equalsIgnoreCase(twoWordStatement)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isFromKeywordInQuery() {
-        for (String s : splitedQuery) {
-            if (s.equalsIgnoreCase("from")) return true;
-        }
-        return false;
-    }
-
-    private boolean missingColumnNames() {
-        return splitedQuery.get(0).equalsIgnoreCase("from");
     }
 
     private String getStatement() {
@@ -117,6 +69,11 @@ public class QueryParser {
         }
     }
 
+    private boolean checkSelectQueryIsProper() {
+        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)( WHERE .+?=?'.+')?;", Pattern.CASE_INSENSITIVE);
+        return selectRegex.matcher(query).find();
+    }
+
     private String[] getColumnsName() {
         String group = "";
         String statement = queryObject.getStatement();
@@ -125,19 +82,17 @@ public class QueryParser {
         if(matcher.matches()) {
             group = matcher.group(1);
         }
-        return group.split( "\\s+,\\s+");
+        return group.trim().split( "\\s+,\\s+");
     }
 
-    private int getFromKeywordIndex() {
-        for (int i = 0; i < splitedQuery.size(); i++) {
-            if (splitedQuery.get(i).equalsIgnoreCase("FROM")) return i;
+    private String getTableName() {
+        String group = "";
+        Pattern columnsName = Pattern.compile(".* FROM (.*) (?:WHERE .*=?'.*');" , Pattern.CASE_INSENSITIVE);
+        Matcher matcher = columnsName.matcher(query);
+        if(matcher.matches()) {
+            group = matcher.group(1);
         }
-        return 0;
-    }
-
-    private boolean checkSelectQueryIsProper() {
-        Pattern selectRegex = Pattern.compile("SELECT (.*) FROM (\\w*)( WHERE .+?=?'.+')?;", Pattern.CASE_INSENSITIVE);
-        return selectRegex.matcher(query).find();
+        return group;
     }
 
 }

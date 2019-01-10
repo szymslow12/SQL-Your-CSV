@@ -14,13 +14,10 @@ public class QueryParser {
     private Query queryObject = new Query();
     private String query;
 
-    public QueryParser(String query) {
-        createQueryList(query);
+    public Query queryParser(String query) {
         this.query = query;
+        createQueryList(query);
         deleteTooMuchSpaces();
-    }
-
-    public Query queryParser() {
         if (!checkSelectQueryIsProper()) throw new IllegalArgumentException("Query is no proper!");
 
         String statement = getStatement().toUpperCase();

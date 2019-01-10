@@ -5,14 +5,12 @@ import com.codecool.SQLYourCSV.model.datastructure.Column;
 import com.codecool.SQLYourCSV.model.datastructure.Row;
 import com.codecool.SQLYourCSV.model.datastructure.Table;
 import com.codecool.SQLYourCSV.model.enumeration.Command;
-import com.codecool.SQLYourCSV.model.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
@@ -50,25 +48,25 @@ public class TableService {
     }
 
 
-    public Table createTableFromQuery(Query query ) {
-        Table table = new Table();
-        table.setService(new RowService());
-        Command[] commands = query.getCommands();
-        Stream.of(commands).forEach(command -> {
-            if (command.getName().equalsIgnoreCase("SELECT")) {
-                String[] columnsNames = (String[]) command.selector().getValue();
-                Row headers = new Row(new ColumnService());
-                Function<String, Column<String>> mapToColumn = colName -> new Column<>(colName, colName);
-                headers.setColumns(Stream.of(columnsNames).map(mapToColumn).collect(Collectors.toList()));
-                table.setHeaders(headers);
-            } else if (command.getName().equalsIgnoreCase("FROM")) {
-                String tableName = (String) command.selector().getValue();
-                table.setName(tableName);
-            }
-        });
-        table.setRows(new LinkedList<>());
-        return table;
-    }
+//    public Table createTableFromQuery(Query query ) {
+//        Table table = new Table();
+//        table.setService(new RowService());
+//        Command[] commands = query.getCommands();
+//        Stream.of(commands).forEach(command -> {
+//            if (command.getName().equalsIgnoreCase("SELECT")) {
+//                String[] columnsNames = (String[]) command.selector().getValue();
+//                Row headers = new Row(new ColumnService());
+//                Function<String, Column<String>> mapToColumn = colName -> new Column<>(colName, colName);
+//                headers.setColumns(Stream.of(columnsNames).map(mapToColumn).collect(Collectors.toList()));
+//                table.setHeaders(headers);
+//            } else if (command.getName().equalsIgnoreCase("FROM")) {
+//                String tableName = (String) command.selector().getValue();
+//                table.setName(tableName);
+//            }
+//        });
+//        table.setRows(new LinkedList<>());
+//        return table;
+//    }
 
 
     private void loadData(String filename) {

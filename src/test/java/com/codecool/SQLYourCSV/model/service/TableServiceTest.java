@@ -150,6 +150,6 @@ class TableServiceTest {
     void shouldCreateTableFromFileCreateTableWhenOnlyColumnsNamesArePassed() {
         when(data.getSingleData(anyString())).thenReturn(createTestTableData(1, 5));
 
-        assertThrows(IllegalArgumentException.class, () -> tableService.createTableFromFile("tableName.csv"));
+        assertNotNull(tableService.createTableFromFile("tableName.csv").getHeaders());
     }
 }

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sqlyourcsv-228112",
+  "private_key_id": "0b373a9b5c02a5fa88a8e04ef9e4da82918cdad7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDOxq9Ie8IQK9R1\nSipIrH3jSuqQ+i8lX/Vs6tZjKU0DZAOD398FihsfpYyc0sAdcigY2Xhb0xYDWiRR\nZFn1hDuwrxnTJYCqm/Gu1Bc2FaApJeXRbRsmt45ylFX2860cFhHe6eXchJUhq/gH\n0dqAPAGyfM9T93hgCdfJJXTZCRY46UmH/+h5v3FwIUYFD4AZhWPTBbTMyrSLqGAg\n+WWJxXXINIGCEZQVCIdipn8qF+pp3Uz64zwTZvs669wz631yvkIOl/hHPSzWIzZ4\nDvazVBBhxY0/6Lv+vmwrMin5wTeSVyS5+IOf1fqQlqV72641v0W//dgjNFIjB6Ox\nQelpeCS5AgMBAAECggEAGI1FnI4KUMR9h3g5DVRC5dk8QR7duHq8f9RiBJfvs6h9\nVNwhBW28sv0jlS7efhiTC4FN7dxCY79BKvNnDZSICF6AKt6r+IYH9EXtZB/8+onM\nEBn8BHS82pzDmM0d98TklhLwdsa81OjQDHCl2L5XRr/UV9BdaAzfJPx4M3mFXJga\n5KhYX7eoKEutljgPKS3o2BJPGPDz29zbKMS2K0xPXPoOmw21Ckn5L/R/Tf2F9Rxt\nWblQ3Fveajabf+1kdk/cOy7V5OsBVfZyLwPDabWDPMyNHsqYL/Dw6tFyj43YhTpS\nUYHgxNasLHUYd5t0L6kGQGM01kylxgDGf3uWzqTlgQKBgQD0evESaFFxyAnnuJ2X\neFSFztpFCLW/Wu1GcKuXqhhcR23t9PmUCGhRC/sktMUKHYsZiv5Uz784QuOT6zAp\n4fBYqCLzhj+7w8ONU2DOjhPEc9KuQzcI7k6JoqcRaea29CBQQc5kHhL5ioHHOFPi\n8OcqRL5RURVwatq3xGA7YRXwOQKBgQDYhO9AyYSJtNpXoLiDBTkj7Nkh7eKnsmp9\nw7OYyMR7DoggAF/iJSi5LSI2q3aMLGnwJ9q3+dINHC2lwjDOBIVN7DwT6mZKqQh/\nKZ/+E/2JNEEt35v92TOASpe1RYT5LbhzYn+01g+Kc3AgLCJjed5sLMieG7fVowU7\n9StDXIrYgQKBgDnUMt3Vyx4M4TrskmpXzjZwfXTC4KrIyUNWN2CCnYyGYNxejAKW\nEobJPLisAceowVRjalGJaoPWXpqIkTX2+bEe5FWSNdUmM0VkqYtyU/6uHvGVeJkm\nNXGdBcO6txYjnNkfF8Da1EYumxASpNUTgrqe1B3L/jQ/MkkxrEmfZ18RAoGANf2A\nA3G8oPH9+BfVqqYkx3aJ9lHxUMvGjjG8mP6HMABBpWkyf5uweextOaCr4Ow6Rm5J\ntdKPtEEwiMLRlK2/59xeZsDuXPOlcMAaayrk78+d6Sh3J2d/1h/DkKoTLGdgNTV8\njsVJ/sYmUX9v28pJ0kOgivxybM1HwtmxvgxXewECgYB7bxV6VRZRbmAKjlThm1N4\ngYnKvsYf7OnYGdVNtNKypZXig+Q0BHsF7btm8JOrbrhpGMNoiBLXDYHCmHd0yQeF\nMkPK/dSD0hiiXBw/yFlgD3+X1CAggCTekxVUFeQxzGjaHnkdcNlz2MNo99kBjGU2\nhGLpT2jcQ/qATxRxnGMDrg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "owner-505@sqlyourcsv-228112.iam.gserviceaccount.com",
+  "client_id": "107810389323024449997",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/owner-505%40sqlyourcsv-228112.iam.gserviceaccount.com"
+}

@@ -27,7 +27,7 @@ public class GoogleAuthorizeUtil {
         List<String> scopes = Arrays.asList(SheetsScopes.SPREADSHEETS);
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), clientSecrets, scopes).setDataStoreFactory(new MemoryDataStoreFactory())
-                .setAccessType("online").build();
+                .setAccessType("offline").build();
 
         return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
     }

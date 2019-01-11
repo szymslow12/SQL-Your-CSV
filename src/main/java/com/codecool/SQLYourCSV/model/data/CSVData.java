@@ -8,16 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class CSVData {
+public class CSVData implements Data {
     private Map<String, List<String[]>> data;
 
-    public Map<String, List<String[]>> getAllFilesData() {
+    public Map<String, List<String[]>> getAllData() {
         return data;
     }
 
 
-    public List<String[]> getSingleFileData(String filename) {
-        return data.get(filename);
+    public List<String[]> getSingleData(String dataName) {
+        loadFromFile(dataName);
+        return data.get(dataName);
     }
 
 
